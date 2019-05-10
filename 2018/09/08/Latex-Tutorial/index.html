@@ -1,0 +1,780 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/VEN/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/VEN/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Some_Languages," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="Word is good, but LaTeX is perfect. Tired of Powerpoint? Then try BeamerThe first step to ‘Brexit’(Depart away from ‘O’ffice) is to learn and use LaTeX. So let’s get it.  
+Introduction
+LaTeX: LaTeX is">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LaTeX Tutorial">
+<meta property="og:url" content="http://cycygogo.cn/2018/09/08/Latex-Tutorial/index.html">
+<meta property="og:site_name" content="Lucy's Hugo!">
+<meta property="og:description" content="Word is good, but LaTeX is perfect. Tired of Powerpoint? Then try BeamerThe first step to ‘Brexit’(Depart away from ‘O’ffice) is to learn and use LaTeX. So let’s get it.  
+Introduction
+LaTeX: LaTeX is">
+<meta property="og:image" content="http://ogddv0qu3.bkt.clouddn.com/la.PNG">
+<meta property="og:image" content="http://ogddv0qu3.bkt.clouddn.com/latexalgpseudocode.png">
+<meta property="og:updated_time" content="2018-10-11T03:22:14.831Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LaTeX Tutorial">
+<meta name="twitter:description" content="Word is good, but LaTeX is perfect. Tired of Powerpoint? Then try BeamerThe first step to ‘Brexit’(Depart away from ‘O’ffice) is to learn and use LaTeX. So let’s get it.  
+Introduction
+LaTeX: LaTeX is">
+<meta name="twitter:image" content="http://ogddv0qu3.bkt.clouddn.com/la.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://cycygogo.cn/2018/09/08/Latex-Tutorial/"/>
+
+
+  <title> LaTeX Tutorial | Lucy's Hugo! </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lucy's Hugo!</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">RECORD & SHARE</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                LaTeX Tutorial
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2018-09-08T15:28:37+08:00" content="2018-09-08">
+              2018-09-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tutorial/" itemprop="url" rel="index">
+                    <span itemprop="name">Tutorial</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/09/08/Latex-Tutorial/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/09/08/Latex-Tutorial/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>Word is good, but LaTeX is perfect. Tired of Powerpoint? Then try Beamer</code><br><em>The first step to ‘Brexit’(Depart away from ‘O’ffice) is to learn and use LaTeX. So let’s get it.</em>  </p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><blockquote>
+<p><a href="https://www.latex-project.org/" target="_blank" rel="external"><strong>LaTeX</strong></a>: LaTeX is a high-quality typesetting system; it includes features designed for the production of technical and scientific documentation. LaTeX is the de facto standard for the communication and publication of scientific documents.<br><a href="https://en.wikipedia.org/wiki/Beamer_(LaTeX)" target="_blank" rel="external"><strong>Beamer</strong></a>: Beamer is a LaTeX document class for creating slides for presentations.  </p>
+</blockquote>
+<a id="more"></a>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>So How to Install ‘LaTeX’ and ‘Beamer’.<br>The following options are mostly base on the first reference.<br><strong>Install on Windows(Win8+,Win10):</strong>  </p>
+<ul>
+<li><p>First, you need to download the <strong>MikTex</strong> installer <a href="https://miktex.org/download" target="_blank" rel="external">here</a>. You can choose to download the entire 192.11MB installation package and just double click the .exe file to run the installation porcess. And you can also choose to download the Net Installer and let it download the components if you have a good net connection. When installing MiKTeX, choose “Yes” when asked “Always install missing packages on-the-fly”.<br>If you alraedy have MikTex but not sure if the “Always install missing packages on-the-fly” is choosen, open the <strong>MikTex Console</strong>, then <strong>Settings –&gt; General</strong> and check.  </p>
+</li>
+<li><p>Next, you will need a typesetting environment. I recommend that you just use <strong>TeXWorks</strong> which comes with MikTex before you finish installing other packages such as the <strong>Beamer Class</strong> and make sure that your MikTex works well. After that, you can try to install other more human-friendly IDEs, like <a href="http://www.texniccenter.org/download/" target="_blank" rel="external">TeXNicCenter</a>, <a href="https://www.texstudio.org/" target="_blank" rel="external">TeXstudio</a> which I prefered. Now let’s get back to the point.<br>Creat a new file with your <strong>TeXWorks</strong> and paste the following:<br><code>\documentclass{beamer}</code><br><code>\begin{document}</code><br><code>\end{document}</code><br>When you compile this file, MikTex will help you to install the <strong>Beamer Class</strong> automatically.(WARNING:You may easily get some kind of errors. I will talk about it later.)<br>That’s all I did to install <strong>‘LaTex’</strong> and <strong>‘Beamer class’</strong> on my computer. But there are still some continual process in the first reference and you can check it by yourself if you fail to finish the installation.  </p>
+</li>
+</ul>
+<p><strong>Deal with the Errors</strong><br>I have met one nerve-wracking problem: <code>Sorry, but pdftex.exe did not succeed</code> and I fianlly found the solution <a href="https://tex.stackexchange.com/questions/267299/how-to-fix-the-sorry-but-c-miktex-pdftex-exe-did-not-succeed-error" target="_blank" rel="external">here</a>.<br>Here is what I did:  </p>
+<ul>
+<li>uninstalled my previous version of MiKTeX2.9</li>
+<li>uninstalled my previous version of adobe reader</li>
+<li>reinstalled the latest adobe reader</li>
+<li>reinstalled my previous version of MiKTeX2.9 as above</li>
+</ul>
+<p><strong>There is an example:</strong><br>Paste the following to a new file and compile it. If you have succeeded to install beamer, there is something like the image below with no errors.</p>
+<pre><code>\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+
+
+%Information to be included in the title page:
+\title{Sample title}
+\author{Anonymous}
+\institute{ShareLaTeX}
+\date{2014}
+
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Sample frame title}
+This is a text in first frame. This is a text in first frame. This is a text in first frame.
+\end{frame}
+
+\end{document}
+</code></pre><p><img src="http://ogddv0qu3.bkt.clouddn.com/la.PNG" alt=""></p>
+<h2 id="LaTeX-Syntax"><a href="#LaTeX-Syntax" class="headerlink" title="LaTeX Syntax"></a>LaTeX Syntax</h2><p>First, I recommend to refer these tutorials: </p>
+<ul>
+<li><a href="https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes" target="_blank" rel="external">Learn_LaTeX_in_30_minutes</a>  </li>
+<li><a href="https://reu.dimacs.rutgers.edu/Symbols.pdf" target="_blank" rel="external">LaTeX Mathematical Symbols</a>   </li>
+</ul>
+<p>Besides, I also collected some other useful tricks I once used here:<br><strong>1. Algorithm Pseudocode</strong>  </p>
+<blockquote>
+<p>You can check this wikibook <a href="https://en.wikibooks.org/wiki/LaTeX/Algorithms" target="_blank" rel="external">LaTeX/Algorithms</a>. There is good example:<br><strong>Code:</strong>  </p>
+</blockquote>
+<pre><code>\documentclass{article}
+\usepackage[titlenumbered,ruled]{algorithm2e}
+\begin{document}
+\begin{algorithm}[H]
+    \SetKwInOut{Input}{input}
+    \SetKwInOut{Output}{output}
+
+    \Input{A set of men $M$ such that for all $m \in M$, $m$ is free and has a preference list containing each woman $w \in W$ \newline 
+    A set of women $W$ such that for all $w \in W$, $w$ is free and has a preference list containing each man $m \in M$}
+    \Output{A perfect matching between $M$ and $W$ with no strong instability}
+    \caption{Modified Gale-Shapley algorithm allowing indifferences}
+\end{algorithm}
+\end{document} 
+</code></pre><blockquote>
+<p><strong>Output:</strong><br><img src="http://ogddv0qu3.bkt.clouddn.com/latexalgpseudocode.png" alt=""></p>
+<p>And <a href="https://tex.stackexchange.com/questions/163768/write-pseudo-code-in-latex" target="_blank" rel="external"><strong>here</strong></a> is another good example.  </p>
+</blockquote>
+<p><strong>2. LaTeX Equation with Left Brace</strong>  </p>
+<blockquote>
+<p>This blog: <a href="https://blog.csdn.net/miao0967020148/article/details/78712811" target="_blank" rel="external">LaTeX大括号公式和一般括号总结</a> expatiates on how to write a left brace equation with     several lines in three common ways. I think it’s really good and fully detailed, so I won’t repeat it here.</p>
+</blockquote>
+<p><strong>3. How to Generate References in an Artical</strong>  </p>
+<blockquote>
+<p>Here is a simple but very clear video guide on YouTube: <a href="https://www.youtube.com/watch?v=KS9GvK7cvmo" target="_blank" rel="external">How to Generate References with LaTeX (BibTeX)</a>. If you can’t see the video… I think my tutorial is also helpless for you. </p>
+</blockquote>
+<h2 id="Wirte-an-a-Artical-Paper-with-LaTeX"><a href="#Wirte-an-a-Artical-Paper-with-LaTeX" class="headerlink" title="Wirte an(a) Artical/Paper with LaTeX"></a>Wirte an(a) Artical/Paper with LaTeX</h2><blockquote>
+<p><strong>To be continue…</strong> </p>
+</blockquote>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://kenjokenjo.wordpress.com/2011/03/20/how-to-install-latex-and-beamereasy/" target="_blank" rel="external">A very good guide: How to Install LaTeX and Beamer</a>  </li>
+<li><a href="https://www.sharelatex.com/learn/Beamer" target="_blank" rel="external">Beamer Tutorial</a></li>
+<li><a href="http://liuchengxu.org/blog-cn/posts/quick-latex/" target="_blank" rel="external">从零开始 LaTeX 快速入门</a>  </li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Some-Languages/" rel="tag">#Some_Languages</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/08/Scent-of-a-Woman/" rel="next" title="Scent of a Woman">
+                <i class="fa fa-chevron-left"></i> Scent of a Woman
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/19/TOEFL-WRITING/" rel="prev" title="TOEFL_WRITING">
+                TOEFL_WRITING <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/Elon-Musk.jpg"
+               alt="Hugo" />
+          <p class="site-author-name" itemprop="name">Hugo</p>
+          <p class="site-description motion-element" itemprop="description">ORDINARY PEOPLE COULD CHOOSE TO BE EXTRAORDINARY!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Huixxi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.linkedin.com/in/uestc-hugo/" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="uestc.hugo@gmail.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Hugo13438832589" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">2.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LaTeX-Syntax"><span class="nav-number">3.</span> <span class="nav-text">LaTeX Syntax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wirte-an-a-Artical-Paper-with-LaTeX"><span class="nav-number">4.</span> <span class="nav-text">Wirte an(a) Artical/Paper with LaTeX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hugo</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/VEN/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/VEN/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/VEN/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/VEN/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VEN/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VEN/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'hugo-818';
+      var disqus_identifier = '2018/09/08/Latex-Tutorial/';
+      var disqus_title = "LaTeX Tutorial";
+      var disqus_url = 'http://cycygogo.cn/2018/09/08/Latex-Tutorial/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

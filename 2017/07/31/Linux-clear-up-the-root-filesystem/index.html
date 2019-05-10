@@ -1,0 +1,738 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/VEN/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/VEN/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="tricks," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="From a Answerer on Ask Ubuntu—-Ubuntu 的根目录/ 和 /usr 分区一定要够大，10–15GBSome likely measures for an overflowing root partition are (based on cases):
+
+1.Core dumps filling up the disk.
+
+*Check with:*
+`find /">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux--clear up the root filesystem">
+<meta property="og:url" content="http://cycygogo.cn/2017/07/31/Linux-clear-up-the-root-filesystem/index.html">
+<meta property="og:site_name" content="Lucy's Hugo!">
+<meta property="og:description" content="From a Answerer on Ask Ubuntu—-Ubuntu 的根目录/ 和 /usr 分区一定要够大，10–15GBSome likely measures for an overflowing root partition are (based on cases):
+
+1.Core dumps filling up the disk.
+
+*Check with:*
+`find /">
+<meta property="og:updated_time" content="2018-01-31T06:43:27.271Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux--clear up the root filesystem">
+<meta name="twitter:description" content="From a Answerer on Ask Ubuntu—-Ubuntu 的根目录/ 和 /usr 分区一定要够大，10–15GBSome likely measures for an overflowing root partition are (based on cases):
+
+1.Core dumps filling up the disk.
+
+*Check with:*
+`find /">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://cycygogo.cn/2017/07/31/Linux-clear-up-the-root-filesystem/"/>
+
+
+  <title> Linux--clear up the root filesystem | Lucy's Hugo! </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lucy's Hugo!</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">RECORD & SHARE</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux--clear up the root filesystem
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2017-07-31T00:45:59+08:00" content="2017-07-31">
+              2017-07-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/31/Linux-clear-up-the-root-filesystem/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/31/Linux-clear-up-the-root-filesystem/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="From-a-Answerer-on-Ask-Ubuntu—-Ubuntu-的根目录-和-usr-分区一定要够大，10–15GB"><a href="#From-a-Answerer-on-Ask-Ubuntu—-Ubuntu-的根目录-和-usr-分区一定要够大，10–15GB" class="headerlink" title="From a Answerer on Ask Ubuntu—-Ubuntu 的根目录/ 和 /usr 分区一定要够大，10–15GB"></a>From a Answerer on <a href="https://askubuntu.com/questions/266825/what-do-i-do-when-my-root-filesystem-is-full" target="_blank" rel="external">Ask Ubuntu</a>—-Ubuntu 的根目录/ 和 /usr 分区一定要够大，10–15GB</h4><p>Some likely measures for an overflowing root partition are (based on cases):</p>
+<blockquote>
+<p>1.Core dumps filling up the disk.</p>
+</blockquote>
+<pre><code>*Check with:*
+`find / -xdev -name core -ls -o  -path &quot;/lib*&quot; -prune`
+</code></pre><blockquote>
+<p>2.Unnecessary packages filling up the space.</p>
+</blockquote>
+<p>The following command will remove all automatically installed packages, which aren’t required any more. (Because the dependency which force the installation in the past has been removed.)</p>
+<pre><code>`apt-get autoremove --purge `
+</code></pre><blockquote>
+<p>3.Outdated kernel packages</p>
+</blockquote>
+<a id="more"></a>
+<p>Check how many kernel packages are installed, and remove outdated kernel versions. You may investigate the current situation with:</p>
+<pre><code>`dpkg -l &quot;linux*{tools}*&quot; |grep ^.i`
+</code></pre><p>Remove any kernel versions you doesn’t need any more</p>
+<blockquote>
+<p>4.Hidden storage</p>
+</blockquote>
+<p>Other mounted partitions may hide used storage. To investigate this mount the root file system temporary on a second location:</p>
+<pre><code>`mkdir /tmp/2ndRoot`
+`mount /dev/sda1 /tmp/2ndRoot`
+</code></pre><p>Now look on every directory, that is normally hidden by another mount, e.g.:</p>
+<pre><code>tmp
+home
+run
+var
+usr/local
+</code></pre><p>and in your case also:<br>    sites</p>
+<h4 id="Caveat"><a href="#Caveat" class="headerlink" title="Caveat"></a>Caveat</h4><p>Don’t forget to control at the end the consistency of your installation with:<br>    <code>apt-get install -f</code></p>
+<h4 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h4><p>Reserved storage</p>
+<pre><code>`/dev/sda1       5.7G  5.4G     0 100% /`
+</code></pre><p>The output shows that you have still some space, but it seems to be reserved for root. The good point is that your system functionality is currently still be given.</p>
+<p>But you should fix the problem soon.</p>
+<p>Space consumption of ubuntu 12.04</p>
+<p>To have only 5.7 Gb for an ubuntu installation seems to be a bit too little. You should remove some unessential software packages.</p>
+<h4 id="My-current-installations-have-10-14-Gb-for-the-root-and-binary-aka-usr-partitions"><a href="#My-current-installations-have-10-14-Gb-for-the-root-and-binary-aka-usr-partitions" class="headerlink" title="My current installations have 10-14 Gb for the root and binary (aka /usr) partitions."></a>My current installations have 10-14 Gb for the root and binary (aka /usr) partitions.</h4>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tricks/" rel="tag">#tricks</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/22/Learn-Python-in-Genetic-Alogrithm/" rel="next" title="Learn Python in Genetic Alogrithm">
+                <i class="fa fa-chevron-left"></i> Learn Python in Genetic Alogrithm
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/22/PostgreSQL-入门/" rel="prev" title="PostgreSQL 入门">
+                PostgreSQL 入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/Elon-Musk.jpg"
+               alt="Hugo" />
+          <p class="site-author-name" itemprop="name">Hugo</p>
+          <p class="site-description motion-element" itemprop="description">ORDINARY PEOPLE COULD CHOOSE TO BE EXTRAORDINARY!</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Huixxi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.linkedin.com/in/uestc-hugo/" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="uestc.hugo@gmail.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Hugo13438832589" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#From-a-Answerer-on-Ask-Ubuntu—-Ubuntu-的根目录-和-usr-分区一定要够大，10–15GB"><span class="nav-number">1.</span> <span class="nav-text">From a Answerer on Ask Ubuntu—-Ubuntu 的根目录/ 和 /usr 分区一定要够大，10–15GB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Caveat"><span class="nav-number">2.</span> <span class="nav-text">Caveat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Notes"><span class="nav-number">3.</span> <span class="nav-text">Notes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#My-current-installations-have-10-14-Gb-for-the-root-and-binary-aka-usr-partitions"><span class="nav-number">4.</span> <span class="nav-text">My current installations have 10-14 Gb for the root and binary (aka /usr) partitions.</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hugo</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/VEN/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/VEN/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/VEN/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/VEN/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VEN/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VEN/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'hugo-818';
+      var disqus_identifier = '2017/07/31/Linux-clear-up-the-root-filesystem/';
+      var disqus_title = "Linux--clear up the root filesystem";
+      var disqus_url = 'http://cycygogo.cn/2017/07/31/Linux-clear-up-the-root-filesystem/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
