@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Reinforcement Learning,">
 
 
 
@@ -84,13 +84,23 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="HU">
-<meta property="og:url" content="http://cycygogo.cn/index.html">
+<meta name="description" content="Rainbow: Combining Improvements in Deep Reinforcement LearningPaper SourceJournal: The Thirty-Second AAAI Conference on Artificial Intelligence (AAAI-18)Year: 2017Institute: DeepMindAuthor: Matteo Hes">
+<meta name="keywords" content="Reinforcement Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RL_Paper_03">
+<meta property="og:url" content="http://cycygogo.cn/2019/06/03/RL-Paper-03/index.html">
 <meta property="og:site_name" content="HU">
+<meta property="og:description" content="Rainbow: Combining Improvements in Deep Reinforcement LearningPaper SourceJournal: The Thirty-Second AAAI Conference on Artificial Intelligence (AAAI-18)Year: 2017Institute: DeepMindAuthor: Matteo Hes">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://media.nature.com/lw926/nature-assets/nature/journal/v518/n7540/images/nature14236-f1.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/CS234-Reinforcement-Learning/master/rl_images/dqn_algorithm.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*Vd1kcpLoQDnM5vrKnvzxbw.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/CS234-Reinforcement-Learning/master/rl_images/prior_replay.png">
+<meta property="og:updated_time" content="2019-06-22T14:24:54.282Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HU">
+<meta name="twitter:title" content="RL_Paper_03">
+<meta name="twitter:description" content="Rainbow: Combining Improvements in Deep Reinforcement LearningPaper SourceJournal: The Thirty-Second AAAI Conference on Artificial Intelligence (AAAI-18)Year: 2017Institute: DeepMindAuthor: Matteo Hes">
+<meta name="twitter:image" content="https://media.nature.com/lw926/nature-assets/nature/journal/v518/n7540/images/nature14236-f1.jpg">
 
 
 
@@ -111,10 +121,10 @@
 
 
 
-  <link rel="canonical" href="http://cycygogo.cn/">
+  <link rel="canonical" href="http://cycygogo.cn/2019/06/03/RL-Paper-03/">
 
 
-  <title> HU </title>
+  <title> RL_Paper_03 | HU </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="en">
@@ -135,9 +145,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -234,9 +242,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -256,131 +264,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2062/01/31/Navigation/" itemprop="url">
-                  Navigation
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2062-01-31T13:29:39+08:00" content="2062-01-31">
-              2062-01-31
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2062/01/31/Navigation/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2062/01/31/Navigation/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p align="center">ORDINARY PEOPLE COULD CHOOSE TO BE EXTRAORDINARY.</p>
-
-
-<h2 id="Github-Repos"><a href="#Github-Repos" class="headerlink" title="Github Repos"></a>Github Repos</h2><ul>
-<li><a href="https://github.com/Huixxi/CS234-Reinforcement-Learning" target="_blank" rel="noopener">CS234:Reinforcement Learning</a></li>
-<li><a href="https://github.com/Huixxi/NLP_Word2Vec" target="_blank" rel="noopener">Word2Vec:Skip-Gram Model</a></li>
-<li><a href="https://github.com/Huixxi/Image-Classification-using-Flowers-dataset" target="_blank" rel="noopener">Image Classification using Flowers-dataset</a></li>
-</ul>
-<h2 id="Paper-Overview"><a href="#Paper-Overview" class="headerlink" title="Paper Overview"></a>Paper Overview</h2><ul>
-<li><a href="https://www.cycygogo.cn/2019/05/12/RL-Paper-01/" target="_blank" rel="noopener">RL_Paper_01 — Self-Regulated Learning - 2018</a></li>
-<li><a href="https://www.cycygogo.cn/2019/05/12/RL-Paper-01/" target="_blank" rel="noopener">RL_Paper_02 — Deep Q-Network - 2015</a></li>
-<li><a href="https://www.cycygogo.cn/2019/05/12/RL-Paper-01/" target="_blank" rel="noopener">RL_Paper_03 — Rainbow - 2017</a></li>
-</ul>
-<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><ul>
-<li>[Python Learning, Numpy, Scipy…][2]</li>
-</ul>
-<h2 id="Tutorial"><a href="#Tutorial" class="headerlink" title="Tutorial"></a>Tutorial</h2><ul>
-<li>[Linux服务器上搭建TensorFlow机器学习环境][1]</li>
-<li>[Markdown Syntax][6]</li>
-<li>[LaTeX Tutorial][10]</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/06/03/RL-Paper-03/" itemprop="url">
-                  RL_Paper_03
-                </a>
+                RL_Paper_03
               
             
           </h1>
@@ -446,9 +330,7 @@
       
 
       
-        
-          
-            <h2 id="Rainbow-Combining-Improvements-in-Deep-Reinforcement-Learning"><a href="#Rainbow-Combining-Improvements-in-Deep-Reinforcement-Learning" class="headerlink" title="Rainbow: Combining Improvements in Deep Reinforcement Learning"></a>Rainbow: Combining Improvements in Deep Reinforcement Learning</h2><p><em><a href="https://arxiv.org/pdf/1710.02298.pdf" target="_blank" rel="noopener">Paper Source</a></em><br><code>Journal: The Thirty-Second AAAI Conference on Artificial Intelligence (AAAI-18)</code><br><code>Year: 2017</code><br><code>Institute: DeepMind</code><br><code>Author: Matteo Hessel, Joseph Modayil, Hado van Hasselt</code><br><code>#</code><em>Deep Reinforcement Learning</em><br><u><p align="center">Abstract</p></u>  This paper examines six main extensions to DQN algorithm and empirically studies their combination. (It is a good paper which gives you a summary of several important technologies to alleviate the problems remaining in DQN and provides you some valuable insights in this research region.)<br><a href="https://github.com/Huixxi/CS234-Reinforcement-Learning/tree/master/assignment%202" target="_blank" rel="noopener">Baseline: Deep Q-Network(DQN) Algorithm Implementation in CS234 Assignment 2</a></p>
+        <h2 id="Rainbow-Combining-Improvements-in-Deep-Reinforcement-Learning"><a href="#Rainbow-Combining-Improvements-in-Deep-Reinforcement-Learning" class="headerlink" title="Rainbow: Combining Improvements in Deep Reinforcement Learning"></a>Rainbow: Combining Improvements in Deep Reinforcement Learning</h2><p><em><a href="https://arxiv.org/pdf/1710.02298.pdf" target="_blank" rel="noopener">Paper Source</a></em><br><code>Journal: The Thirty-Second AAAI Conference on Artificial Intelligence (AAAI-18)</code><br><code>Year: 2017</code><br><code>Institute: DeepMind</code><br><code>Author: Matteo Hessel, Joseph Modayil, Hado van Hasselt</code><br><code>#</code><em>Deep Reinforcement Learning</em><br><u><p align="center">Abstract</p></u>  This paper examines six main extensions to DQN algorithm and empirically studies their combination. (It is a good paper which gives you a summary of several important technologies to alleviate the problems remaining in DQN and provides you some valuable insights in this research region.)<br><a href="https://github.com/Huixxi/CS234-Reinforcement-Learning/tree/master/assignment%202" target="_blank" rel="noopener">Baseline: Deep Q-Network(DQN) Algorithm Implementation in CS234 Assignment 2</a></p>
 <p><u>1.INTRODUCTION</u><br>Because the traditional tabular methods are not applicable in arbitrarily large state spaces, we turn to those approximate solution methods (<code>linear approximator &amp; nonlinear approximator</code> <code>value-function approximation &amp; policy approximation</code>), which is to find a good approximate solution using limited computational resources.  We can use a <code>linear function</code>, or <code>multi-layer artificial neural networks</code>, or  <code>decision tree</code> as a parameterized function to approximate the value-function or policy.(More, see Sutton’s book <a href="http://incompleteideas.net/book/the-book-2nd.html" target="_blank" rel="noopener">Reinforcement Learning: An Introduction</a> Chapter 9).<br>The following methods are all <code>value-function approximation</code> and <code>gradient-based(using the gradients to update the parameters)</code>, and they all use <strong>experience replay</strong> and <strong>target network</strong> to eliminate the correlations present in the sequence of observations.<br><u><em>1&gt;  Linear</em></u><br>Using a linear function to approximate the value function(always the action value).</p>
 <script type="math/tex; mode=display">\hat v(s, w) \doteq w^Tx(s) \doteq \sum \limits_{i=1}^d w_i x_i</script><p>$w$ is the parameters, $x(s)$ is called a <u><em>feature  vector</em></u> representing state $s$, and the state $s$ is the images(frames) observed by the agent in most time. So a linear approximator implemented with <em>tensorflow</em> can be just a fully-connected layer.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"># state: a sequence of image(frame)</span><br><span class="line">inputs = tf.layers.flatten(state)</span><br><span class="line"># scope, which is used to distinguish q_params and target_q_params</span><br><span class="line">out = layers.fully_connected(inputs, num_actions, scope=scope, reuse=reuse)</span><br></pre></td></tr></table></figure></p>
 <p><u><em>2&gt;  Nonlinear - DQN</em></u><br><strong><em>Deep Q-Network.</em></strong> The main difference of <em>DQN</em> from <em>linear approximator</em>  is the architecture of getting the <em>q_value</em>, it is nonlinear.<br><img src="https://media.nature.com/lw926/nature-assets/nature/journal/v518/n7540/images/nature14236-f1.jpg" title="Nature: https://media.nature.com/lw926/nature-assets/nature/journal/v518/n7540/images/nature14236-f1.jpg" width="500" hegiht="313" align="center"><br>And the total algorithm is as follows:<br><img src="https://raw.githubusercontent.com/Huixxi/CS234-Reinforcement-Learning/master/rl_images/dqn_algorithm.png" title="Paper: Human-level control through deep reinforcement learning." width="500" hegiht="313" align="center"><br>The approximator of DeepMind DQN implemented with <em>tensorflow</em> as described in their <a href="https://www.nature.com/articles/nature14236" target="_blank" rel="noopener">Nature paper</a> can be:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">with</span> tf.variable_scope(scope, reuse=reuse) <span class="keyword">as</span> _:</span><br><span class="line">	conv1 = layers.conv2d(state, num_outputs=<span class="number">32</span>, kernel_size=(<span class="number">8</span>, <span class="number">8</span>), stride=<span class="number">4</span>, activation_fn=tf.nn.relu)</span><br><span class="line">	conv2 = layers.conv2d(conv1, num_outputs=<span class="number">64</span>, kernel_size=(<span class="number">4</span>, <span class="number">4</span>), stride=<span class="number">2</span>, activation_fn=tf.nn.relu)</span><br><span class="line">	conv3 = layers.conv2d(conv2, num_outputs=<span class="number">64</span>, kernel_size=(<span class="number">3</span>, <span class="number">3</span>), stride=<span class="number">1</span>, activation_fn=tf.nn.relu)</span><br><span class="line">	full_inputs = layers.flatten(conv3)</span><br><span class="line">	full_layer = layers.fully_connected(full_inputs, num_outputs=<span class="number">512</span>, activation_fn=tf.nn.relu)</span><br><span class="line">	out = layers.fully_connected(full_layer, num_outputs=num_actions)</span><br></pre></td></tr></table></figure></p>
@@ -463,280 +345,63 @@
 <p><u><em>8&gt;Noisy DQN</em></u><br><strong><em>Noisy DQN.</em></strong>  Use stochastic network layers for exploration.</p>
 <p><u>REFERENCES</u><br><a href="https://towardsdatascience.com/deep-double-q-learning-7fca410b193a" target="_blank" rel="noopener">1.Self Learning AI-Agents III:Deep (Double) Q-Learning(Blog)</a><br><a href="https://blog.csdn.net/qq_30615903/article/details/80744083" target="_blank" rel="noopener">2.【强化学习】Deep Q Network(DQN)算法详解(Bolg)</a></p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/06/03/RL-Paper-02/" itemprop="url">
-                  RL_Paper_02
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2019-06-03T11:10:57+08:00" content="2019-06-03">
-              2019-06-03
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Paper/" itemprop="url" rel="index">
-                    <span itemprop="name">Paper</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2019/06/03/RL-Paper-02/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/03/RL-Paper-02/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/Reinforcement-Learning/" rel="tag">#Reinforcement Learning</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="Human-level-control-through-deep-reinforcement-learning"><a href="#Human-level-control-through-deep-reinforcement-learning" class="headerlink" title="Human-level control through deep reinforcement learning"></a>Human-level control through deep reinforcement learning</h2><p><em><a href="https://www.nature.com/articles/nature14236" target="_blank" rel="noopener">Paper Source</a></em><br><code>Journal: Nature</code><br><code>Year: 2015</code><br><code>Institute: DeepMind</code><br><code>Author: Volodymyr Mnih1*, Koray Kavukcuoglu1*, David Silver1*</code><br><code>#</code><em>Deep Reinforcement Learning(DRL)</em><br><u><p align="center">Abstract</p></u> To use reinforcement learning successfully in situations approaching real-world complexity, however, agents are confronted with a difficult task: they must derive efficient representations of the environment from high-dimensional sensory inputs, and use these to generalize past experience to new situations.Remarkably, humans andother animals seem to solve this problem through a harmonious combination of reinforcement learning and hierarchical sensory processing systems, the former evidenced by a wealth of neural data revealing notable parallels between the phasic signals emitted by dopaminergic neurons and temporal difference reinforcement learning algorithms.<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2019/06/03/RL-Paper-02/#more" rel="contents">
-              Read more &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/03/RL-Paper-02/" rel="next" title="RL_Paper_02">
+                <i class="fa fa-chevron-left"></i> RL_Paper_02
+              </a>
+            
           </div>
-        
-      
-    </p></div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
+              <a href="/2062/01/31/Navigation/" rel="prev" title="Navigation">
+                Navigation <i class="fa fa-chevron-right"></i>
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2019/05/12/RL-Paper-01/" itemprop="url">
-                  RL_Paper_01
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2019-05-12T19:44:54+08:00" content="2019-05-12">
-              2019-05-12
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Paper/" itemprop="url" rel="index">
-                    <span itemprop="name">Paper</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2019/05/12/RL-Paper-01/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/05/12/RL-Paper-01/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="Aerobatics-Control-of-Flying-Creatures-via-Self-Regulated-Learning"><a href="#Aerobatics-Control-of-Flying-Creatures-via-Self-Regulated-Learning" class="headerlink" title="Aerobatics Control of Flying Creatures via Self-Regulated Learning"></a>Aerobatics Control of Flying Creatures via Self-Regulated Learning</h2><p><em><a href="http://mrl.snu.ac.kr/research/ProjectAerobatics/Aerobatics.htm" target="_blank" rel="noopener">Paper Source</a></em><br><code>Journal: ACM Transactions on Graphics</code><br><code>Year: 2018</code><br><code>Institute: Seoul National University, South Korea</code><br><code>Author: JUNGDAM WON, JUNGNAM PARK, JEHEE LEE*</code><br><code>#</code><em>Physics-Based Controller</em> <code>#</code><em>Deep Reinforcement Learning(DRL)</em> <code>#</code><em>Self-Regulated Learning</em><br><u><p align="center">Abstract</p></u>  <strong><em>Self-Regulated Learning (SRL)</em></strong>, which is combined with <strong><em>DRL</em></strong> to address the <strong><em>aerobatics control</em></strong> problem. The key idea of <strong><em>SRL</em></strong> is to allow the agent to take control over its own learning using an additional <strong><em>self-regulation policy</em></strong>. The policy allows the agent to regulate its goals according to the capability of the current control policy. The control and self-regulation policies are learned jointly along the progress of learning. Self-regulated learning can be viewed as building its own curriculum and seeking compromise on the goals.<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2019/05/12/RL-Paper-01/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </p></div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -744,6 +409,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -763,8 +439,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/Elon-Musk.jpg" alt="Hugo">
           <p class="site-author-name" itemprop="name">Hugo</p>
@@ -850,6 +535,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Rainbow-Combining-Improvements-in-Deep-Reinforcement-Learning"><span class="nav-number">1.</span> <span class="nav-text">Rainbow: Combining Improvements in Deep Reinforcement Learning</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -953,6 +649,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
 
   
 
@@ -969,9 +669,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'hugo-818';
-      var disqus_identifier = 'index.html';
-      var disqus_title = "";
-      var disqus_url = '';
+      var disqus_identifier = '2019/06/03/RL-Paper-03/';
+      var disqus_title = "RL_Paper_03";
+      var disqus_url = 'http://cycygogo.cn/2019/06/03/RL-Paper-03/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
@@ -982,6 +682,8 @@
       }
 
       run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
       
     </script>
   
