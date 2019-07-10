@@ -96,7 +96,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/CS234-Reinforcement-Learning/master/rl_images/dqn_algorithm.png">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*Vd1kcpLoQDnM5vrKnvzxbw.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/CS234-Reinforcement-Learning/master/rl_images/prior_replay.png">
-<meta property="og:updated_time" content="2019-07-10T07:57:57.949Z">
+<meta property="og:updated_time" content="2019-07-10T08:00:20.042Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RL_Paper_03:Rainbow">
 <meta name="twitter:description" content="Rainbow: Combining Improvements in Deep Reinforcement LearningPaper SourceJournal: The Thirty-Second AAAI Conference on Artificial Intelligence (AAAI-18)Year: 2017Institute: DeepMindAuthor: Matteo Hes">
@@ -350,7 +350,7 @@
 </blockquote>
 </li>
 <li><p>Importance Sampling(IS)<br>Because prioritized replay introduces a bias that changes this distribution uncontrollably. This can be corrected by using importance-sampling (IS) weights:</p>
-<script type="math/tex; mode=display">w_i = (\frac{1}{N} \frac{1}{P(i)})^\beta</script><p>that fully compensate for the non-uniform probabilities $P(i)$  if $\beta = 1$. These weights can be folded into the Q-learning update by using $w_i\delta_i$ instead of $\delta_i$. For stability reasons, we always normalize weights by $1 / max_i w_i$ so that they only scale the update downwards.<br><a href="https://github.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/blob/master/tf2_priority_replay.py" target="_blank" rel="noopener">Do Double DQN with prioritized experience replayfrom scratch(basic version)</a></p>
+<script type="math/tex; mode=display">w_i = (\frac{1}{N} \frac{1}{P(i)})^\beta</script><p>that fully compensate for the non-uniform probabilities $P(i)$  if $\beta = 1$. These weights can be folded into the Q-learning update by using $w_i\delta_i$ instead of $\delta_i$. For stability reasons, we always normalize weights by $1 / max_i w_i$ so that they only scale the update downwards.<br><code>IS</code> is annealed from $\beta_0$ to $1$, which means its affect is felt more strongly at the end of the stochastic process; this is because the unbiased nature of the updates in RL is most important near convergence.<br><a href="https://github.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/blob/master/tf2_priority_replay.py" target="_blank" rel="noopener">Do Double DQN with prioritized experience replayfrom scratch(basic version)</a></p>
 </li>
 </ul>
 <p><u><em>5&gt;Dueling network architecture</em></u><br><strong><em>Dueling network architecture.</em></strong> Generalize across actions by separately representing state values and action advantages.</p>
