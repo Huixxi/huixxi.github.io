@@ -92,13 +92,13 @@
 <meta property="og:site_name" content="HU">
 <meta property="og:description" content="Unsupervised State Representation Learning in Atari[Paper] [Code]Journal: NeurIPSYear: 2019Institute: Mila, Université de MontréaAuthor:Ankesh Anand*, Evan Racah*, Sherjil Ozair*#State Representation">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/huixxi.github.io/master/blog_images/r1.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/huixxi.github.io/master/blog_images/r2.png">
-<meta property="og:updated_time" content="2020-05-24T14:08:04.851Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/r1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/r2.png">
+<meta property="og:updated_time" content="2020-05-24T14:40:44.537Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RL Weekly 1">
 <meta name="twitter:description" content="Unsupervised State Representation Learning in Atari[Paper] [Code]Journal: NeurIPSYear: 2019Institute: Mila, Université de MontréaAuthor:Ankesh Anand*, Evan Racah*, Sherjil Ozair*#State Representation">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Huixxi/huixxi.github.io/master/blog_images/r1.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/r1.png">
 
 
 
@@ -337,7 +337,7 @@
 I(X;Y) = D_{KL}(P_{(X,Y)}||P_X\otimes P_Y)</script></li>
 <li><u>Why to maximize it?</u></li>
 </ol>
-<h3 id="1-Spatiotemporal-Deep-Infomax"><a href="#1-Spatiotemporal-Deep-Infomax" class="headerlink" title="1.Spatiotemporal Deep Infomax"></a><u>1.Spatiotemporal Deep Infomax</u></h3><p>Prior work in neuroscience has suggested that the brain maximizes predictive information at an abstract level to avoid sensory overload. Thus our representation learning approach relies on maximizing an estimate based on a lower bound on the mutual information over consecutive observations $x_t$ and $x_{t+1}$.<br><img src="https://raw.githubusercontent.com/Huixxi/huixxi.github.io/master/blog_images/r1.png" alt="From https://arxiv.org/pdf/1906.08226.pdf"></p>
+<h3 id="1-Spatiotemporal-Deep-Infomax"><a href="#1-Spatiotemporal-Deep-Infomax" class="headerlink" title="1.Spatiotemporal Deep Infomax"></a><u>1.Spatiotemporal Deep Infomax</u></h3><p>Prior work in neuroscience has suggested that the brain maximizes predictive information at an abstract level to avoid sensory overload. Thus our representation learning approach relies on maximizing an estimate based on a lower bound on the mutual information over consecutive observations $x_t$ and $x_{t+1}$.<br><img src="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/r1.png" alt="From https://arxiv.org/pdf/1906.08226.pdf"></p>
 <p>For the mutual information estimator, we use <strong>infoNCE</strong>:</p>
 <script type="math/tex; mode=display">
 I_{NCE}(\{x_i, y_i\}_{i=1}^N) = \sum\limits_{i=1}^N \log\frac{\exp f(x_i, y_i)}{\sum_{j=1}^N\exp f(x_i, y_j)}</script><p>The global-local objective(The representations of the small image patches are taken to be the hidden activations of the convolutional encoder applied to the full observation):</p>
@@ -350,7 +350,7 @@ f_{m,n}(x_t, x_{t+1}) = \phi_{m,n}(x_t)^TW_l\phi_{m,n}(x_{t+1})</script><h3 id="
 <blockquote>
 <p>It’s easier to think of the method in terms of what the contrastive task it than to understand the mutual information stuff. The contrastive task is: Correctly classify whether a pair of frames are consecutive or not. To do this task well, an encoder needs to only focus on things that are changing across time (often there are high-level features such as the agents, enemies, scores etc.), and ignore the low-level or pixel-level details such as the precise texture of the background. For solving the contrastive task, we use the infoNCE loss. Turns out if you minimize the InfoNCE loss, it is equivalent to maximizing a lower bound on the mutual information between consecutive frames.<br>If you do this classification task between whole frames, the encoder will focus only on <strong>high entropy features such as the clock since its changing every frame</strong>. So, to prevent the encoder from focusing only on a single high entropy feature, we do the contrastive task across each local patch in the feature map. </p>
 </blockquote>
-<h3 id="3-Framework"><a href="#3-Framework" class="headerlink" title="3.Framework"></a><u>3.Framework</u></h3><p><img src="https://raw.githubusercontent.com/Huixxi/huixxi.github.io/master/blog_images/r2.png" alt="From https://arxiv.org/pdf/1906.08226.pdf"></p>
+<h3 id="3-Framework"><a href="#3-Framework" class="headerlink" title="3.Framework"></a><u>3.Framework</u></h3><p><img src="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/r2.png" alt="From https://arxiv.org/pdf/1906.08226.pdf"></p>
 <h3 id="4-Discussion"><a href="#4-Discussion" class="headerlink" title="4.Discussion"></a><u>4.Discussion</u></h3><p>We also observe that the best generative model (<strong>PIXEL-PRED</strong>) does not suffer from this problem.It performs its worst on high-entropy features such as the clock and player score (where ST-DIM excels), and does slightly better than ST-DIM on low-entropy features which have a large contribution in the pixel space such as player and enemy locations. This sheds light on the qualitative difference between contrastive and generative methods:  contrastive methods prefer capturing high-entropy features (irrespective of contribution to pixel space) while generative methods do not, and generative methods prefer capturing large objects which have low entropy. This complementary nature suggests hybrid models as an exciting direction of future work.</p>
 
       
