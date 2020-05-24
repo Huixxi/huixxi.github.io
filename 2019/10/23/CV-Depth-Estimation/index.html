@@ -1,0 +1,845 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/VEN/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/VEN/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Computer Vision,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2">
+
+
+
+
+
+
+<meta name="description" content="深度感知1.双眼视角 2.先验知识 3.光线阴影 Available Datasets: KITTI NYU-V2 Make3D  Loss FunctionsSSIMFor self-supervised learning:  L_p(I_t, \hat{I}_t) = \alpha_1 \frac{1-SSIM(I_t, \hat{I}_t)}{2} + (1-\alpha_1)||I_t-">
+<meta name="keywords" content="Computer Vision">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CV_Depth-Estimation">
+<meta property="og:url" content="http://huixxi.github.io/2019/10/23/CV-Depth-Estimation/index.html">
+<meta property="og:site_name" content="HU">
+<meta property="og:description" content="深度感知1.双眼视角 2.先验知识 3.光线阴影 Available Datasets: KITTI NYU-V2 Make3D  Loss FunctionsSSIMFor self-supervised learning:  L_p(I_t, \hat{I}_t) = \alpha_1 \frac{1-SSIM(I_t, \hat{I}_t)}{2} + (1-\alpha_1)||I_t-">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-11-06T08:35:14.798Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CV_Depth-Estimation">
+<meta name="twitter:description" content="深度感知1.双眼视角 2.先验知识 3.光线阴影 Available Datasets: KITTI NYU-V2 Make3D  Loss FunctionsSSIMFor self-supervised learning:  L_p(I_t, \hat{I}_t) = \alpha_1 \frac{1-SSIM(I_t, \hat{I}_t)}{2} + (1-\alpha_1)||I_t-">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://huixxi.github.io/2019/10/23/CV-Depth-Estimation/">
+
+
+  <title> CV_Depth-Estimation | HU </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">HU</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">\&</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CV_Depth-Estimation
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2019-10-23T09:40:05+08:00" content="2019-10-23">
+              2019-10-23
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/10/23/CV-Depth-Estimation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/23/CV-Depth-Estimation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="深度感知"><a href="#深度感知" class="headerlink" title="深度感知"></a>深度感知</h2><p>1.双眼视角 2.先验知识 3.光线阴影</p>
+<h2 id="Available-Datasets"><a href="#Available-Datasets" class="headerlink" title="Available Datasets:"></a>Available Datasets:</h2><ul>
+<li><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_all.php" target="_blank" rel="noopener">KITTI</a></li>
+<li><a href="https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html" target="_blank" rel="noopener">NYU-V2</a></li>
+<li><a href="http://make3d.cs.cornell.edu/data.html" target="_blank" rel="noopener">Make3D</a></li>
+</ul>
+<h2 id="Loss-Functions"><a href="#Loss-Functions" class="headerlink" title="Loss Functions"></a>Loss Functions</h2><p>SSIM<br>For self-supervised learning:</p>
+<script type="math/tex; mode=display">
+L_p(I_t, \hat{I}_t) = \alpha_1 \frac{1-SSIM(I_t, \hat{I}_t)}{2} + (1-\alpha_1)||I_t- \hat{I}_t||</script><h2 id="Network-Architectures"><a href="#Network-Architectures" class="headerlink" title="Network Architectures"></a>Network Architectures</h2><p>Autoencoder Structure with Skip Connections.</p>
+<h2 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h2><h2 id="Application-Scenarios"><a href="#Application-Scenarios" class="headerlink" title="Application Scenarios"></a>Application Scenarios</h2><h2 id="Innovation-Points"><a href="#Innovation-Points" class="headerlink" title="Innovation Points"></a>Innovation Points</h2><ul>
+<li>Semi/Un/Self Supervised Learning</li>
+<li>Attention Mechanism</li>
+<li>More Useful Loss Function</li>
+<li>More Efficient Network</li>
+<li>Reinforcement Learning</li>
+<li>Knowledge Distill</li>
+</ul>
+<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><ul>
+<li>Structure from motion(SfM)</li>
+<li>Learning single-view 3D from registered 2D views</li>
+<li>Warping-based view synthesis</li>
+<li>Unsupervised/Self-supervised learning from video</li>
+</ul>
+<hr>
+<hr>
+<h2 id="SuperDepth-Self-Supervised-Super-Resolved-Monocular-Depth-Estimation"><a href="#SuperDepth-Self-Supervised-Super-Resolved-Monocular-Depth-Estimation" class="headerlink" title="SuperDepth: Self-Supervised, Super-Resolved Monocular Depth Estimation"></a>SuperDepth: Self-Supervised, Super-Resolved Monocular Depth Estimation</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1810.01849.pdf" target="_blank" rel="noopener">[Paper]</a> [[Code]]<br><code>Conference: CVPR</code><br><code>Year: 2018</code><br><code>Institute: TRI</code><br><code>Author: Sudeep Pillai, Rares, Ambrus, Adrien Gaidon</code><br><code>#</code><em>Self-supervised Learning</em>, <em>Monocular</em>, <em>Stereo Imagery</em></p>
+<p><strong>What they did:</strong></p>
+<ul>
+<li>Proposed a sub-pixel convolutional layer extension for depth super-resolution.</li>
+<li>Introduce a differentiable flip-augmentation layer</li>
+</ul>
+<p><strong>Why they did:</strong><br>To solve: high resolution monocular depth prediction.</p>
+<p><strong>Innovation points:</strong></p>
+<ul>
+<li></li>
+<li></li>
+</ul>
+<h2 id="Depth-Prediction-Without-the-Sensors-Leveraging-Structure-for-Unsupervised-Learning-from-Monocular-Videos"><a href="#Depth-Prediction-Without-the-Sensors-Leveraging-Structure-for-Unsupervised-Learning-from-Monocular-Videos" class="headerlink" title="Depth Prediction Without the Sensors: Leveraging Structure for Unsupervised Learning from Monocular Videos"></a>Depth Prediction Without the Sensors: Leveraging Structure for Unsupervised Learning from Monocular Videos</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1811.06152.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/tensorflow/models/tree/master/research/struct2depth" target="_blank" rel="noopener">[Code]</a><br><code>Conference: CVPR</code><br><code>Year: 2018</code><br><code>Institute: Google Brain</code><br><code>Author: Reza Mahjourian, Martin Wicke, Anelia Angelova</code><br><code>#</code><em>Unsupervised Learning</em>, <em>Monocular Video</em></p>
+<p><strong>What they did:</strong></p>
+<ul>
+<li>Proposed a novel unsupervised algorithm for depth and ego-motion from monocular video.</li>
+<li>Take the 3D structure of the world into consideration by a 3D loss function.</li>
+</ul>
+<p><strong>Why they did:</strong><br>To solve: </p>
+<p><strong>Innovation points:</strong></p>
+<ul>
+<li></li>
+<li></li>
+</ul>
+<h2 id="Unsupervised-Learning-of-Depth-and-Ego-Motion-from-Monocular-Video-Using-3D-Geometric-Constraints"><a href="#Unsupervised-Learning-of-Depth-and-Ego-Motion-from-Monocular-Video-Using-3D-Geometric-Constraints" class="headerlink" title="Unsupervised Learning of Depth and Ego-Motion from Monocular Video Using 3D Geometric Constraints"></a>Unsupervised Learning of Depth and Ego-Motion from Monocular Video Using 3D Geometric Constraints</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1802.05522v2.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/tensorflow/models/tree/master/research/vid2depth" target="_blank" rel="noopener">[Code]</a><br><code>Conference: CVPR</code><br><code>Year: 2018</code><br><code>Institute: Google Brain</code><br><code>Author: Reza Mahjourian, Martin Wicke, Anelia Angelova</code><br><code>#</code><em>Unsupervised Learning</em>, <em>Monocular Video</em></p>
+<p><strong>What they did:</strong></p>
+<ul>
+<li>Proposed a novel unsupervised algorithm for depth and ego-motion from monocular video.</li>
+<li>Take the 3D structure of the world into consideration by a 3D loss function.</li>
+</ul>
+<p><strong>Why they did:</strong><br>To solve: </p>
+<p><strong>Innovation points:</strong></p>
+<ul>
+<li></li>
+<li></li>
+</ul>
+<h2 id="Single-Image-Depth-Estimation-Trained-via-Depth-from-Defocus-Cues"><a href="#Single-Image-Depth-Estimation-Trained-via-Depth-from-Defocus-Cues" class="headerlink" title="Single Image Depth Estimation Trained via Depth from Defocus Cues"></a>Single Image Depth Estimation Trained via Depth from Defocus Cues</h2><p><code>&gt;</code><a href="http://openaccess.thecvf.com/content_CVPR_2019/papers/Gur_Single_Image_Depth_Estimation_Trained_via_Depth_From_Defocus_Cues_CVPR_2019_paper.pdf" target="_blank" rel="noopener">[Paper]</a> [[Code]]<br><code>Conference: CVPR</code><br><code>Year: 2019</code><br><code>Institute: Facebook AI</code><br><code>Author: Shir Gur, Lior Wolf</code><br><code>#</code><em>Unsupervised Learning</em>, <em>Defocus Cues</em></p>
+<p><strong>Terms:</strong></p>
+<ul>
+<li><p><strong>Structure from motion(SfM)</strong> 运动中结构重建<br>Estimating three-dimensional structures from two-dimensional image sequences that may be coupled with local motion signals.<br>利用可能与局部运动信号耦合的二维图像序列估计三维结构</p>
+</li>
+<li><p><strong>Point spread function(PSF)</strong>点扩散函数<br>Describes the response of an imaging system to a point source or point object.<br>用于描述一个图像系统对一个点源或是点目标的响应。</p>
+</li>
+</ul>
+<p><strong>What they did:</strong></p>
+<ul>
+<li>Rely, instead of multiple view geometry, on shape from defocus. </li>
+<li>Proposed a novel Point Spread Function(PSF) layer, combining the successful <strong>ASPP</strong> architecture</li>
+<li>Dense connections and self-attention</li>
+</ul>
+<p>$I$ — all-in-focus image; $D_o$ — depth-map; $\rho$ — camera parameters vector(the aperture $A$, the focal length $F$ and the focal depth $D_f$);<br>There are two network: $f$ for depth estimation and $g$ for focus rendering, and $f$ is learned.<br>The learned network $f$ takes $I$ as input, and output a predicted depth $\bar{D}_o$. Then input $I$, $\bar{D}_o$, $\rho$ to $g$, and output a estimated rendered focused image $\bar{J}$.<br>The fixed network $g$ consists of the PSF layer takes $I$, $D_o$, $\rho$ as input, and output a rendered focus image $J$.</p>
+<ul>
+<li>Atrous Convlution</li>
+<li>Atrous Spatial Pyramid Pooling(ASPP)</li>
+</ul>
+<p><strong>Why they did:</strong><br>To solve: </p>
+<p><strong>Innovation points:</strong></p>
+<ul>
+<li></li>
+<li></li>
+</ul>
+<h2 id="Digging-Into-Self-Supervised-Monocular-Depth-Estimation"><a href="#Digging-Into-Self-Supervised-Monocular-Depth-Estimation" class="headerlink" title="Digging Into Self-Supervised Monocular Depth Estimation"></a>Digging Into Self-Supervised Monocular Depth Estimation</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1806.01260v4.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/nianticlabs/monodepth2" target="_blank" rel="noopener">[Code]</a><br><code>Conference: ICCV</code><br><code>Year: 2019</code><br><code>Institute:</code><br><code>Author: Cl´ement Godard, Oisin Mac Aodha, Michael Firman, Gabriel Brostow</code><br><code>#</code><em>self-supervised Learning</em>, <em>Monocular</em>    </p>
+<p><strong>What they did:</strong></p>
+<ul>
+<li>A minimum reprojection loss, designed to robustly handle occlusions.</li>
+<li>A full-resolution multi-scale sampling method that reduces visual artifacts.</li>
+<li>An auto-masking loss to ignore training pixels that violate camera motion assumptions.</li>
+</ul>
+<h2 id="Learning-Depth-from-Monocular-Videos-using-Direct-Methods"><a href="#Learning-Depth-from-Monocular-Videos-using-Direct-Methods" class="headerlink" title="Learning Depth from Monocular Videos using Direct Methods"></a>Learning Depth from Monocular Videos using Direct Methods</h2><p><code>&gt;</code><a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Wang_Learning_Depth_From_CVPR_2018_paper.pdf" target="_blank" rel="noopener">[Paper]</a> [[Code]]<br><code>Conference: CVPR</code><br><code>Year: 2017</code><br><code>Institute:</code><br><code>Author: Chaoyang Wang, Jos´e Miguel Buenaposada, Rui Zhu, Simon Lucey</code><br><code>#</code><em>unsupervised Learning</em>, <em>monocular</em></p>
+<p><strong>What they did:</strong></p>
+<ul>
+<li>Explain why scale ambiguity in current monocular methods is problematic</li>
+<li>Propose a simple normalization strategy</li>
+<li>Incorporation of a Direct Visual Odometry (DVO) pose predictor</li>
+<li>Considered the geometric relation between camera pose and depth</li>
+</ul>
+<h2 id="Unsupervised-Learning-of-Depth-and-Ego-Motion-from-Video"><a href="#Unsupervised-Learning-of-Depth-and-Ego-Motion-from-Video" class="headerlink" title="Unsupervised Learning of Depth and Ego-Motion from Video"></a>Unsupervised Learning of Depth and Ego-Motion from Video</h2><p><code>&gt;</code><a href="https://people.eecs.berkeley.edu/~tinghuiz/projects/SfMLearner/cvpr17_sfm_final.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/tinghuiz/SfMLearner" target="_blank" rel="noopener">[Code]</a><br><code>Conference: CVPR</code><br><code>Year: 2017</code><br><code>Institute:</code><br><code>Author: Tinghui Zhou, Matthew Brown, Noah Snavely, David G. Lowe</code><br><code>#</code><em>unsupervised Learning</em>, <em>monocular</em></p>
+<p><strong>What they did:</strong></p>
+<ul>
+<li>Using single-view depth and multi-view pose networks, with a loss based on warping nearby views to the target using the computed depth and pose. </li>
+<li>Explainability mask discounts</li>
+<li>Overcoming the gradient locality by using a convolutional encoder-decoder architec- ture with a small bottleneck</li>
+</ul>
+<h2 id="Unsupervised-Monocular-Depth-Estimation-with-Left-Right-Consistency"><a href="#Unsupervised-Monocular-Depth-Estimation-with-Left-Right-Consistency" class="headerlink" title="Unsupervised Monocular Depth Estimation with Left-Right Consistency"></a>Unsupervised Monocular Depth Estimation with Left-Right Consistency</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1609.03677.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/mrharicot/monodepth" target="_blank" rel="noopener">[Code]</a><br><code>Conference: CVPR</code><br><code>Year: 2017</code><br><code>Institute:</code><br><code>Author: Cl´ement Godard, Oisin Mac Aodha, Gabriel J. Brostow</code><br><code>#</code><em>unsupervised Learning</em>, <em>binocular stereo footage</em></p>
+<p><strong>What they did:</strong></p>
+<ul>
+<li>Introduce a novel depth estimation training loss </li>
+<li>Featuring an inbuilt left-right consistency check</li>
+<li></li>
+</ul>
+<h2 id="Real-Time-Monocular-Depth-Estimation-using-Synthetic-Data-with-Domain-Adaptation-via-Image-Style-Transfer"><a href="#Real-Time-Monocular-Depth-Estimation-using-Synthetic-Data-with-Domain-Adaptation-via-Image-Style-Transfer" class="headerlink" title="Real-Time Monocular Depth Estimation using Synthetic Data with Domain Adaptation via Image Style Transfer"></a>Real-Time Monocular Depth Estimation using Synthetic Data with Domain Adaptation via Image Style Transfer</h2><p><code>&gt;</code><a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Atapour-Abarghouei_Real-Time_Monocular_Depth_CVPR_2018_paper.pdf" target="_blank" rel="noopener">[Paper]</a> [[Code]]<br><code>Conference: CVPR</code><br><code>Year: 2018</code><br><code>Institute:</code><br><code>Author: Amir Atapour-Abarghouei, Toby P. Breckon</code><br><code>#</code><em>supervised Learning</em>, <em>monocular</em>, <em>image style transfer</em>, <em>domain adaptation</em></p>
+<p><strong>What they did:</strong></p>
+<ul>
+<li>Synthetic depth prediction - apredict depth based on high quality synthetic depth training data(supervise learning)</li>
+<li>Domain adaptation via style transfer</li>
+<li></li>
+</ul>
+<h2 id="Depth-map-prediction-from-a-single-image-using-a-multi-scale-deep-network"><a href="#Depth-map-prediction-from-a-single-image-using-a-multi-scale-deep-network" class="headerlink" title="Depth map prediction from a single image using a multi-scale deep network."></a>Depth map prediction from a single image using a multi-scale deep network.</h2><p><code>&gt;</code><a href="http://papers.nips.cc/paper/5539-depth-map-prediction-from-a-single-image-using-a-multi-scale-deep-network.pdf" target="_blank" rel="noopener">[Paper]</a><br> <code>Conference: NIPS</code><br><code>Year: 2014</code><br><code>Institute:</code><br><code>Author: David Eigen, Christian Puhrsch, Rob Fergus</code><br><code>#</code><em>supervised Learning</em></p>
+<p><strong>What they did:</strong></p>
+<ul>
+<li>Using a scale-invariant error in addition to more common scale-dependent errors</li>
+<li>One that first estimates the global structure of the scene, then a second that refines it using local information</li>
+</ul>
+<p><strong>Why they did:</strong><br>To solve: the global scale</p>
+<p><strong>Innovation points:</strong></p>
+<ul>
+<li>Collecting dataset(indoor&amp;outdoor) from websites, social media outlets, real estate listings, and shopping sites.</li>
+</ul>
+<h2 id="Deeper-Depth-Prediction-with-Fully-Convolutional-Residual-Networks"><a href="#Deeper-Depth-Prediction-with-Fully-Convolutional-Residual-Networks" class="headerlink" title="Deeper Depth Prediction with Fully Convolutional Residual Networks"></a>Deeper Depth Prediction with Fully Convolutional Residual Networks</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1606.00373v2.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/iro-cp/FCRN-DepthPrediction" target="_blank" rel="noopener">[Code]</a><br><code>Conference:</code><br><code>Year: 2016</code><br><code>Institute:</code><br><code>Author: Iro Laina, Christian Rupprecht, Vasileios Belagiannis, Federico Tombari, Nassir Navab</code><br><code>#</code><em>supervised Learning</em></p>
+<p><strong>What they did:</strong></p>
+<ul>
+<li>A fully convolutional architecture, encompassing residual learning.</li>
+<li>Efficiently learn feature map up-sampling within the network, up-projection layer.</li>
+<li>Reverse Huber loss.</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Computer-Vision/" rel="tag">#Computer Vision</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/04/RL-Self-Learning/" rel="next" title="RL_Self-Learning">
+                <i class="fa fa-chevron-left"></i> RL_Self-Learning
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/18/CV-Struct2Depth/" rel="prev" title="CV_Struct2Depth">
+                CV_Struct2Depth <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/Elon-Musk.jpg" alt="Hugo">
+          <p class="site-author-name" itemprop="name">Hugo</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Huixxi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.linkedin.com/in/uestc-hugo/" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/______HU______" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackoverflow.com/users/7121726/hu-xixi" target="_blank" title="Stackoverflow">
+                  
+                    <i class="fa fa-fw fa-stack-overflow"></i>
+                  
+                  Stackoverflow
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#深度感知"><span class="nav-number">1.</span> <span class="nav-text">深度感知</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Available-Datasets"><span class="nav-number">2.</span> <span class="nav-text">Available Datasets:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loss-Functions"><span class="nav-number">3.</span> <span class="nav-text">Loss Functions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Network-Architectures"><span class="nav-number">4.</span> <span class="nav-text">Network Architectures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Challenges"><span class="nav-number">5.</span> <span class="nav-text">Challenges</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application-Scenarios"><span class="nav-number">6.</span> <span class="nav-text">Application Scenarios</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Innovation-Points"><span class="nav-number">7.</span> <span class="nav-text">Innovation Points</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Work"><span class="nav-number">8.</span> <span class="nav-text">Related Work</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SuperDepth-Self-Supervised-Super-Resolved-Monocular-Depth-Estimation"><span class="nav-number">9.</span> <span class="nav-text">SuperDepth: Self-Supervised, Super-Resolved Monocular Depth Estimation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Depth-Prediction-Without-the-Sensors-Leveraging-Structure-for-Unsupervised-Learning-from-Monocular-Videos"><span class="nav-number">10.</span> <span class="nav-text">Depth Prediction Without the Sensors: Leveraging Structure for Unsupervised Learning from Monocular Videos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unsupervised-Learning-of-Depth-and-Ego-Motion-from-Monocular-Video-Using-3D-Geometric-Constraints"><span class="nav-number">11.</span> <span class="nav-text">Unsupervised Learning of Depth and Ego-Motion from Monocular Video Using 3D Geometric Constraints</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Single-Image-Depth-Estimation-Trained-via-Depth-from-Defocus-Cues"><span class="nav-number">12.</span> <span class="nav-text">Single Image Depth Estimation Trained via Depth from Defocus Cues</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Digging-Into-Self-Supervised-Monocular-Depth-Estimation"><span class="nav-number">13.</span> <span class="nav-text">Digging Into Self-Supervised Monocular Depth Estimation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Learning-Depth-from-Monocular-Videos-using-Direct-Methods"><span class="nav-number">14.</span> <span class="nav-text">Learning Depth from Monocular Videos using Direct Methods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unsupervised-Learning-of-Depth-and-Ego-Motion-from-Video"><span class="nav-number">15.</span> <span class="nav-text">Unsupervised Learning of Depth and Ego-Motion from Video</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unsupervised-Monocular-Depth-Estimation-with-Left-Right-Consistency"><span class="nav-number">16.</span> <span class="nav-text">Unsupervised Monocular Depth Estimation with Left-Right Consistency</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Real-Time-Monocular-Depth-Estimation-using-Synthetic-Data-with-Domain-Adaptation-via-Image-Style-Transfer"><span class="nav-number">17.</span> <span class="nav-text">Real-Time Monocular Depth Estimation using Synthetic Data with Domain Adaptation via Image Style Transfer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Depth-map-prediction-from-a-single-image-using-a-multi-scale-deep-network"><span class="nav-number">18.</span> <span class="nav-text">Depth map prediction from a single image using a multi-scale deep network.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deeper-Depth-Prediction-with-Fully-Convolutional-Residual-Networks"><span class="nav-number">19.</span> <span class="nav-text">Deeper Depth Prediction with Fully Convolutional Residual Networks</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hugo</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/VEN/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/VEN/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/VEN/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/VEN/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VEN/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VEN/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'hugo-818';
+      var disqus_identifier = '2019/10/23/CV-Depth-Estimation/';
+      var disqus_title = "CV_Depth-Estimation";
+      var disqus_url = 'http://huixxi.github.io/2019/10/23/CV-Depth-Estimation/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
