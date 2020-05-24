@@ -531,32 +531,17 @@
 
       
         
-          
-            <h2 id="公开数据集"><a href="#公开数据集" class="headerlink" title="公开数据集"></a>公开数据集</h2><ul>
+          <h2 id="公开数据集"><a href="#公开数据集" class="headerlink" title="公开数据集"></a>公开数据集</h2><ul>
 <li><a href="https://deepmind.com/research/open-source/kinetics" target="_blank" rel="noopener">Kinetics-400/600/700</a></li>
 <li><a href="https://www.crcv.ucf.edu/data/UCF101.php" target="_blank" rel="noopener">UCF-101/50/11</a></li>
 <li><a href="http://serre-lab.clps.brown.edu/resource/hmdb-a-large-human-motion-database/#dataset" target="_blank" rel="noopener">HMDB-51</a></li>
 </ul>
-<h2 id="视频行为识别流程"><a href="#视频行为识别流程" class="headerlink" title="视频行为识别流程"></a>视频行为识别流程</h2><h2 id="“Two-Stream-Convolutional-Networks-for-Action-Recognition-in-Videos“"><a href="#“Two-Stream-Convolutional-Networks-for-Action-Recognition-in-Videos“" class="headerlink" title="“Two-Stream Convolutional Networks for Action Recognition in Videos“"></a>“Two-Stream Convolutional Networks for Action Recognition in Videos“</h2><p><code>&gt;</code><a href="https://papers.nips.cc/paper/5353-two-stream-convolutional-networks-for-action-recognition-in-videos.pdf" target="_blank" rel="noopener">[Paper]</a>[[Code]]<br><code>Conference: NIPS</code><br><code>Year: 2014</code><br><code>Institute: Oxford</code><br><code>Author: Karen Simonyan, Andrew Zisserman</code><br><code>#</code><br>利用双路卷积神经网络，空域流处理图片，在每个视频样本中随机抽取一帧；时域流处理光流信息，对于空域中的每一帧图片，生成相应图片的光流信息，stack of flow， x和y方向级联成2L通道数的光流块；</p>
-<p><strong>处理的问题</strong></p>
-<ul>
-<li>处理光流信息中的相机抖动问题</li>
-</ul>
-<h2 id="”3D-Convolutional-Neural-Networks-for-Human-Action-Recognition”"><a href="#”3D-Convolutional-Neural-Networks-for-Human-Action-Recognition”" class="headerlink" title="”3D Convolutional Neural Networks for Human Action Recognition”"></a>”3D Convolutional Neural Networks for Human Action Recognition”</h2><p><code>&gt;</code><a href="https://www.dbs.ifi.lmu.de/~yu_k/icml2010_3dcnn.pdf" target="_blank" rel="noopener">[Paper]</a>[[Code]]  </p>
-<p>使用三维的卷积核，考虑时间维度的信息。</p>
-<h2 id="“Learning-Spatiotemporal-Features-with-3D-Convolutional-Networks-C3D-”"><a href="#“Learning-Spatiotemporal-Features-with-3D-Convolutional-Networks-C3D-”" class="headerlink" title="“Learning Spatiotemporal Features with 3D Convolutional Networks(C3D)”"></a>“Learning Spatiotemporal Features with 3D Convolutional Networks(C3D)”</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1412.0767.pdf" target="_blank" rel="noopener">[Paper]</a>[[Code]]<br><code>Conference:</code><br><code>Year: 2015</code><br><code>Institute: FaceBook</code><br><code>Author: Du Tran, Lubomir Bourdev, Rob Fergus, Lorenzo Torresani, Manohar Paluri</code><br><code>#</code>  </p>
-<h2 id="“Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset-I3D-”"><a href="#“Quo-Vadis-Action-Recognition-A-New-Model-and-the-Kinetics-Dataset-I3D-”" class="headerlink" title="“Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset(I3D)”"></a>“Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset(I3D)”</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1705.07750.pdf" target="_blank" rel="noopener">[Paper]</a>[[Code]]<br><code>Conference: CVPR</code><br><code>Year: 2018</code><br><code>Institute: DeepMind</code><br><code>Author: Joao Carreira, Andrew Zisserman</code><br><code>#</code>  </p>
-<h2 id="“Learning-Spatio-Temporal-Features-with-3D-Residual-Networks-for-Action-Recognition”"><a href="#“Learning-Spatio-Temporal-Features-with-3D-Residual-Networks-for-Action-Recognition”" class="headerlink" title="“Learning Spatio-Temporal Features with 3D Residual Networks for Action Recognition”"></a>“Learning Spatio-Temporal Features with 3D Residual Networks for Action Recognition”</h2><p><code>&gt;</code><a href="http://openaccess.thecvf.com/content_ICCV_2017_workshops/papers/w44/Hara_Learning_Spatio-Temporal_Features_ICCV_2017_paper.pdf" target="_blank" rel="noopener">[Paper]</a>[[Code]]<br><code>Conference: ICCV</code><br><code>Year: 2017</code><br><code>Institute: AIST</code><br><code>Author: JKensho Hara, Hirokatsu Kataoka, Yutaka Satoh</code><br><code>#</code>  </p>
-<h2 id="“SlowFast-Networks-for-Video-Recognition”"><a href="#“SlowFast-Networks-for-Video-Recognition”" class="headerlink" title="“SlowFast Networks for Video Recognition”"></a>“SlowFast Networks for Video Recognition”</h2><p><code>&gt;</code><a href="http://openaccess.thecvf.com/content_ICCV_2019/papers/Feichtenhofer_SlowFast_Networks_for_Video_Recognition_ICCV_2019_paper.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/facebookresearch/SlowFast" target="_blank" rel="noopener">[Code]</a><br><code>Conference: ICCV</code><br><code>Year: 2019</code><br><code>Institute: FaceBook</code><br><code>Author: Christoph Feichtenhofer, Haoqi Fan, Jitendra Malik, Kaiming He</code><br><code>#</code>  </p>
-<p>提出一种非利用光流信息的双路神经网络结构，用于处理慢速帧和快速帧的视频。</p>
-<ul>
-<li>Slow Pathway<br>用于处理慢速帧，提取空域中的静态语义信息。使用<strong>3D ResNet</strong>提取图像中的语义信息，不采用<strong>temporal downsampling</strong>，采用不同于<strong>C3D/I3D</strong>的<strong>非退化时间卷积（non-degenerate）</strong>。</li>
-<li>Fast Pathway<br>用于处理快速帧，提取时域中快速变化的运动信息。采用轻量级网络，降低通道容量，仅关注时域信息。</li>
-<li>Lateral Connections<br>Slow和Fast处理的是同一段视频的不同采样频率的视频片段。横向连接将双路特征进行融合。</li>
-</ul>
-<p><strong>处理的问题</strong></p>
-
-          
+<h2 id="视频行为识别流程"><a href="#视频行为识别流程" class="headerlink" title="视频行为识别流程"></a>视频行为识别流程</h2>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2019/12/03/CV-HumanActionRec/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -654,30 +639,12 @@
 
       
         
-          
-            <h1 id="Learning-Google’s-Struct2Depth-from-Scratch"><a href="#Learning-Google’s-Struct2Depth-from-Scratch" class="headerlink" title="Learning Google’s Struct2Depth from Scratch."></a>Learning Google’s Struct2Depth from Scratch.</h1><p><strong>(An Unsupervised Monocular Depth Estimation Model)</strong><br><a href="https://arxiv.org/pdf/1811.06152.pdf" target="_blank" rel="noopener">[Paper]</a><a href="https://github.com/tensorflow/models/tree/master/research/struct2depth" target="_blank" rel="noopener">[Source code]</a>  </p>
-<p><strong>Contributions:</strong></p>
-<ul>
-<li>Modeling dynamic scenes by modeling object motion.</li>
-<li>Adapt its learning strategy with an online refinement technique.  </li>
-</ul>
-<p><img src="./struct2depth.png" alt="la"></p>
-<p><strong>Code Structure:</strong></p>
-<ul>
-<li><code>alignment.py</code></li>
-<li><code>gen_data_city.py</code></li>
-<li><code>gen_data_kitti.py</code></li>
-<li><code>inference.py</code></li>
-<li><code>model.py</code></li>
-<li><code>nets.py</code></li>
-<li><code>optimize.py</code></li>
-<li><code>project.py</code></li>
-<li><code>reader.py</code></li>
-<li><code>train.py</code></li>
-<li><code>util.py</code></li>
-</ul>
-
-          
+          <h1 id="Learning-Google’s-Struct2Depth-from-Scratch"><a href="#Learning-Google’s-Struct2Depth-from-Scratch" class="headerlink" title="Learning Google’s Struct2Depth from Scratch."></a>Learning Google’s Struct2Depth from Scratch.</h1><p><strong>(An Unsupervised Monocular Depth Estimation Model)</strong><br><a href="https://arxiv.org/pdf/1811.06152.pdf" target="_blank" rel="noopener">[Paper]</a><a href="https://github.com/tensorflow/models/tree/master/research/struct2depth" target="_blank" rel="noopener">[Source code]</a>  </p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2019/11/18/CV-Struct2Depth/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -794,149 +761,12 @@
 
       
         
-          
-            <h2 id="深度感知"><a href="#深度感知" class="headerlink" title="深度感知"></a>深度感知</h2><p>1.双眼视角 2.先验知识 3.光线阴影</p>
-<h2 id="Available-Datasets"><a href="#Available-Datasets" class="headerlink" title="Available Datasets:"></a>Available Datasets:</h2><ul>
-<li><a href="http://www.cvlibs.net/datasets/kitti/eval_depth_all.php" target="_blank" rel="noopener">KITTI</a></li>
-<li><a href="https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html" target="_blank" rel="noopener">NYU-V2</a></li>
-<li><a href="http://make3d.cs.cornell.edu/data.html" target="_blank" rel="noopener">Make3D</a></li>
-</ul>
-<h2 id="Loss-Functions"><a href="#Loss-Functions" class="headerlink" title="Loss Functions"></a>Loss Functions</h2><p>SSIM<br>For self-supervised learning:</p>
-<script type="math/tex; mode=display">
-L_p(I_t, \hat{I}_t) = \alpha_1 \frac{1-SSIM(I_t, \hat{I}_t)}{2} + (1-\alpha_1)||I_t- \hat{I}_t||</script><h2 id="Network-Architectures"><a href="#Network-Architectures" class="headerlink" title="Network Architectures"></a>Network Architectures</h2><p>Autoencoder Structure with Skip Connections.</p>
-<h2 id="Challenges"><a href="#Challenges" class="headerlink" title="Challenges"></a>Challenges</h2><h2 id="Application-Scenarios"><a href="#Application-Scenarios" class="headerlink" title="Application Scenarios"></a>Application Scenarios</h2><h2 id="Innovation-Points"><a href="#Innovation-Points" class="headerlink" title="Innovation Points"></a>Innovation Points</h2><ul>
-<li>Semi/Un/Self Supervised Learning</li>
-<li>Attention Mechanism</li>
-<li>More Useful Loss Function</li>
-<li>More Efficient Network</li>
-<li>Reinforcement Learning</li>
-<li>Knowledge Distill</li>
-</ul>
-<h2 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h2><ul>
-<li>Structure from motion(SfM)</li>
-<li>Learning single-view 3D from registered 2D views</li>
-<li>Warping-based view synthesis</li>
-<li>Unsupervised/Self-supervised learning from video</li>
-</ul>
-<hr>
-<hr>
-<h2 id="SuperDepth-Self-Supervised-Super-Resolved-Monocular-Depth-Estimation"><a href="#SuperDepth-Self-Supervised-Super-Resolved-Monocular-Depth-Estimation" class="headerlink" title="SuperDepth: Self-Supervised, Super-Resolved Monocular Depth Estimation"></a>SuperDepth: Self-Supervised, Super-Resolved Monocular Depth Estimation</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1810.01849.pdf" target="_blank" rel="noopener">[Paper]</a> [[Code]]<br><code>Conference: CVPR</code><br><code>Year: 2018</code><br><code>Institute: TRI</code><br><code>Author: Sudeep Pillai, Rares, Ambrus, Adrien Gaidon</code><br><code>#</code><em>Self-supervised Learning</em>, <em>Monocular</em>, <em>Stereo Imagery</em></p>
-<p><strong>What they did:</strong></p>
-<ul>
-<li>Proposed a sub-pixel convolutional layer extension for depth super-resolution.</li>
-<li>Introduce a differentiable flip-augmentation layer</li>
-</ul>
-<p><strong>Why they did:</strong><br>To solve: high resolution monocular depth prediction.</p>
-<p><strong>Innovation points:</strong></p>
-<ul>
-<li></li>
-<li></li>
-</ul>
-<h2 id="Depth-Prediction-Without-the-Sensors-Leveraging-Structure-for-Unsupervised-Learning-from-Monocular-Videos"><a href="#Depth-Prediction-Without-the-Sensors-Leveraging-Structure-for-Unsupervised-Learning-from-Monocular-Videos" class="headerlink" title="Depth Prediction Without the Sensors: Leveraging Structure for Unsupervised Learning from Monocular Videos"></a>Depth Prediction Without the Sensors: Leveraging Structure for Unsupervised Learning from Monocular Videos</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1811.06152.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/tensorflow/models/tree/master/research/struct2depth" target="_blank" rel="noopener">[Code]</a><br><code>Conference: CVPR</code><br><code>Year: 2018</code><br><code>Institute: Google Brain</code><br><code>Author: Reza Mahjourian, Martin Wicke, Anelia Angelova</code><br><code>#</code><em>Unsupervised Learning</em>, <em>Monocular Video</em></p>
-<p><strong>What they did:</strong></p>
-<ul>
-<li>Proposed a novel unsupervised algorithm for depth and ego-motion from monocular video.</li>
-<li>Take the 3D structure of the world into consideration by a 3D loss function.</li>
-</ul>
-<p><strong>Why they did:</strong><br>To solve: </p>
-<p><strong>Innovation points:</strong></p>
-<ul>
-<li></li>
-<li></li>
-</ul>
-<h2 id="Unsupervised-Learning-of-Depth-and-Ego-Motion-from-Monocular-Video-Using-3D-Geometric-Constraints"><a href="#Unsupervised-Learning-of-Depth-and-Ego-Motion-from-Monocular-Video-Using-3D-Geometric-Constraints" class="headerlink" title="Unsupervised Learning of Depth and Ego-Motion from Monocular Video Using 3D Geometric Constraints"></a>Unsupervised Learning of Depth and Ego-Motion from Monocular Video Using 3D Geometric Constraints</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1802.05522v2.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/tensorflow/models/tree/master/research/vid2depth" target="_blank" rel="noopener">[Code]</a><br><code>Conference: CVPR</code><br><code>Year: 2018</code><br><code>Institute: Google Brain</code><br><code>Author: Reza Mahjourian, Martin Wicke, Anelia Angelova</code><br><code>#</code><em>Unsupervised Learning</em>, <em>Monocular Video</em></p>
-<p><strong>What they did:</strong></p>
-<ul>
-<li>Proposed a novel unsupervised algorithm for depth and ego-motion from monocular video.</li>
-<li>Take the 3D structure of the world into consideration by a 3D loss function.</li>
-</ul>
-<p><strong>Why they did:</strong><br>To solve: </p>
-<p><strong>Innovation points:</strong></p>
-<ul>
-<li></li>
-<li></li>
-</ul>
-<h2 id="Single-Image-Depth-Estimation-Trained-via-Depth-from-Defocus-Cues"><a href="#Single-Image-Depth-Estimation-Trained-via-Depth-from-Defocus-Cues" class="headerlink" title="Single Image Depth Estimation Trained via Depth from Defocus Cues"></a>Single Image Depth Estimation Trained via Depth from Defocus Cues</h2><p><code>&gt;</code><a href="http://openaccess.thecvf.com/content_CVPR_2019/papers/Gur_Single_Image_Depth_Estimation_Trained_via_Depth_From_Defocus_Cues_CVPR_2019_paper.pdf" target="_blank" rel="noopener">[Paper]</a> [[Code]]<br><code>Conference: CVPR</code><br><code>Year: 2019</code><br><code>Institute: Facebook AI</code><br><code>Author: Shir Gur, Lior Wolf</code><br><code>#</code><em>Unsupervised Learning</em>, <em>Defocus Cues</em></p>
-<p><strong>Terms:</strong></p>
-<ul>
-<li><p><strong>Structure from motion(SfM)</strong> 运动中结构重建<br>Estimating three-dimensional structures from two-dimensional image sequences that may be coupled with local motion signals.<br>利用可能与局部运动信号耦合的二维图像序列估计三维结构</p>
-</li>
-<li><p><strong>Point spread function(PSF)</strong>点扩散函数<br>Describes the response of an imaging system to a point source or point object.<br>用于描述一个图像系统对一个点源或是点目标的响应。</p>
-</li>
-</ul>
-<p><strong>What they did:</strong></p>
-<ul>
-<li>Rely, instead of multiple view geometry, on shape from defocus. </li>
-<li>Proposed a novel Point Spread Function(PSF) layer, combining the successful <strong>ASPP</strong> architecture</li>
-<li>Dense connections and self-attention</li>
-</ul>
-<p>$I$ — all-in-focus image; $D_o$ — depth-map; $\rho$ — camera parameters vector(the aperture $A$, the focal length $F$ and the focal depth $D_f$);<br>There are two network: $f$ for depth estimation and $g$ for focus rendering, and $f$ is learned.<br>The learned network $f$ takes $I$ as input, and output a predicted depth $\bar{D}_o$. Then input $I$, $\bar{D}_o$, $\rho$ to $g$, and output a estimated rendered focused image $\bar{J}$.<br>The fixed network $g$ consists of the PSF layer takes $I$, $D_o$, $\rho$ as input, and output a rendered focus image $J$.</p>
-<ul>
-<li>Atrous Convlution</li>
-<li>Atrous Spatial Pyramid Pooling(ASPP)</li>
-</ul>
-<p><strong>Why they did:</strong><br>To solve: </p>
-<p><strong>Innovation points:</strong></p>
-<ul>
-<li></li>
-<li></li>
-</ul>
-<h2 id="Digging-Into-Self-Supervised-Monocular-Depth-Estimation"><a href="#Digging-Into-Self-Supervised-Monocular-Depth-Estimation" class="headerlink" title="Digging Into Self-Supervised Monocular Depth Estimation"></a>Digging Into Self-Supervised Monocular Depth Estimation</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1806.01260v4.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/nianticlabs/monodepth2" target="_blank" rel="noopener">[Code]</a><br><code>Conference: ICCV</code><br><code>Year: 2019</code><br><code>Institute:</code><br><code>Author: Cl´ement Godard, Oisin Mac Aodha, Michael Firman, Gabriel Brostow</code><br><code>#</code><em>self-supervised Learning</em>, <em>Monocular</em>    </p>
-<p><strong>What they did:</strong></p>
-<ul>
-<li>A minimum reprojection loss, designed to robustly handle occlusions.</li>
-<li>A full-resolution multi-scale sampling method that reduces visual artifacts.</li>
-<li>An auto-masking loss to ignore training pixels that violate camera motion assumptions.</li>
-</ul>
-<h2 id="Learning-Depth-from-Monocular-Videos-using-Direct-Methods"><a href="#Learning-Depth-from-Monocular-Videos-using-Direct-Methods" class="headerlink" title="Learning Depth from Monocular Videos using Direct Methods"></a>Learning Depth from Monocular Videos using Direct Methods</h2><p><code>&gt;</code><a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Wang_Learning_Depth_From_CVPR_2018_paper.pdf" target="_blank" rel="noopener">[Paper]</a> [[Code]]<br><code>Conference: CVPR</code><br><code>Year: 2017</code><br><code>Institute:</code><br><code>Author: Chaoyang Wang, Jos´e Miguel Buenaposada, Rui Zhu, Simon Lucey</code><br><code>#</code><em>unsupervised Learning</em>, <em>monocular</em></p>
-<p><strong>What they did:</strong></p>
-<ul>
-<li>Explain why scale ambiguity in current monocular methods is problematic</li>
-<li>Propose a simple normalization strategy</li>
-<li>Incorporation of a Direct Visual Odometry (DVO) pose predictor</li>
-<li>Considered the geometric relation between camera pose and depth</li>
-</ul>
-<h2 id="Unsupervised-Learning-of-Depth-and-Ego-Motion-from-Video"><a href="#Unsupervised-Learning-of-Depth-and-Ego-Motion-from-Video" class="headerlink" title="Unsupervised Learning of Depth and Ego-Motion from Video"></a>Unsupervised Learning of Depth and Ego-Motion from Video</h2><p><code>&gt;</code><a href="https://people.eecs.berkeley.edu/~tinghuiz/projects/SfMLearner/cvpr17_sfm_final.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/tinghuiz/SfMLearner" target="_blank" rel="noopener">[Code]</a><br><code>Conference: CVPR</code><br><code>Year: 2017</code><br><code>Institute:</code><br><code>Author: Tinghui Zhou, Matthew Brown, Noah Snavely, David G. Lowe</code><br><code>#</code><em>unsupervised Learning</em>, <em>monocular</em></p>
-<p><strong>What they did:</strong></p>
-<ul>
-<li>Using single-view depth and multi-view pose networks, with a loss based on warping nearby views to the target using the computed depth and pose. </li>
-<li>Explainability mask discounts</li>
-<li>Overcoming the gradient locality by using a convolutional encoder-decoder architec- ture with a small bottleneck</li>
-</ul>
-<h2 id="Unsupervised-Monocular-Depth-Estimation-with-Left-Right-Consistency"><a href="#Unsupervised-Monocular-Depth-Estimation-with-Left-Right-Consistency" class="headerlink" title="Unsupervised Monocular Depth Estimation with Left-Right Consistency"></a>Unsupervised Monocular Depth Estimation with Left-Right Consistency</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1609.03677.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/mrharicot/monodepth" target="_blank" rel="noopener">[Code]</a><br><code>Conference: CVPR</code><br><code>Year: 2017</code><br><code>Institute:</code><br><code>Author: Cl´ement Godard, Oisin Mac Aodha, Gabriel J. Brostow</code><br><code>#</code><em>unsupervised Learning</em>, <em>binocular stereo footage</em></p>
-<p><strong>What they did:</strong></p>
-<ul>
-<li>Introduce a novel depth estimation training loss </li>
-<li>Featuring an inbuilt left-right consistency check</li>
-<li></li>
-</ul>
-<h2 id="Real-Time-Monocular-Depth-Estimation-using-Synthetic-Data-with-Domain-Adaptation-via-Image-Style-Transfer"><a href="#Real-Time-Monocular-Depth-Estimation-using-Synthetic-Data-with-Domain-Adaptation-via-Image-Style-Transfer" class="headerlink" title="Real-Time Monocular Depth Estimation using Synthetic Data with Domain Adaptation via Image Style Transfer"></a>Real-Time Monocular Depth Estimation using Synthetic Data with Domain Adaptation via Image Style Transfer</h2><p><code>&gt;</code><a href="http://openaccess.thecvf.com/content_cvpr_2018/papers/Atapour-Abarghouei_Real-Time_Monocular_Depth_CVPR_2018_paper.pdf" target="_blank" rel="noopener">[Paper]</a> [[Code]]<br><code>Conference: CVPR</code><br><code>Year: 2018</code><br><code>Institute:</code><br><code>Author: Amir Atapour-Abarghouei, Toby P. Breckon</code><br><code>#</code><em>supervised Learning</em>, <em>monocular</em>, <em>image style transfer</em>, <em>domain adaptation</em></p>
-<p><strong>What they did:</strong></p>
-<ul>
-<li>Synthetic depth prediction - apredict depth based on high quality synthetic depth training data(supervise learning)</li>
-<li>Domain adaptation via style transfer</li>
-<li></li>
-</ul>
-<h2 id="Depth-map-prediction-from-a-single-image-using-a-multi-scale-deep-network"><a href="#Depth-map-prediction-from-a-single-image-using-a-multi-scale-deep-network" class="headerlink" title="Depth map prediction from a single image using a multi-scale deep network."></a>Depth map prediction from a single image using a multi-scale deep network.</h2><p><code>&gt;</code><a href="http://papers.nips.cc/paper/5539-depth-map-prediction-from-a-single-image-using-a-multi-scale-deep-network.pdf" target="_blank" rel="noopener">[Paper]</a><br> <code>Conference: NIPS</code><br><code>Year: 2014</code><br><code>Institute:</code><br><code>Author: David Eigen, Christian Puhrsch, Rob Fergus</code><br><code>#</code><em>supervised Learning</em></p>
-<p><strong>What they did:</strong></p>
-<ul>
-<li>Using a scale-invariant error in addition to more common scale-dependent errors</li>
-<li>One that first estimates the global structure of the scene, then a second that refines it using local information</li>
-</ul>
-<p><strong>Why they did:</strong><br>To solve: the global scale</p>
-<p><strong>Innovation points:</strong></p>
-<ul>
-<li>Collecting dataset(indoor&amp;outdoor) from websites, social media outlets, real estate listings, and shopping sites.</li>
-</ul>
-<h2 id="Deeper-Depth-Prediction-with-Fully-Convolutional-Residual-Networks"><a href="#Deeper-Depth-Prediction-with-Fully-Convolutional-Residual-Networks" class="headerlink" title="Deeper Depth Prediction with Fully Convolutional Residual Networks"></a>Deeper Depth Prediction with Fully Convolutional Residual Networks</h2><p><code>&gt;</code><a href="https://arxiv.org/pdf/1606.00373v2.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/iro-cp/FCRN-DepthPrediction" target="_blank" rel="noopener">[Code]</a><br><code>Conference:</code><br><code>Year: 2016</code><br><code>Institute:</code><br><code>Author: Iro Laina, Christian Rupprecht, Vasileios Belagiannis, Federico Tombari, Nassir Navab</code><br><code>#</code><em>supervised Learning</em></p>
-<p><strong>What they did:</strong></p>
-<ul>
-<li>A fully convolutional architecture, encompassing residual learning.</li>
-<li>Efficiently learn feature map up-sampling within the network, up-projection layer.</li>
-<li>Reverse Huber loss.</li>
-</ul>
-
-          
+          <h2 id="深度感知"><a href="#深度感知" class="headerlink" title="深度感知"></a>深度感知</h2><p>1.双眼视角 2.先验知识 3.光线阴影</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2019/10/23/CV-Depth-Estimation/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
         
       
     </div>
