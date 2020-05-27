@@ -77,7 +77,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2">
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.0.2">
 
 
 
@@ -329,6 +329,300 @@
 </ul>
 
           
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2020/05/26/RL-Importance-Sampling/" itemprop="url">
+                  RL_Importance_Sampling
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2020-05-26T14:18:33+08:00" content="2020-05-26">
+              2020-05-26
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Math/" itemprop="url" rel="index">
+                    <span itemprop="name">Math</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2020/05/26/RL-Importance-Sampling/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/05/26/RL-Importance-Sampling/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Importance-Sampling"><a href="#Importance-Sampling" class="headerlink" title="Importance Sampling"></a>Importance Sampling</h2><h4 id="1-What-is-Importance-Sampling"><a href="#1-What-is-Importance-Sampling" class="headerlink" title="1.What is Importance Sampling"></a>1.What is Importance Sampling</h4><p><strong>Importance Sampling(IS)</strong> is a general technique for estimating properties of a particular distribution $p$, while only having samples generated from a different distribution $q$ than the distribution of interest($p$). </p>
+<p>And actually, <strong>IS</strong> is a variant of <strong>Monte Carlo approximation</strong>.  In Monte Carlo approximation, we were extimating the expected value of a random variable $X$ by this sample mean sum: </p>
+<script type="math/tex; mode=display">E(X) \approx \frac{1}{n}\sum\limits_{i = 1}^{n}x_i,where, X\sim p,x_i\sim p</script><p>But, there is a big assumption that we can efficiently draw samples from the true distribution $p$ of this random variable $X$. What if we can’t do that? Can we use some alternative distribution like $q$ and use the samples drawing from $q$ to correct the fact that we were drawing samples from the wrong distribution or get a better estimation than its true distribution $p$? There is where Importance sampling comes for.</p>
+<p>In Importance Sampling, where $p$ is the true distribution of random variable $X$, and $q$ which is called <strong>proposal distribution</strong> that we use to sampling, and $q$ satisfied <strong>absolute continuity</strong> that $\forall q(pdfs), s.t. q(x) = 0 \rightarrow p(x) = 0$:</p>
+<script type="math/tex; mode=display">
+E_p[X] = \sum\limits_{x}xp(x) = \sum\limits_{x}x\frac{p(x)}{q(x)}q(x) = E_q[x\frac{p(x)}{q(x)}] \approx \frac{1}{n}\sum\limits_{i=1}^{n}x_i\frac{p(x_i)}{q(x_i)}, \quad where, x_i\sim q</script><p>Finally,  an unbiased estimator of the true expectation(Monte Carlo estimator is unbiased).</p>
+<script type="math/tex; mode=display">
+E_p[X] \approx \frac{1}{n}\sum\limits_{i=1}^{n}x_iw(x_i), where, x_i\sim q, w(x_i) = \frac{p(x_i)}{q(x_i)}</script><p>$w(x)$ is called the <strong>importance weight</strong> , it will give more weight to the values that may appear more possible under its true distribution. And IS is worked no matter whether the $p$ is normalized, something like $p(x) = \frac{h(x)}{Z}$ or not.</p>
+<script type="math/tex; mode=display">
+E_p[X] = \sum\limits_{x}xp(x) = \sum\limits_{x}x\frac{h(x)}{Z} = \sum\limits_{x}x\frac{h(x)}{q(x)Z}q(x) \approx \frac{1}{Z}\frac{1}{n}\sum\limits_{i=1}^{n}x_i^q\frac{h(x_i^q)}{q(x_i^q)}</script><p>Now, $E_p[X=1] = 1 = \sum\limits_{x}\frac{h(x)}{Z}$, we can get:</p>
+<script type="math/tex; mode=display">
+Z =  \sum\limits_{x}h(x) = \sum\limits_{x}\frac{h(x)}{q(x)}q(x) \approx\frac{1}{n}\sum\limits_{i=1}^{n}\frac{h(x_i^q)}{q(x_i^q)} = \frac{1}{n}\sum\limits_{i=1}^{n}w(x_i^q) = \bar{w}</script><p>So, finally,</p>
+<script type="math/tex; mode=display">
+E_p[X] = \frac{\bar{xw}}{\bar{w}}</script><h4 id="2-A-bad-choice-of-q-makes-thing-worse"><a href="#2-A-bad-choice-of-q-makes-thing-worse" class="headerlink" title="2. A bad choice of $q$ makes thing worse."></a>2. A bad choice of $q$ makes thing worse.</h4><p><strong>Moral: Choose $q(x)$ large where $|x|p(x)$ large.</strong></p>
+<p>Importance sampling is a <strong>variance reduction</strong> technique that can be used in the <strong>Monte Carlo method</strong>. The idea behind importance sampling is that <u><strong>certain values of the input random variables in a simulation have more impact on the parameter being estimated than others. If these “important” values are emphasized by sampling more frequently, then the estimator variance can be reduced</strong></u>. Hence, the basic methodology in importance sampling is <u><strong>to choose a distribution which “encourages” the important values</strong></u>. This use of “biased” distributions will result in a biased estimator if it is applied directly in the simulation. However, the simulation outputs are weighted to correct for the use of the biased distribution, and this ensures that the new importance sampling estimator is unbiased. The weight is given by the <strong>likelihood ratio</strong>, that is, the Radon–Nikodym derivative of the true underlying distribution with respect to the biased simulation distribution.(From Wikipedia)</p>
+<p>The fundamental issue in implementing importance sampling simulation is the choice of the biased distribution which encourages the important regions of the input variables. Choosing or designing a good biased distribution is the “art” of importance sampling. The rewards for a good distribution can be <strong>huge run-time savings</strong>; the penalty for a bad distribution can be longer run times than for a general Monte Carlo simulation without importance sampling.(From Wikipedia)</p>
+<p>Now, let $I = \frac{1}{n}\sum\limits_{i=1}^{n}x_iw(x_i)$, the variance of $I$, </p>
+<script type="math/tex; mode=display">
+\sigma^2(I) =  \frac{1}{n}\sigma^2(X\frac{p(X)}{q(X)})</script><p>a litte bit different from the standard Monte Carlo variance:</p>
+<script type="math/tex; mode=display">
+\sigma^2(I) =  \frac{1}{n}\sigma^2(X)</script><p>So this is how you can improve the expected error you can lower the expected error of your estimator by reducing this variance, because the mean square error is $mse = bias^2 + var$. It could be worse if you made a bad choice of $q$, a high variance made it hard to learn or converge. Also it could be much samller if you choose a good $q$. Often, people try to make $q$ as close to $p$ as possible.<br>For example:<br><img src="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/IS.jpg" alt><br>There are two proposal distributions $q$ and $T$ that we can use to estimate the expect value of $X$ which is under its true distribution $p$. If we choose to use $q$ distribution, we will get a high variance because under the $q$ distribution in most time the samples we get have a very small importance weights that don’t contribute to the estimator much, and occasionally it will get a very large importance weight when the sample appears in the middle part, and that makes it struggle to estimate from $q$ distribution. But for $T$, because in most time, we will get the samples from its middle part where have a relatively smooth importance weights that eventually get a much smaller variance than $q$, and that makes it converge much more quickly than $q$.</p>
+<p>There is an optimal equation to choose the <strong>proposal distribution</strong> $q$:<br>Let $\mu = E_p[|X|] = $, if we choose a $q$ that: $q(x) = \frac{p(x)|x|}{\mu}$, we can get a zero-variance estimator.</p>
+<h4 id="3-Applications"><a href="#3-Applications" class="headerlink" title="3. Applications"></a>3. Applications</h4><p>Such methods are frequently used to estimate posterior densities(后验密度估计) or expectations in state(状态期望值) and/or parameter estimation problems in probabilistic models(概率模型中的参数估计问题) that are too hard to treat analytically, for example in Bayesian networks.</p>
+<h4 id="4-Conventional-biasing-methods"><a href="#4-Conventional-biasing-methods" class="headerlink" title="4. Conventional biasing methods"></a>4. Conventional biasing methods</h4><p><strong>Sacling:</strong><br>Shifting probability mass into the event region $X\geq t$ by positive scaling of the random variable $X$, with a number greater than unity has the effect of increasing the variance (mean also) of the density function. This results in a heavier tail of the density, leading to an increase in the event probability. However, while scaling shifts probability mass into the desired event region, it also pushes mass into the complementary region $X {&lt;} t $, which is undesirable. </p>
+<script type="math/tex; mode=display">
+f_{*}(x)={\frac  {1}{a}}f{\bigg (}{\frac  {x}{a}}{\bigg )}, w(x)=a{\frac  {f(x)}{f(x/a)}}</script><p><strong>Translation:</strong><br>Another simple and effective biasing technique employs translation of the density function (and hence random variable) to place much of its probability mass in the rare event region. Translation does not suffer from a dimensionality effect and has been successfully used in several applications relating to simulation of digital communication systems. It often provides better simulation gains than scaling. In biasing by translation, the simulation density is given by</p>
+<script type="math/tex; mode=display">
+f_{*}(x)=f(x-c),\quad c>0</script><p>where $c$  is the amount of shift and is to be chosen to minimize the variance of the importance sampling estimator.</p>
+<h4 id="5-Evaluation-of-importance-sampling"><a href="#5-Evaluation-of-importance-sampling" class="headerlink" title="5. Evaluation of importance sampling"></a>5. Evaluation of importance sampling</h4><p>In order to identify successful importance sampling techniques, it is useful to be able to quantify the run-time savings due to the use of the importance sampling approach. The performance measure commonly used is $\sigma _{MC}^{2}/\sigma _{IS}^{2}$, and this can be interpreted as the speed-up factor by which the importance sampling estimator achieves the same precision as the MC estimator.</p>
+<h4 id="6-Importance-Sampling-in-Deep-Reinforcement-Learning"><a href="#6-Importance-Sampling-in-Deep-Reinforcement-Learning" class="headerlink" title="6. Importance Sampling in Deep Reinforcement Learning"></a>6. Importance Sampling in Deep Reinforcement Learning</h4><p>We often see this term in reinforcement learning paper, like the “Prioritized experience replay”, “PPO”,etc. And now, we’re going to explore why they use IS, and how they use it.</p>
+<p><strong>Prioritized experience replay</strong><br>There are two excellent interpretation about the Importace Sampling Correction appears in PER:</p>
+<ul>
+<li><a href="https://datascience.stackexchange.com/questions/32873/prioritized-replay-what-does-importance-sampling-really-do" target="_blank" rel="noopener">Prioritized Replay, what does Importance Sampling really do?</a></li>
+<li><a href="https://danieltakeshi.github.io/2019/07/14/per/" target="_blank" rel="noopener">Understanding Prioritized Experience Replay</a></li>
+</ul>
+<h3 id="REFERENCES"><a href="#REFERENCES" class="headerlink" title="REFERENCES"></a><u>REFERENCES</u></h3><p><strong>Wikipedia:</strong> </p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Importance_sampling" target="_blank" rel="noopener">Importance Sampling</a></li>
+</ul>
+<p><strong>Videos:</strong> </p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=V8f8ueBc9sY" target="_blank" rel="noopener">An introduction to importance sampling</a></li>
+<li><a href="https://www.youtube.com/watch?v=F5PdIQxMA28" target="_blank" rel="noopener">An introduction to importance sampling - optimal importance distributions</a></li>
+<li><a href="https://www.youtube.com/watch?v=S3LAOZxGcnk" target="_blank" rel="noopener">(ML 17.5) Importance sampling - introduction</a></li>
+<li><a href="https://www.youtube.com/watch?v=3Mw6ivkDVZc" target="_blank" rel="noopener">(ML 17.6) Importance sampling - intuition</a></li>
+<li><a href="https://www.youtube.com/watch?v=gYvlnu5AAzE" target="_blank" rel="noopener">(ML 17.7) Importance sampling without normalization constants</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2020/05/26/RL-OpenAI-Gym-Tutorial/" itemprop="url">
+                  RL_OpenAI_Gym_Tutorial
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2020-05-26T13:40:41+08:00" content="2020-05-26">
+              2020-05-26
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tools/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2020/05/26/RL-OpenAI-Gym-Tutorial/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/05/26/RL-OpenAI-Gym-Tutorial/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="OpenAI-Gym-An-Introduction"><a href="#OpenAI-Gym-An-Introduction" class="headerlink" title="OpenAI Gym An Introduction"></a>OpenAI Gym An Introduction</h1><p>Official Docs: <a href="http://gym.openai.com/docs/" target="_blank" rel="noopener">http://gym.openai.com/docs/</a><br>Github: <a href="https://github.com/openai/gym" target="_blank" rel="noopener">https://github.com/openai/gym</a>  </p>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><ul>
+<li><p>Simply install <code>gym</code> using <code>pip3</code>:<br><code>pip3 install gym</code></p>
+</li>
+<li><p>Full installation containing all environments<br><code>pip3 install gym[all]</code><br>You can ignore the failed building message of <code>mujoco-py</code>, which needs a license.</p>
+</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2020/05/26/RL-OpenAI-Gym-Tutorial/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1093,226 +1387,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/07/04/RL-OpenAI-Five/" itemprop="url">
-                  RL_OpenAI_Five
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2019-07-04T16:47:53+08:00" content="2019-07-04">
-              2019-07-04
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2019/07/04/RL-OpenAI-Five/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/04/RL-OpenAI-Five/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/07/04/RL-Paper-05_Hierarchical RL/" itemprop="url">
-                  RL_Paper_05:Hierarchical RL
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2019-07-04T16:10:09+08:00" content="2019-07-04">
-              2019-07-04
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Paper/" itemprop="url" rel="index">
-                    <span itemprop="name">Paper</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2019/07/04/RL-Paper-05_Hierarchical RL/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/04/RL-Paper-05_Hierarchical RL/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="META-LEARNING-SHARED-HIERARCHIES"><a href="#META-LEARNING-SHARED-HIERARCHIES" class="headerlink" title="META LEARNING SHARED HIERARCHIES"></a>META LEARNING SHARED HIERARCHIES</h2><p><em><a href="https://arxiv.org/pdf/1710.09767.pdf" target="_blank" rel="noopener">Paper Source</a></em><br><code>Journal:</code><br><code>Year: 2017</code><br><code>Institute: OpenAI</code><br><code>Author: Kevin Frans, Jonathan Ho, Xi Chen, Pieter Abbeel, John Schulman</code><br><code>#</code><em>Deep Reinforcement Learning</em> <code>#</code><em>Meta Learning</em> </p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1356,7 +1430,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1364,7 +1438,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>

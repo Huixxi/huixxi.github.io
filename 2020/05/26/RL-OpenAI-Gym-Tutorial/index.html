@@ -84,21 +84,20 @@
 
 
 
-<meta name="description" content="Unsupervised State Representation Learning in Atari[Paper] [Code]Journal: NeurIPSYear: 2019Institute: Mila, Université de MontréaAuthor:Ankesh Anand*, Evan Racah*, Sherjil Ozair*#State Representation">
+<meta name="description" content="OpenAI Gym An IntroductionOfficial Docs: http://gym.openai.com/docs/Github: https://github.com/openai/gym   Installation Simply install gym using pip3:pip3 install gym  Full installation containing al">
 <meta name="keywords" content="Reinforcement Learning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RL Weekly 1">
-<meta property="og:url" content="http://huixxi.github.io/2019/06/27/RL-Weekly-1/index.html">
+<meta property="og:title" content="RL_OpenAI_Gym_Tutorial">
+<meta property="og:url" content="http://huixxi.github.io/2020/05/26/RL-OpenAI-Gym-Tutorial/index.html">
 <meta property="og:site_name" content="HU">
-<meta property="og:description" content="Unsupervised State Representation Learning in Atari[Paper] [Code]Journal: NeurIPSYear: 2019Institute: Mila, Université de MontréaAuthor:Ankesh Anand*, Evan Racah*, Sherjil Ozair*#State Representation">
+<meta property="og:description" content="OpenAI Gym An IntroductionOfficial Docs: http://gym.openai.com/docs/Github: https://github.com/openai/gym   Installation Simply install gym using pip3:pip3 install gym  Full installation containing al">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/r1.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/r2.png">
-<meta property="og:updated_time" content="2020-05-24T14:40:44.537Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/sards.png">
+<meta property="og:updated_time" content="2020-05-26T12:30:29.086Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RL Weekly 1">
-<meta name="twitter:description" content="Unsupervised State Representation Learning in Atari[Paper] [Code]Journal: NeurIPSYear: 2019Institute: Mila, Université de MontréaAuthor:Ankesh Anand*, Evan Racah*, Sherjil Ozair*#State Representation">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/r1.png">
+<meta name="twitter:title" content="RL_OpenAI_Gym_Tutorial">
+<meta name="twitter:description" content="OpenAI Gym An IntroductionOfficial Docs: http://gym.openai.com/docs/Github: https://github.com/openai/gym   Installation Simply install gym using pip3:pip3 install gym  Full installation containing al">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/sards.png">
 
 
 
@@ -119,10 +118,10 @@
 
 
 
-  <link rel="canonical" href="http://huixxi.github.io/2019/06/27/RL-Weekly-1/">
+  <link rel="canonical" href="http://huixxi.github.io/2020/05/26/RL-OpenAI-Gym-Tutorial/">
 
 
-  <title> RL Weekly 1 | HU </title>
+  <title> RL_OpenAI_Gym_Tutorial | HU </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="en">
@@ -262,7 +261,7 @@
             
             
               
-                RL Weekly 1
+                RL_OpenAI_Gym_Tutorial
               
             
           </h1>
@@ -274,8 +273,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2019-06-27T09:00:32+08:00" content="2019-06-27">
-              2019-06-27
+            <time itemprop="dateCreated" datetime="2020-05-26T13:40:41+08:00" content="2020-05-26">
+              2020-05-26
             </time>
           </span>
 
@@ -288,8 +287,8 @@
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Paper/" itemprop="url" rel="index">
-                    <span itemprop="name">Paper</span>
+                  <a href="/categories/Tools/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools</span>
                   </a>
                 </span>
 
@@ -304,8 +303,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2019/06/27/RL-Weekly-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/27/RL-Weekly-1/" itemprop="commentsCount"></span>
+                <a href="/2020/05/26/RL-OpenAI-Gym-Tutorial/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/05/26/RL-OpenAI-Gym-Tutorial/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -328,30 +327,33 @@
       
 
       
-        <h2 id="Unsupervised-State-Representation-Learning-in-Atari"><a href="#Unsupervised-State-Representation-Learning-in-Atari" class="headerlink" title="Unsupervised State Representation Learning in Atari"></a>Unsupervised State Representation Learning in Atari</h2><p><a href="https://arxiv.org/pdf/1906.08226.pdf" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/mila-iqia/atari-representation-learning" target="_blank" rel="noopener">[Code]</a><br><code>Journal: NeurIPS</code><br><code>Year: 2019</code><br><code>Institute: Mila, Université de Montréa</code><br><code>Author:Ankesh Anand*, Evan Racah*, Sherjil Ozair*</code><br><code>#</code><em>State Representation Learning</em> <code>#</code><em>Constrastive Self-Supervised Learning</em> </p>
-<center><u>Abstract</u></center>     
-
-<p>State representation learning without supervision from rewards is a challenging open problem. This paper proposes a new contrastive state representation learning method called <strong>Spatiotemporal DeepInfomax (ST-DIM)</strong>  that  leverages recent advances in self-supervision and learns state representations by maximizing the mutual information across spatially and temporally distinct features of a neural encoder of the observations.<br><a id="more"></a></p>
-<h3 id="0-Mutual-Information"><a href="#0-Mutual-Information" class="headerlink" title="0.Mutual Information"></a><u>0.Mutual Information</u></h3><ol>
-<li><u>What is mutual information?</u><br><a href="https://en.wikipedia.org/wiki/Mutual_information" target="_blank" rel="noopener">Wikipedia-Mutual information</a> It quantifies the “amount of information” (in units such as shannons, commonly called bits) obtained about one random variable through observing the other random variable.<script type="math/tex; mode=display">
-I(X;Y) = D_{KL}(P_{(X,Y)}||P_X\otimes P_Y)</script></li>
-<li><u>Why to maximize it?</u></li>
-</ol>
-<h3 id="1-Spatiotemporal-Deep-Infomax"><a href="#1-Spatiotemporal-Deep-Infomax" class="headerlink" title="1.Spatiotemporal Deep Infomax"></a><u>1.Spatiotemporal Deep Infomax</u></h3><p>Prior work in neuroscience has suggested that the brain maximizes predictive information at an abstract level to avoid sensory overload. Thus our representation learning approach relies on maximizing an estimate based on a lower bound on the mutual information over consecutive observations $x_t$ and $x_{t+1}$.<br><img src="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/r1.png" alt="From https://arxiv.org/pdf/1906.08226.pdf"></p>
-<p>For the mutual information estimator, we use <strong>infoNCE</strong>:</p>
-<script type="math/tex; mode=display">
-I_{NCE}(\{x_i, y_i\}_{i=1}^N) = \sum\limits_{i=1}^N \log\frac{\exp f(x_i, y_i)}{\sum_{j=1}^N\exp f(x_i, y_j)}</script><p>The global-local objective(The representations of the small image patches are taken to be the hidden activations of the convolutional encoder applied to the full observation):</p>
-<script type="math/tex; mode=display">
-L_{GL} =  \sum\limits_{m=1}^M \sum\limits_{n=1}^N -\log\frac{\exp g_{m,n}(x_t, x_{t+1})}{\sum_{x_t^*\in X_{next}}^N\exp g_{m,n}(x_t, x_{t^*})} \\
-g_{m,n}(x_t, x_{t+1}) = \phi(x_t)^TW_g\phi_{m,n}(x_{t+1})</script><p>The local-local objective:</p>
-<script type="math/tex; mode=display">
-L_{LL} =  \sum\limits_{m=1}^M \sum\limits_{n=1}^N -\log\frac{\exp f_{m,n}(x_t, x_{t+1})}{\sum_{x_t^*\in X_{next}}^N\exp f_{m,n}(x_t, x_{t^*})} \\
-f_{m,n}(x_t, x_{t+1}) = \phi_{m,n}(x_t)^TW_l\phi_{m,n}(x_{t+1})</script><h3 id="2-What-the-constrastive-task-is"><a href="#2-What-the-constrastive-task-is" class="headerlink" title="2.What the constrastive task is."></a><u>2.What the constrastive task is.</u></h3><p>I’ve ask a question about this paper, and surprisingly the author <strong>Ankesh Anand</strong> himself answered my question. He said:</p>
-<blockquote>
-<p>It’s easier to think of the method in terms of what the contrastive task it than to understand the mutual information stuff. The contrastive task is: Correctly classify whether a pair of frames are consecutive or not. To do this task well, an encoder needs to only focus on things that are changing across time (often there are high-level features such as the agents, enemies, scores etc.), and ignore the low-level or pixel-level details such as the precise texture of the background. For solving the contrastive task, we use the infoNCE loss. Turns out if you minimize the InfoNCE loss, it is equivalent to maximizing a lower bound on the mutual information between consecutive frames.<br>If you do this classification task between whole frames, the encoder will focus only on <strong>high entropy features such as the clock since its changing every frame</strong>. So, to prevent the encoder from focusing only on a single high entropy feature, we do the contrastive task across each local patch in the feature map. </p>
-</blockquote>
-<h3 id="3-Framework"><a href="#3-Framework" class="headerlink" title="3.Framework"></a><u>3.Framework</u></h3><p><img src="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/r2.png" alt="From https://arxiv.org/pdf/1906.08226.pdf"></p>
-<h3 id="4-Discussion"><a href="#4-Discussion" class="headerlink" title="4.Discussion"></a><u>4.Discussion</u></h3><p>We also observe that the best generative model (<strong>PIXEL-PRED</strong>) does not suffer from this problem.It performs its worst on high-entropy features such as the clock and player score (where ST-DIM excels), and does slightly better than ST-DIM on low-entropy features which have a large contribution in the pixel space such as player and enemy locations. This sheds light on the qualitative difference between contrastive and generative methods:  contrastive methods prefer capturing high-entropy features (irrespective of contribution to pixel space) while generative methods do not, and generative methods prefer capturing large objects which have low entropy. This complementary nature suggests hybrid models as an exciting direction of future work.</p>
+        <h1 id="OpenAI-Gym-An-Introduction"><a href="#OpenAI-Gym-An-Introduction" class="headerlink" title="OpenAI Gym An Introduction"></a>OpenAI Gym An Introduction</h1><p>Official Docs: <a href="http://gym.openai.com/docs/" target="_blank" rel="noopener">http://gym.openai.com/docs/</a><br>Github: <a href="https://github.com/openai/gym" target="_blank" rel="noopener">https://github.com/openai/gym</a>  </p>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><ul>
+<li><p>Simply install <code>gym</code> using <code>pip3</code>:<br><code>pip3 install gym</code></p>
+</li>
+<li><p>Full installation containing all environments<br><code>pip3 install gym[all]</code><br>You can ignore the failed building message of <code>mujoco-py</code>, which needs a license.</p>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h2><p>Check all environment in gym using:  </p>
+<ul>
+<li><code>print(gym.envs.registry.all())</code></li>
+<li><code>print([env.id for env in gym.envs.registry.all()])  # list version</code></li>
+</ul>
+<p><code>[&#39;Copy-v0&#39;, &#39;RepeatCopy-v0&#39;, &#39;ReversedAddition-v0&#39;, &#39;ReversedAddition3-v0&#39;, &#39;DuplicatedInput-v0&#39;, &#39;Reverse-v0&#39;, &#39;CartPole-v0&#39;, &#39;CartPole-v1&#39;, &#39;MountainCar-v0&#39;, ...</code></p>
+<h2 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h2><p>Take “CartPole-v0” environment as an example:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gym</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">env = gym.make(<span class="string">"CartPole-v0"</span>)  <span class="comment"># setup a environment for the agent</span></span><br><span class="line">initial_observation = env.reset()</span><br><span class="line">done = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># one episode, when done is True, break.</span></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">not</span> done:</span><br><span class="line">  env.render()  <span class="comment"># make the environment visiable</span></span><br><span class="line">  action = env.action_space.sample()  <span class="comment"># randomly select an action from total actions the agent can take </span></span><br><span class="line">  next_observation, reward, done, info = env.step(action)</span><br><span class="line">  time.sleep(<span class="number">0.1</span>)  <span class="comment"># for better display effect</span></span><br><span class="line">  </span><br><span class="line">env.close()  <span class="comment"># close the environment</span></span><br></pre></td></tr></table></figure></p>
+<p>Here, the agent is a random agent that just take a random action in each step. You can change it as a <strong>linear agent</strong> or a <strong>neural network agent</strong> which accept the observation and return an action not randomly select from the action space.<br>Note, <code>env.step(action)</code> that takes an action and returns four different things:  </p>
+<ul>
+<li><strong>observation (object):</strong> an environment-specific object representing your observation of the environment. </li>
+<li><strong>reward (float):</strong> amount of reward achieved by the previous action.</li>
+<li><strong>done (boolean):</strong> whether it’s time to reset the environment again. </li>
+<li><strong>info (dict):</strong> diagnostic information useful for debugging.</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/sards.png" alt></p>
+<h2 id="Spaces"><a href="#Spaces" class="headerlink" title="Spaces"></a>Spaces</h2><p>(Just copy from the official docs. Still take “CartPole-v0” as example.)<br>Every environment(discrete) comes with an <code>action_space</code> and an <code>observation_space</code>. These attributes are of type <code>Space</code>, and they describe the format of valid actions and observations:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gym</span><br><span class="line">env = gym.make(<span class="string">'CartPole-v0'</span>)</span><br><span class="line">print(env.action_space)</span><br><span class="line"><span class="comment">#&gt; Discrete(2)</span></span><br><span class="line">print(env.observation_space)</span><br><span class="line"><span class="comment">#&gt; Box(4,)</span></span><br></pre></td></tr></table></figure></p>
+<p>The <code>Discrete</code> space allows a fixed range of non-negative numbers, so in this case valid <code>actions</code> are either <code>0</code> or <code>1</code>. The <code>Box</code> space represents an <code>n</code>-dimensional box, so valid <code>observations</code> will be an array of <code>4</code> numbers. We can also check the <code>Box</code>’s bounds:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(env.observation_space.high)</span><br><span class="line"><span class="comment">#&gt; array([ 2.4       ,         inf,  0.20943951,         inf])</span></span><br><span class="line">print(env.observation_space.low)</span><br><span class="line"><span class="comment">#&gt; array([-2.4       ,        -inf, -0.20943951,        -inf])</span></span><br></pre></td></tr></table></figure></p>
+<p><code>Box</code> and <code>Discrete</code> are the most common <code>Space</code>s. You can sample from a <code>Space</code> or check that something belongs to it:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from gym <span class="keyword">import</span> spaces</span><br><span class="line">space = spaces.Discrete(<span class="number">8</span>)  # Set with <span class="number">8</span> elements &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, ..., <span class="number">7</span>&#125;</span><br><span class="line">x = space.sample()</span><br><span class="line">assert space.contains(x)</span><br><span class="line">assert space.n == <span class="number">8</span></span><br></pre></td></tr></table></figure></p>
+<p>For <code>CartPole-v0</code>, one of the actions applies force to the left, and one of them applies force to the right.</p>
 
       
     </div>
@@ -383,16 +385,16 @@ f_{m,n}(x_t, x_{t+1}) = \phi_{m,n}(x_t)^TW_l\phi_{m,n}(x_{t+1})</script><h3 id="
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/03/RL-Paper-03_Rainbow/" rel="next" title="RL_Paper_03:Rainbow">
-                <i class="fa fa-chevron-left"></i> RL_Paper_03:Rainbow
+              <a href="/2019/12/15/Pek-Auto/" rel="next" title="Pek_Auto">
+                <i class="fa fa-chevron-left"></i> Pek_Auto
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/04/RL-Paper-04_PPO/" rel="prev" title="RL_Paper_04:PPO">
-                RL_Paper_04:PPO <i class="fa fa-chevron-right"></i>
+              <a href="/2020/05/26/RL-Importance-Sampling/" rel="prev" title="RL_Importance_Sampling">
+                RL_Importance_Sampling <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -550,7 +552,7 @@ f_{m,n}(x_t, x_{t+1}) = \phi_{m,n}(x_t)^TW_l\phi_{m,n}(x_{t+1})</script><h3 id="
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unsupervised-State-Representation-Learning-in-Atari"><span class="nav-number">1.</span> <span class="nav-text">Unsupervised State Representation Learning in Atari</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-Mutual-Information"><span class="nav-number">1.1.</span> <span class="nav-text">0.Mutual Information</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Spatiotemporal-Deep-Infomax"><span class="nav-number">1.2.</span> <span class="nav-text">1.Spatiotemporal Deep Infomax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-What-the-constrastive-task-is"><span class="nav-number">1.3.</span> <span class="nav-text">2.What the constrastive task is.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Framework"><span class="nav-number">1.4.</span> <span class="nav-text">3.Framework</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Discussion"><span class="nav-number">1.5.</span> <span class="nav-text">4.Discussion</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenAI-Gym-An-Introduction"><span class="nav-number">1.</span> <span class="nav-text">OpenAI Gym An Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">1.1.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Environment"><span class="nav-number">1.2.</span> <span class="nav-text">Environment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Usage"><span class="nav-number">1.3.</span> <span class="nav-text">Basic Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spaces"><span class="nav-number">1.4.</span> <span class="nav-text">Spaces</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -677,9 +679,9 @@ f_{m,n}(x_t, x_{t+1}) = \phi_{m,n}(x_t)^TW_l\phi_{m,n}(x_{t+1})</script><h3 id="
 
     <script type="text/javascript">
       var disqus_shortname = 'hugo-818';
-      var disqus_identifier = '2019/06/27/RL-Weekly-1/';
-      var disqus_title = "RL Weekly 1";
-      var disqus_url = 'http://huixxi.github.io/2019/06/27/RL-Weekly-1/';
+      var disqus_identifier = '2020/05/26/RL-OpenAI-Gym-Tutorial/';
+      var disqus_title = "RL_OpenAI_Gym_Tutorial";
+      var disqus_url = 'http://huixxi.github.io/2020/05/26/RL-OpenAI-Gym-Tutorial/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
