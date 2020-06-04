@@ -1,0 +1,786 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/VEN/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/VEN/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.0.2">
+
+
+
+
+
+
+<meta name="description" content="小白视角：一文读懂社长的TinyWebServer(Raw_Version)TL;DR 感谢社长，社长牛逼。 目录  1.什么是Web Server（网络服务器）  2.用户如何与你的Web服务器进行通信 3.Web服务器如何接收客户端发来的HTTP请求报文呢 4.Web服务器如何处理以及响应接收到的HTTP请求报文呢 5.数据库连接池是如何运行的 6.什么是CGI校验 7.生成HTTP响应并返回">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小白视角：一文读懂社长的TinyWebServer">
+<meta property="og:url" content="http://huixxi.github.io/2020/06/02/小白视角：一文读懂社长的TinyWebServer/index.html">
+<meta property="og:site_name" content="HU">
+<meta property="og:description" content="小白视角：一文读懂社长的TinyWebServer(Raw_Version)TL;DR 感谢社长，社长牛逼。 目录  1.什么是Web Server（网络服务器）  2.用户如何与你的Web服务器进行通信 3.Web服务器如何接收客户端发来的HTTP请求报文呢 4.Web服务器如何处理以及响应接收到的HTTP请求报文呢 5.数据库连接池是如何运行的 6.什么是CGI校验 7.生成HTTP响应并返回">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/web-server.svg">
+<meta property="og:updated_time" content="2020-06-04T07:17:05.747Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小白视角：一文读懂社长的TinyWebServer">
+<meta name="twitter:description" content="小白视角：一文读懂社长的TinyWebServer(Raw_Version)TL;DR 感谢社长，社长牛逼。 目录  1.什么是Web Server（网络服务器）  2.用户如何与你的Web服务器进行通信 3.Web服务器如何接收客户端发来的HTTP请求报文呢 4.Web服务器如何处理以及响应接收到的HTTP请求报文呢 5.数据库连接池是如何运行的 6.什么是CGI校验 7.生成HTTP响应并返回">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/web-server.svg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://huixxi.github.io/2020/06/02/小白视角：一文读懂社长的TinyWebServer/">
+
+
+  <title> 小白视角：一文读懂社长的TinyWebServer | HU </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">HU</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">\&</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                小白视角：一文读懂社长的TinyWebServer
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2020-06-02T14:33:16+08:00" content="2020-06-02">
+              2020-06-02
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2020/06/02/小白视角：一文读懂社长的TinyWebServer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/06/02/小白视角：一文读懂社长的TinyWebServer/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="小白视角：一文读懂社长的TinyWebServer-Raw-Version"><a href="#小白视角：一文读懂社长的TinyWebServer-Raw-Version" class="headerlink" title="小白视角：一文读懂社长的TinyWebServer(Raw_Version)"></a>小白视角：一文读懂社长的TinyWebServer(Raw_Version)</h2><p>TL;DR 感谢社长，社长牛逼。</p>
+<p><strong>目录</strong></p>
+<ul>
+<li>1.什么是Web Server（网络服务器） </li>
+<li>2.用户如何与你的Web服务器进行通信</li>
+<li>3.Web服务器如何接收客户端发来的HTTP请求报文呢</li>
+<li>4.Web服务器如何处理以及响应接收到的HTTP请求报文呢</li>
+<li>5.数据库连接池是如何运行的</li>
+<li>6.什么是CGI校验</li>
+<li>7.生成HTTP响应并返回给用户</li>
+<li>8.服务器优化：定时器处理非活动链接</li>
+<li>9.服务器优化：日志</li>
+<li>10.压测（非常关键）</li>
+<li>11.这个服务器的不足在哪（希望大家可以献计献策）</li>
+<li>12.其他待讲解内容</li>
+<li>13.如何在此基础添加功能把社长的变成自己的（小声儿bb）</li>
+<li>参考资料</li>
+</ul>
+<p><strong>预备知识</strong>：通读一遍《Linux高性能服务器编程》— 游双著</p>
+<p>本文将带你从本人的小白视角，从头到尾彻底理解社长的<a href="https://github.com/qinguoyi/TinyWebServer" target="_blank" rel="noopener">TinyWebServer</a>项目，明白每个部分都发生了什么，你的服务器程序又是如何处理，如何响应（response）来自客户端的用户请求的（requests）。</p>
+<a id="more"></a>
+<h3 id="1-什么是Web-Server（网络服务器）"><a href="#1-什么是Web-Server（网络服务器）" class="headerlink" title="1. 什么是Web Server（网络服务器）"></a>1. 什么是Web Server（网络服务器）</h3><p>一个Web Server就是一个服务器软件（程序），或者是运行这个服务器软件的硬件（计算机）。其主要功能是通过HTTP协议与客户端（通常是浏览器（Browser））进行通信，来接收，存储，处理来自客户端的HTTP请求，并对其请求做出HTTP响应，返回给客户端其请求的内容（文件、网页等）或返回一个Error信息。   </p>
+<p><img src="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/web-server.svg" title="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_web_server" width="500" hegiht="313" align="center"></p>
+<h3 id="2-用户如何与你的Web服务器进行通信"><a href="#2-用户如何与你的Web服务器进行通信" class="headerlink" title="2. 用户如何与你的Web服务器进行通信"></a>2. 用户如何与你的Web服务器进行通信</h3><p>通常用户使用Web浏览器与相应服务器进行通信。在浏览器中键入“域名”或“IP地址:端口号”，浏览器则先将你的域名解析成相应的IP地址或者直接根据你的IP地址向对应的Web服务器发送一个HTTP请求。这一过程首先要通过TCP协议的三次握手建立与目标Web服务器的连接，然后HTTP协议生成针对目标Web服务器的HTTP请求报文，通过TCP、IP等协议发送到目标Web服务器上。</p>
+<h3 id="3-Web服务器如何接收客户端发来的HTTP请求报文呢"><a href="#3-Web服务器如何接收客户端发来的HTTP请求报文呢" class="headerlink" title="3. Web服务器如何接收客户端发来的HTTP请求报文呢?"></a>3. Web服务器如何接收客户端发来的HTTP请求报文呢?</h3><p>Web服务器端通过<code>socket</code>监听来自用户的请求。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="comment">/* 创建监听socket文件描述符 */</span></span><br><span class="line"><span class="keyword">int</span> listenfd = socket(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line"><span class="comment">/* 创建监听socket的TCP/IP的IPV4 socket地址 */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">address</span>;</span></span><br><span class="line">bzero(&amp;address, <span class="keyword">sizeof</span>(address));</span><br><span class="line">address.sin_family = AF_INET;</span><br><span class="line">address.sin_addr.s_addr = htonl(INADDR_ANY);  <span class="comment">/* INADDR_ANY：将套接字绑定到所有可用的接口 */</span></span><br><span class="line">address.sin_port = htons(port);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> flag = <span class="number">1</span>;</span><br><span class="line"><span class="comment">/* SO_REUSEADDR 允许端口被重复使用 */</span></span><br><span class="line">setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &amp;flag, <span class="keyword">sizeof</span>(flag));</span><br><span class="line"><span class="comment">/* 绑定socket和它的地址 */</span></span><br><span class="line">ret = bind(listenfd, (struct sockaddr*)&amp;address, <span class="keyword">sizeof</span>(address));  </span><br><span class="line"><span class="comment">/* 创建监听队列以存放待处理的客户连接，在这些客户连接被accept()之前 */</span></span><br><span class="line">ret = listen(listenfd, <span class="number">5</span>);</span><br></pre></td></tr></table></figure></p>
+<p>远端的很多用户会尝试去<code>connect()</code>这个Web Server上正在<code>listen</code>的这个<code>port</code>，而监听到的这些连接会排队等待被<code>accept()</code>。由于用户连接请求是随机到达的异步事件，每当监听socket（<code>listenfd</code>）<code>listen</code>到新的客户连接并且放入监听队列，我们都需要告诉我们的Web服务器有连接来了，<code>accept</code>这个连接，并分配一个逻辑单元来处理这个用户请求。而且，我们在处理这个请求的同时，还需要继续监听其他客户的请求并分配其另一逻辑单元来处理（并发，同时处理多个事件，后面会提到使用线程池实现并发）。这里，服务器通过<strong>epoll</strong>这种I/O复用技术（还有select和poll）来实现对监听socket（<code>listenfd</code>）和连接socket（客户请求）的同时监听。注意I/O复用虽然可以同时监听多个文件描述符，但是它本身是阻塞的，并且当有多个文件描述符同时就绪的时候，如果不采取额外措施，程序则只能按顺序处理其中就绪的每一个文件描述符，所以为提高效率，我们将在这部分通过线程池来实现并发（多线程并发），为每个就绪的文件描述符分配一个逻辑单元（线程）来处理。  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"><span class="comment">/* 将fd上的EPOLLIN和EPOLLET事件注册到epollfd指示的epoll内核事件中 */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addfd</span><span class="params">(<span class="keyword">int</span> epollfd, <span class="keyword">int</span> fd, <span class="keyword">bool</span> one_shot)</span> </span>&#123;</span><br><span class="line">    epoll_event event;</span><br><span class="line">    event.data.fd = fd;</span><br><span class="line">    event.events = EPOLLIN | EPOLLET | EPOLLRDHUP;</span><br><span class="line">    <span class="comment">/* 针对connfd，开启EPOLLONESHOT，因为我们希望每个socket在任意时刻都之被一个线程处理 */</span></span><br><span class="line">    <span class="keyword">if</span>(one_shot)</span><br><span class="line">        event.events |= EPOLLONESHOT;</span><br><span class="line">    epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &amp;event);</span><br><span class="line">    setnonblocking(fd);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 创建一个额外的文件描述符来唯一标识内核中的epoll事件表 */</span></span><br><span class="line"><span class="keyword">int</span> epollfd = epoll_create(<span class="number">5</span>);  </span><br><span class="line"><span class="comment">/* 用于存储epoll事件表中就绪事件的event数组 */</span></span><br><span class="line">epoll_event events[MAX_EVENT_NUMBER];  </span><br><span class="line"><span class="comment">/* 主线程往epoll内核事件表中注册监听socket事件，当listen到新的客户连接时，listenfd变为就绪事件 */</span></span><br><span class="line">addfd(epollfd, listenfd, <span class="literal">false</span>);  </span><br><span class="line"><span class="comment">/* 主线程调用epoll_wait等待一组文件描述符上的事件，并将当前所有就绪的epoll_event复制到events数组中 */</span></span><br><span class="line"><span class="keyword">int</span> number = epoll_wait(epollfd, events, MAX_EVENT_NUMBER, <span class="number">-1</span>);</span><br><span class="line"><span class="comment">/* 然后我们遍历这一数组以处理这些已经就绪的事件 */</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; number; ++i) &#123;</span><br><span class="line">    <span class="keyword">int</span> sockfd = events[i].data.fd;  <span class="comment">// 事件表中就绪的socket文件描述符</span></span><br><span class="line">    <span class="keyword">if</span>(sockfd == listenfd) &#123;  <span class="comment">// 当listen到新的用户连接，listenfd上则产生就绪事件</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">client_address</span>;</span></span><br><span class="line">        <span class="keyword">socklen_t</span> client_addrlength = <span class="keyword">sizeof</span>(client_address);</span><br><span class="line">        <span class="comment">/* ET模式 */</span></span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">/* accept()返回一个新的socket文件描述符用于send()和recv() */</span></span><br><span class="line">            <span class="keyword">int</span> connfd = accept(listenfd, (struct sockaddr *) &amp;client_address, &amp;client_addrlength);</span><br><span class="line">            <span class="comment">/* 并将connfd注册到内核事件表中 */</span></span><br><span class="line">            users[connfd].init(connfd, client_address);</span><br><span class="line">            <span class="comment">/* ... */</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(events[i].events &amp; (EPOLLRDHUP | EPOLLHUP | EPOLLERR)) &#123;</span><br><span class="line">        <span class="comment">// 如有异常，则直接关闭客户连接，并删除该用户的timer</span></span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(events[i].events &amp; EPOLLIN) &#123;</span><br><span class="line">        <span class="comment">/* 当这一sockfd上有可读事件时，epoll_wait通知主线程。*/</span></span><br><span class="line">        <span class="keyword">if</span>(users[sockfd].read()) &#123; <span class="comment">/* 主线程从这一sockfd循环读取数据, 直到没有更多数据可读 */</span></span><br><span class="line">            pool-&gt;append(users + sockfd);  <span class="comment">/* 然后将读取到的数据封装成一个请求对象并插入请求队列 */</span></span><br><span class="line">            <span class="comment">/* ... */</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="comment">/* ... */</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(events[i].events &amp; EPOLLOUT) &#123;</span><br><span class="line">        <span class="comment">/* 当这一sockfd上有可写事件时，epoll_wait通知主线程。主线程往socket上写入服务器处理客户请求的结果 */</span></span><br><span class="line">        <span class="keyword">if</span>(users[sockfd].write()) &#123;</span><br><span class="line">            <span class="comment">/* ... */</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="comment">/* ... */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>服务器程序通常需要处理三类事件：I/O事件，信号及定时事件。有两种事件处理模式：</p>
+<ul>
+<li>Reactor模式：要求主线程（I/O处理单元）只负责监听文件描述符上是否有事件发生（可读、可写），若有，则立即通知工作线程（逻辑单元），将socket可读可写事件放入请求队列，交给工作线程处理。</li>
+<li>Proactor模式：将所有的I/O操作都交给主线程和内核来处理（进行读、写），工作线程仅负责处理逻辑，如主线程读完成后<code>users[sockfd].read()</code>，选择一个工作线程来处理客户请求<code>pool-&gt;append(users + sockfd)</code>。</li>
+</ul>
+<p>通常使用同步I/O模型（如<code>epoll_wait</code>）实现Reactor，使用异步I/O（如<code>aio_read</code>和<code>aio_write</code>）实现Proactor。但在此项目中，我们使用的是<strong>同步I/O模拟的Proactor</strong>事件处理模式。那么什么是同步I/O，什么是异步I/O呢？<br><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017959540289152" target="_blank" rel="noopener">廖雪峰：异步IO一节给出解释</a></p>
+<ul>
+<li>同步（阻塞）I/O：在一个线程中，CPU执行代码的速度极快，然而，一旦遇到IO操作，如读写文件、发送网络数据时，就需要等待IO操作完成，才能继续进行下一步操作。这种情况称为同步IO。</li>
+<li>异步（非阻塞）I/O：当代码需要执行一个耗时的IO操作时，它只发出IO指令，并不等待IO结果，然后就去执行其他代码了。一段时间后，当IO返回结果时，再通知CPU进行处理。  </li>
+</ul>
+<p><code>Epoll</code>对文件操作符的操作有两种模式：LT（电平触发）和ET（边缘触发），二者的区别在于当你调用<code>epoll_wait</code>的时候内核里面发生了什么：</p>
+<ul>
+<li>LT（电平触发）：类似<code>select</code>，LT会去遍历在epoll事件表中每个文件描述符，来观察是否有我们感兴趣的事件发生，如果有（触发了该文件描述符上的回调函数），<code>epoll_wait</code>就会以非阻塞的方式返回。若该epoll事件没有被处理完（返回<code>EWOULDBLOCK</code>），该事件还会被后续的<code>epoll_wait</code>再次触发。   </li>
+<li>ET（边缘触发）：ET在发现有我们感兴趣的事件发生后，立即返回，并且<code>sleep</code>这一事件的<code>epoll_wait</code>，不管该事件有没有结束。  </li>
+</ul>
+<p>在使用ET模式时，必须要保证该文件描述符是非阻塞的（确保在没有数据可读时，该文件描述符不会一直阻塞）；并且每次调用<code>read</code>和<code>write</code>的时候都必须等到它们返回<code>EWOULDBLOCK</code>（确保所有数据都已读完或写完）。</p>
+<h3 id="4-Web服务器如何处理以及响应接收到的HTTP请求报文呢"><a href="#4-Web服务器如何处理以及响应接收到的HTTP请求报文呢" class="headerlink" title="4. Web服务器如何处理以及响应接收到的HTTP请求报文呢?"></a>4. Web服务器如何处理以及响应接收到的HTTP请求报文呢?</h3><p>该项目使用线程池（半同步半反应堆模式）并发处理用户请求，主线程负责读写，工作线程（线程池中的线程）负责处理逻辑（HTTP请求报文的解析等等）。通过之前的代码，我们将<code>listenfd</code>上到达的<code>connection</code>通过 <code>accept()</code>接收，并返回一个新的socket文件描述符<code>connfd</code>用于和用户通信，并对用户请求返回响应，同时将这个<code>connfd</code>注册到内核事件表中，等用户发来请求报文。这个过程是：通过<code>epoll_wait</code>发现这个<code>connfd</code>上有可读事件了（<code>EPOLLIN</code>），主线程就将这个HTTP的请求报文读进这个连接socket的读缓存中<code>users[sockfd].read()</code>，然后将该任务对象（指针）插入线程池的请求队列中<code>pool-&gt;append(users + sockfd);</code>，线程池的实现还需要依靠<strong>锁机制</strong>以及<strong>信号量</strong>机制来实现线程同步，保证操作的原子性。<br>在线程池部分做几点解释，然后大家去看代码的时候就更容易看懂了：  </p>
+<ul>
+<li>所谓线程池，就是一个<code>pthread_t</code>类型的普通数组，通过<code>pthread_create()</code>函数创建<code>m_thread_number</code>个<strong>线程</strong>，用来执行<code>worker()</code>函数以执行每个请求处理函数（HTTP请求的<code>process</code>函数），通过<code>pthread_detach()</code>将线程设置成脱离态（detached）后，当这一线程运行结束时，它的资源会被系统自动回收，而不再需要在其它线程中对其进行 <code>pthread_join()</code> 操作。</li>
+<li>操作工作队列一定要加锁（<code>locker</code>），因为它被所有线程共享。</li>
+<li>我们用信号量来标识请求队列中的请求数，通过<code>m_queuestat.wait();</code>来等待一个请求队列中待处理的HTTP请求，然后交给线程池中的空闲线程来处理。</li>
+</ul>
+<p>OK，接下来说说每个<code>read()</code>后的HTTP请求是如何被处理的，我们直接看这个处理HTTP请求的入口函数：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> http_conn::process() &#123;</span><br><span class="line">    HTTP_CODE read_ret = process_read();</span><br><span class="line">    <span class="keyword">if</span>(read_ret == NO_REQUEST) &#123;</span><br><span class="line">        modfd(m_epollfd, m_sockfd, EPOLLIN);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">bool</span> write_ret = process_write(read_ret);</span><br><span class="line">    <span class="keyword">if</span>(!write_ret)</span><br><span class="line">        close_conn();</span><br><span class="line">    modfd(m_epollfd, m_sockfd, EPOLLOUT);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先，<code>process_read()</code>，也就是对我们读入该<code>connfd</code>读缓冲区的请求报文进行解析。<br>HTTP请求报文由请求行（request line）、请求头部（header）、空行和请求数据四个部分组成有。两种请求报文（例子来自社长的<a href="https://mp.weixin.qq.com/s/BfnNl-3jc_x5WPrWEJGdzQ" target="_blank" rel="noopener">详解文章</a>：<br><strong>GET</strong>（Example）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET /562f25980001b1b106000338.jpg HTTP/1.1</span><br><span class="line">Host:img.mukewang.com</span><br><span class="line">User-Agent:Mozilla/5.0 (Windows NT 10.0; WOW64)</span><br><span class="line">AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36</span><br><span class="line">Accept:image/webp,image/*,*/*;q=0.8</span><br><span class="line">Referer:http://www.imooc.com/</span><br><span class="line">Accept-Encoding:gzip, deflate, sdch</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.8</span><br><span class="line">空行</span><br><span class="line">请求数据为空</span><br></pre></td></tr></table></figure></p>
+<p><strong>POST</strong>（Example，注意POST的请求内容不为空）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POST / HTTP1.1</span><br><span class="line">Host:www.wrox.com</span><br><span class="line">User-Agent:Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022)</span><br><span class="line">Content-Type:application/x-www-form-urlencoded</span><br><span class="line">Content-Length:40</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">空行</span><br><span class="line">name=Professional%20Ajax&amp;publisher=Wiley</span><br></pre></td></tr></table></figure></p>
+<p><code>process_read()</code>函数的作用就是将类似上述例子的请求报文进行解析，因为用户的请求内容包含在这个请求报文里面，只有通过解析，知道用户请求的内容是什么，是请求图片，还是视频，或是其他请求，我们根据这些请求返回相应的HTML页面等。项目中使用<strong>主从状态机</strong>的模式进行解析，每解析一部分都会将整个请求的<code>m_check_state</code>状态改变，状态机也就是根据这个状态来进行不同部分的解析跳转的：</p>
+<ul>
+<li><code>parse_request_line(text)</code>，解析请求行，也就是GET中的<code>GET /562f25980001b1b106000338.jpg HTTP/1.1</code>这一行，或者POST中的<code>POST / HTTP1.1</code>这一行。通过请求行的解析我们可以判断该HTTP请求的类型（GET/POST），而请求行中最重要的部分就是<code>URL</code>部分，我们会将这部分保存下来用于后面的生成HTTP响应。</li>
+<li><code>parse_headers(text);</code>，解析请求头部，GET和POST中<code>空行</code>以上，请求行以下的部分。</li>
+<li><code>parse_content(text);</code>，解析请求数据，对于GET来说这部分是空的，因为这部分内容已经以明文的方式包含在了请求行中的<code>URL</code>部分了；只有POST的这部分是有数据的，项目中的这部分数据为用户名和密码，我们会根据这部分内容做登录和校验，并涉及到与数据库的连接。</li>
+</ul>
+<p>OK，经过上述解析，当得到一个完整的，正确的HTTP请求时，就到了<code>do_request</code>代码部分，我们需要首先对GET请求和不同POST请求（登录，注册，请求图片，视频等等）做不同的预处理，然后分析目标文件的属性，若目标文件存在、对所有用户可读且不是目录时，则使用<code>mmap</code>将其映射到内存地址<code>m_file_address</code>处，并告诉调用者获取文件成功。   </p>
+<p>抛开<code>mmap</code>这部分，先来看看这些不同请求是怎么来的：<br>假设你已经搭好了你的HTTP服务器，然后你在本地浏览器中键入<code>localhost:9000</code>，然后回车，这时候你就给你的服务器发送了一个GET请求，什么都没做，然后服务器端就会解析你的这个HTTP请求，然后发现是个GET请求，然后返回给你一个静态HTML页面，也就是项目中的<code>judge.html</code>页面，那POST请求怎么来的呢？这时你会发现，返回的这个<code>judge</code>页面中包含着一些<code>新用户</code>和<code>已有账号</code>这两个<code>button</code>元素，当你用鼠标点击这个<code>button</code>时，你的浏览器就会向你的服务器发送一个POST请求，服务器段通过检查<code>action</code>来判断你的POST请求类型是什么，进而做出不同的响应。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/* judge.html */</span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>WebServer<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span><span class="tag">&lt;<span class="name">font</span> <span class="attr">size</span>=<span class="string">"5"</span>&gt;</span> <span class="tag">&lt;<span class="name">strong</span>&gt;</span>欢迎访问<span class="tag">&lt;/<span class="name">strong</span>&gt;</span><span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"0"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span>新用户<span class="tag">&lt;/<span class="name">button</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"1"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span> &gt;</span>已有账号<span class="tag">&lt;/<span class="name">button</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="5-数据库连接池是如何运行的"><a href="#5-数据库连接池是如何运行的" class="headerlink" title="5. 数据库连接池是如何运行的"></a>5. 数据库连接池是如何运行的</h3><p>在处理用户注册，登录请求的时候，我们需要将这些用户的用户名和密码保存下来用于新用户的注册及老用户的登录校验，相信每个人都体验过，当你在一个网站上注册一个用户时，应该经常会遇到“您的用户名已被使用”，或者在登录的时候输错密码了网页会提示你“您输入的用户名或密码有误”等等类似情况，这种功能是服务器端通过用户键入的用户名密码和数据库中已记录下来的用户名密码数据进行校验实现的。若每次用户请求我们都需要新建一个数据库连接，请求结束后我们释放该数据库连接，当用户请求连接过多时，这种做法过于低效，所以类似<strong>线程池</strong>的做法，我们构建一个数据库连接池，预先生成一些数据库连接放在那里供用户请求使用。<br>我们首先看单个数据库连接是如何生成的：  </p>
+<ol>
+<li>使用<code>mysql_init()</code>初始化连接</li>
+<li>使用<code>mysql_real_connect()</code>建立一个到mysql数据库的连接</li>
+<li>使用<code>mysql_query()</code>执行查询语句</li>
+<li>使用<code>result = mysql_store_result(mysql)</code>获取结果集</li>
+<li>使用<code>mysql_num_fields(result)</code>获取查询的列数，<code>mysql_num_rows(result)</code>获取结果集的行数</li>
+<li>通过<code>mysql_fetch_row(result)</code>不断获取下一行，然后循环输出</li>
+<li>使用<code>mysql_free_result(result)</code>释放结果集所占内存</li>
+<li>使用<code>mysql_close(conn)</code>关闭连接</li>
+</ol>
+<p>对于一个数据库连接池来讲，就是预先生成多个这样的数据库连接，然后放在一个链表中，同时维护最大连接数<code>MAX_CONN</code>，当前可用连接数<code>FREE_CONN</code>和当前已用连接数<code>CUR_CONN</code>这三个变量。同样注意在对连接池操作时（获取，释放），要用到锁机制，因为它被所有线程共享。</p>
+<h3 id="6-什么是CGI校验"><a href="#6-什么是CGI校验" class="headerlink" title="6. 什么是CGI校验"></a>6. 什么是CGI校验</h3><p>OK，弄清楚了数据库连接池的概念及实现方式，我们继续回到第4部分，对用户的登录及注册等POST请求，服务器是如何做校验的。当点击<code>新用户</code>按钮时，服务器对这个POST请求的响应是：返回用户一个登录界面；当你在用户名和密码框中输入后，你的POST请求报文中会连同你的用户名密码一起发给服务器，然后我们拿着你的用户名和密码在数据库连接池中取出一个连接用于<code>mysql_query()</code>进行查询，逻辑很简单，同步线程校验<code>SYNSQL</code>方式相信大家都能明白，但是这里社长又给出了其他两种校验方式，CGI什么的，就很容易让小白一时摸不到头脑，接下来就简单解释一下CGI是什么。  </p>
+<p>CGI（通用网关接口），它是一个运行在Web服务器上的程序，在编译的时候将相应的<code>.cpp</code>文件编程成<code>.cgi</code>文件并在主程序中调用即可（通过社长的<code>makefile</code>文件内容也可以看出）。这些CGI程序通常通过客户在其浏览器上点击一个<code>button</code>时运行。这些程序通常用来执行一些信息搜索、存储等任务，而且通常会生成一个动态的HTML网页来响应客户的HTTP请求。我们可以发现项目中的<code>sign.cpp</code>文件就是我们的CGI程序，将用户请求中的用户名和密码保存在一个<code>id_passwd.txt</code>文件中，通过将数据库中的用户名和密码存到一个<code>map</code>中用于校验。在主程序中通过<code>execl(m_real_file, &amp;flag, name, password, NULL);</code>这句命令来执行这个CGI文件，这里CGI程序仅用于校验，并未直接返回给用户响应。这个CGI程序的运行通过多进程来实现，根据其返回结果判断校验结果（使用<code>pipe</code>进行父子进程的通信，子进程将校验结果写到pipe的写端，父进程在读端读取）。</p>
+<h3 id="7-生成HTTP响应并返回给用户"><a href="#7-生成HTTP响应并返回给用户" class="headerlink" title="7. 生成HTTP响应并返回给用户"></a>7. 生成HTTP响应并返回给用户</h3><p>通过以上操作，我们已经对读到的请求做好了处理，然后也对目标文件的属性作了分析，若目标文件存在、对所有用户可读且不是目录时，则使用<code>mmap</code>将其映射到内存地址<code>m_file_address</code>处，并告诉调用者获取文件成功<code>FILE_REQUEST</code>。 接下来要做的就是根据读取结果对用户做出响应了，也就是到了<code>process_write(read_ret);</code>这一步，该函数根据<code>process_read()</code>的返回结果来判断应该返回给用户什么响应，我们最常见的就是<code>404</code>错误了，说明客户请求的文件不存在，除此之外还有其他类型的请求出错的响应，具体的可以去百度。然后呢，假设用户请求的文件存在，而且已经被<code>mmap</code>到<code>m_file_address</code>这里了，那么我们就将做如下写操作，将响应写到这个<code>connfd</code>的写缓存<code>m_write_buf</code>中去：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> FILE_REQUEST: &#123;</span><br><span class="line">    add_status_line(<span class="number">200</span>, ok_200_title);</span><br><span class="line">    <span class="keyword">if</span>(m_file_stat.st_size != <span class="number">0</span>) &#123;</span><br><span class="line">        add_headers(m_file_stat.st_size);</span><br><span class="line">        m_iv[<span class="number">0</span>].iov_base = m_write_buf;</span><br><span class="line">        m_iv[<span class="number">0</span>].iov_len = m_write_idx;</span><br><span class="line">        m_iv[<span class="number">1</span>].iov_base = m_file_address;</span><br><span class="line">        m_iv[<span class="number">1</span>].iov_len = m_file_stat.st_size;</span><br><span class="line">        m_iv_count = <span class="number">2</span>;</span><br><span class="line">        bytes_to_send = m_write_idx + m_file_stat.st_size;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">char</span>* ok_string = <span class="string">"&lt;html&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;"</span>;</span><br><span class="line">        add_headers(<span class="built_in">strlen</span>(ok_string));</span><br><span class="line">        <span class="keyword">if</span>(!add_content(ok_string))</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先将<code>状态行</code>写入写缓存，<code>响应头</code>也是要写进<code>connfd</code>的写缓存（HTTP类自己定义的，与socket无关）中的，对于请求的文件，我们已经直接将其映射到<code>m_file_address</code>里面，然后将该<code>connfd</code>文件描述符上修改为<code>EPOLLOUT</code>（可写）事件，然后<code>epoll_Wait</code>监测到这一事件后，使用<code>writev</code>来将响应信息和请求文件<strong>聚集写</strong>到<strong>TCP Socket</strong>本身定义的发送缓冲区（这个缓冲区大小一般是默认的，但我们也可以通过<code>setsockopt</code>来修改）中，交由内核发送给用户。OVER！</p>
+<h3 id="8-服务器优化：定时器处理非活动链接"><a href="#8-服务器优化：定时器处理非活动链接" class="headerlink" title="8. 服务器优化：定时器处理非活动链接"></a>8. 服务器优化：定时器处理非活动链接</h3><p>项目中，我们预先分配了<code>MAX_FD</code>个http连接对象：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 预先为每个可能的客户连接分配一个http_conn对象</span></span><br><span class="line">http_conn* users = <span class="keyword">new</span> http_conn[MAX_FD];</span><br></pre></td></tr></table></figure></p>
+<p>如果某一用户<code>connect()</code>到服务器之后，长时间不交换数据，一直占用服务器端的文件描述符，导致连接资源的浪费。这时候就应该利用定时器把这些超时的非活动连接释放掉，关闭其占用的文件描述符。这种情况也很常见，当你登录一个网站后长时间没有操作该网站的网页，再次访问的时候你会发现需要重新登录。<br>项目中使用的是<code>SIGALRM信号</code>来实现定时器，利用<code>alarm</code>函数周期性的触发<code>SIGALRM</code>信号，信号处理函数利用管道通知主循环，主循环接收到该信号后对升序链表上所有定时器进行处理，若该段时间内没有交换数据，则将该连接关闭，释放所占用的资源。（具体请参考<code>Linux高性能服务器编程 第11章 定时器</code>和<a href="https://mp.weixin.qq.com/s/mmXLqh_NywhBXJvI45hchA" target="_blank" rel="noopener">社长庖丁解牛：07定时器篇</a>），我们接下来看项目中的具体实现。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 定时器相关参数 */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> pipefd[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">static</span> sort_timer_lst timer_lst</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 每个user（http请求）对应的timer */</span></span><br><span class="line">client_data* user_timer = <span class="keyword">new</span> client_data[MAX_FD];</span><br><span class="line"><span class="comment">/* 每隔TIMESLOT时间触发SIGALRM信号 */</span></span><br><span class="line">alarm(TIMESLOT);</span><br><span class="line"><span class="comment">/* 创建管道，注册pipefd[0]上的可读事件 */</span></span><br><span class="line"><span class="keyword">int</span> ret = socketpair(PF_UNIX, SOCK_STREAM, <span class="number">0</span>, pipefd);</span><br><span class="line"><span class="comment">/* 设置管道写端为非阻塞 */</span></span><br><span class="line">setnonblocking(pipefd[<span class="number">1</span>]);</span><br><span class="line"><span class="comment">/* 设置管道读端为ET非阻塞，并添加到epoll内核事件表 */</span></span><br><span class="line">addfd(epollfd, pipefd[<span class="number">0</span>], <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">addsig(SIGALRM, sig_handler, <span class="literal">false</span>);</span><br><span class="line">addsig(SIGTERM, sig_handler, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure></p>
+<p><code>alarm</code>函数会定期触发<code>SIGALRM</code>信号，这个信号交由<code>sig_handler</code>来处理，每当监测到有这个信号的时候，都会将这个信号写到<code>pipefd[1]</code>里面，传递给主循环：</p>
+<p>主循环中：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 处理信号 */</span></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(sockfd == pipefd[<span class="number">0</span>] &amp;&amp; (events[i].events &amp; EPOLLIN)) &#123;</span><br><span class="line">    <span class="keyword">int</span> sig;</span><br><span class="line">    <span class="keyword">char</span> signals[<span class="number">1024</span>];</span><br><span class="line">    ret = recv(pipefd[<span class="number">0</span>], signals, <span class="keyword">sizeof</span>(signals), <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span>(ret == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;  <span class="comment">// handle the error</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(ret == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; ret; ++j) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (signals[j]) &#123;</span><br><span class="line">                <span class="keyword">case</span> SIGALRM: &#123;</span><br><span class="line">                    timeout = <span class="literal">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">case</span> SIGTERM: &#123;</span><br><span class="line">                    stop_server = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当我们在读端<code>pipefd[0]</code>读到这个信号的的时候，就会将<code>timeout</code>变量置为<code>true</code>并跳出循环，让<code>timer_handler()</code>函数取出来定时器容器上的到期任务，该定时器容器是通过升序链表来实现的，从头到尾对检查任务是否超时，若超时则调用定时器的回调函数<code>cb_func()</code>，关闭该socket连接，并删除其对应的定时器<code>del_timer</code>。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer_handler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* 定时处理任务 */</span></span><br><span class="line">    timer_lst.tick();</span><br><span class="line">    <span class="comment">/* 重新定时以不断触发SIGALRM信号 */</span></span><br><span class="line">    alarm(TIMESLOT);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="9-服务器优化：日志"><a href="#9-服务器优化：日志" class="headerlink" title="9. 服务器优化：日志"></a>9. 服务器优化：日志</h3><p>到目前为止，这个服务器已经可以正常运行了，也可以在本地完成简单的压力测试。但日志系统对一个服务器来说非常关键，因为本人还没把日志系统加到项目中，所以这部分等我加进来运行好之后再写，这部分似乎会涉及设计模式的相关知识。</p>
+<h3 id="10-压测（非常关键）"><a href="#10-压测（非常关键）" class="headerlink" title="10. 压测（非常关键）"></a>10. 压测（非常关键）</h3><p>一个服务器项目，你在本地浏览器键入<code>localhost:9000</code>发现可以运行无异常还不够，你需要对他进行压测，压测过了，才说明你的服务器比较稳定了。社长的项目是如何压测的呢？<br>用到了一个压测软件叫做Webbench，可以直接在社长的Gtihub里面下载，解压，然后在解压目录打开终端运行命令（<code>-c</code>表示客户端数， <code>-t</code>表示时间）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./webbench -c 10001 -t 5 http://127.0.0.1:9006/</span><br></pre></td></tr></table></figure></p>
+<p>直接解压的<code>webbench-1.5</code>文件夹下的<code>webbench</code>文件可能会因为权限问题找不到命令或者无法执行，这时你需要重新编译一下该文件即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o webbench webbench.c</span><br></pre></td></tr></table></figure></p>
+<p>然后我们就可以压测得到结果了（我本人电脑的用户数量<code>-c</code>设置为<code>10500</code>会造成资源不足的错误）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Webbench - Simple Web Benchmark 1.5</span><br><span class="line">Copyright (c) Radim Kolar 1997-2004, GPL Open Source Software.</span><br><span class="line"></span><br><span class="line">Benchmarking: GET http://127.0.0.1:9006/</span><br><span class="line">10001 clients, running 5 sec.</span><br><span class="line"></span><br><span class="line">Speed=1044336 pages/min, 2349459 bytes/sec.</span><br><span class="line">Requests: 87028 susceed, 0 failed.</span><br></pre></td></tr></table></figure></p>
+<h3 id="11-这个服务器的不足在哪（希望大家可以献计献策）"><a href="#11-这个服务器的不足在哪（希望大家可以献计献策）" class="headerlink" title="11. 这个服务器的不足在哪（希望大家可以献计献策）"></a>11. 这个服务器的不足在哪（希望大家可以献计献策）</h3><p>待完善。</p>
+<h3 id="12-其他待讲解内容"><a href="#12-其他待讲解内容" class="headerlink" title="12. 其他待讲解内容"></a>12. 其他待讲解内容</h3><ul>
+<li>优雅关闭和强制关闭</li>
+<li>单例模式的懒汉模式和饿汉模式</li>
+<li>RAII机制优化数据库连接的获取与释放</li>
+</ul>
+<h3 id="13-如何在此基础添加功能把社长的变成自己的（小声儿bb）"><a href="#13-如何在此基础添加功能把社长的变成自己的（小声儿bb）" class="headerlink" title="13. 如何在此基础添加功能把社长的变成自己的（小声儿bb）"></a>13. 如何在此基础添加功能把社长的变成自己的（小声儿bb）</h3><p>到目前为止，你已经把社长的项目完整的理解了一遍，甚至把各部分怎么实现的背了下来，但是这仍然是社长的项目，你没有做什么改进，你甚至没有把定时器的实现改成时间轮模式自己去动手做一做，而我们应该自己动手这个项目中的一些不足的地方，去优化它，或者再此基础上实现一些新的功能，让它多少有点自己的东西在里面。下面对此提出几点可以做的方向，后面我如果做出来的话也会更新在这里。</p>
+<ul>
+<li>添加文件上传功能，实现与服务器的真正交互。</li>
+<li>试着调用摄像头，来实现一些更有趣的功能。</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
+<li><a href="https://book.douban.com/subject/24722611/" target="_blank" rel="noopener">《Linux高性能服务器编程》</a></li>
+<li><a href="https://github.com/qinguoyi/TinyWebServer#%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B" target="_blank" rel="noopener">社长本人的庖丁解牛</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Web_server" target="_blank" rel="noopener">Web Server(Wikipedia)</a></li>
+<li><a href="http://beej-zhcn.netdpi.net/" target="_blank" rel="noopener">Beej’s Guide to Network Programming 简体中文版</a>  </li>
+<li><a href="https://eklitzke.org/blocking-io-nonblocking-io-and-epoll" target="_blank" rel="noopener">Blocking I/O, Nonblocking I/O, And Epoll</a></li>
+<li><a href="https://thetechsolo.wordpress.com/2016/02/29/scalable-io-events-vs-multithreading-based/" target="_blank" rel="noopener">Scalable I/O: Events- Vs Multithreading-based</a></li>
+<li><a href="https://www.openroad.org/cgihelp/cgi.html" target="_blank" rel="noopener">CGI Programming for C Programmers</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/26/RL-Importance-Sampling/" rel="next" title="RL_Importance_Sampling">
+                <i class="fa fa-chevron-left"></i> RL_Importance_Sampling
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2062/01/31/Navigation/" rel="prev" title="Navigation">
+                Navigation <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/Elon-Musk.jpg" alt="Hugo">
+          <p class="site-author-name" itemprop="name">Hugo</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Huixxi" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.linkedin.com/in/uestc-hugo/" target="_blank" title="LinkedIn">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  LinkedIn
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/______HU______" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://stackoverflow.com/users/7121726/hu-xixi" target="_blank" title="Stackoverflow">
+                  
+                    <i class="fa fa-fw fa-stack-overflow"></i>
+                  
+                  Stackoverflow
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#小白视角：一文读懂社长的TinyWebServer-Raw-Version"><span class="nav-number">1.</span> <span class="nav-text">小白视角：一文读懂社长的TinyWebServer(Raw_Version)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-什么是Web-Server（网络服务器）"><span class="nav-number">1.1.</span> <span class="nav-text">1. 什么是Web Server（网络服务器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-用户如何与你的Web服务器进行通信"><span class="nav-number">1.2.</span> <span class="nav-text">2. 用户如何与你的Web服务器进行通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Web服务器如何接收客户端发来的HTTP请求报文呢"><span class="nav-number">1.3.</span> <span class="nav-text">3. Web服务器如何接收客户端发来的HTTP请求报文呢?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Web服务器如何处理以及响应接收到的HTTP请求报文呢"><span class="nav-number">1.4.</span> <span class="nav-text">4. Web服务器如何处理以及响应接收到的HTTP请求报文呢?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-数据库连接池是如何运行的"><span class="nav-number">1.5.</span> <span class="nav-text">5. 数据库连接池是如何运行的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-什么是CGI校验"><span class="nav-number">1.6.</span> <span class="nav-text">6. 什么是CGI校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-生成HTTP响应并返回给用户"><span class="nav-number">1.7.</span> <span class="nav-text">7. 生成HTTP响应并返回给用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-服务器优化：定时器处理非活动链接"><span class="nav-number">1.8.</span> <span class="nav-text">8. 服务器优化：定时器处理非活动链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-服务器优化：日志"><span class="nav-number">1.9.</span> <span class="nav-text">9. 服务器优化：日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-压测（非常关键）"><span class="nav-number">1.10.</span> <span class="nav-text">10. 压测（非常关键）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-这个服务器的不足在哪（希望大家可以献计献策）"><span class="nav-number">1.11.</span> <span class="nav-text">11. 这个服务器的不足在哪（希望大家可以献计献策）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-其他待讲解内容"><span class="nav-number">1.12.</span> <span class="nav-text">12. 其他待讲解内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-如何在此基础添加功能把社长的变成自己的（小声儿bb）"><span class="nav-number">1.13.</span> <span class="nav-text">13. 如何在此基础添加功能把社长的变成自己的（小声儿bb）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">1.14.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hugo</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/VEN/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/VEN/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/VEN/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/VEN/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VEN/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/VEN/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'hugo-818';
+      var disqus_identifier = '2020/06/02/小白视角：一文读懂社长的TinyWebServer/';
+      var disqus_title = "小白视角：一文读懂社长的TinyWebServer";
+      var disqus_url = 'http://huixxi.github.io/2020/06/02/小白视角：一文读懂社长的TinyWebServer/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>

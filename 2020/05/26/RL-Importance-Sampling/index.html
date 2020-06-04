@@ -93,7 +93,7 @@
 <meta property="og:description" content="Importance Sampling1.What is Importance SamplingImportance Sampling(IS) is a general technique for estimating properties of a particular distribution $p$, while only having samples generated from a di">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/IS.jpg">
-<meta property="og:updated_time" content="2020-05-27T14:16:52.071Z">
+<meta property="og:updated_time" content="2020-06-04T07:16:39.727Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RL_Importance_Sampling">
 <meta name="twitter:description" content="Importance Sampling1.What is Importance SamplingImportance Sampling(IS) is a general technique for estimating properties of a particular distribution $p$, while only having samples generated from a di">
@@ -330,11 +330,12 @@
         <h2 id="Importance-Sampling"><a href="#Importance-Sampling" class="headerlink" title="Importance Sampling"></a>Importance Sampling</h2><h4 id="1-What-is-Importance-Sampling"><a href="#1-What-is-Importance-Sampling" class="headerlink" title="1.What is Importance Sampling"></a>1.What is Importance Sampling</h4><p><strong>Importance Sampling(IS)</strong> is a general technique for estimating properties of a particular distribution $p$, while only having samples generated from a different distribution $q$ than the distribution of interest($p$). </p>
 <p>And actually, <strong>IS</strong> is a variant of <strong>Monte Carlo approximation</strong>.  In Monte Carlo approximation, we were extimating the expected value of a random variable $X$ by this sample mean sum: </p>
 <script type="math/tex; mode=display">E(X) \approx \frac{1}{n}\sum\limits_{i = 1}^{n}x_i,where, X\sim p,x_i\sim p</script><p>But, there is a big assumption that we can efficiently draw samples from the true distribution $p$ of this random variable $X$. What if we can’t do that? Can we use some alternative distribution like $q$ and use the samples drawing from $q$ to correct the fact that we were drawing samples from the wrong distribution or get a better estimation than its true distribution $p$? There is where Importance sampling comes for.</p>
+<a id="more"></a>
 <p>In Importance Sampling, where $p$ is the true distribution of random variable $X$, and $q$ which is called <strong>proposal distribution</strong> that we use to sampling, and $q$ satisfied <strong>absolute continuity</strong> that $\forall q(pdfs), s.t. q(x) = 0 \rightarrow p(x) = 0$:</p>
 <script type="math/tex; mode=display">
 E_p[X] = \sum\limits_{x}xp(x) = \sum\limits_{x}x\frac{p(x)}{q(x)}q(x) = E_q[x\frac{p(x)}{q(x)}] \approx \frac{1}{n}\sum\limits_{i=1}^{n}x_i\frac{p(x_i)}{q(x_i)}, \quad where, x_i\sim q</script><p>Finally,  an unbiased estimator of the true expectation(Monte Carlo estimator is unbiased).</p>
 <script type="math/tex; mode=display">
-E_p[X] \approx \frac{1}{n}\sum\limits_{i=1}^{n}x_iw(x_i), where, x_i\sim q, w(x_i) = \frac{p(x_i)}{q(x_i)}</script><p>$w(x)$ is called the <strong>importance weight</strong> , it will give more weight to the values that may appear more possible under its true distribution. And IS is worked no matter whether the $p$ is normalized, something like $p(x) = \frac{h(x)}{Z}$ or not.</p>
+E_p[X] \approx \frac{1}{n}\sum\limits_{i=1}^{n}x_iw(x_i), \quad where, x_i\sim q, w(x_i) = \frac{p(x_i)}{q(x_i)}</script><p>$w(x)$ is called the <strong>importance weight</strong> , it will give more weight to the values that may appear more possible under its true distribution. And IS is worked no matter whether the $p$ is normalized, something like $p(x) = \frac{h(x)}{Z}$ or not.</p>
 <script type="math/tex; mode=display">
 E_p[X] = \sum\limits_{x}xp(x) = \sum\limits_{x}x\frac{h(x)}{Z} = \sum\limits_{x}x\frac{h(x)}{q(x)Z}q(x) \approx \frac{1}{Z}\frac{1}{n}\sum\limits_{i=1}^{n}x_i^q\frac{h(x_i^q)}{q(x_i^q)}</script><p>Now, $E_p[X=1] = 1 = \sum\limits_{x}\frac{h(x)}{Z}$, we can get:</p>
 <script type="math/tex; mode=display">
@@ -357,11 +358,22 @@ f_{*}(x)={\frac  {1}{a}}f{\bigg (}{\frac  {x}{a}}{\bigg )}, w(x)=a{\frac  {f(x)}
 f_{*}(x)=f(x-c),\quad c>0</script><p>where $c$  is the amount of shift and is to be chosen to minimize the variance of the importance sampling estimator.</p>
 <h4 id="5-Evaluation-of-importance-sampling"><a href="#5-Evaluation-of-importance-sampling" class="headerlink" title="5. Evaluation of importance sampling"></a>5. Evaluation of importance sampling</h4><p>In order to identify successful importance sampling techniques, it is useful to be able to quantify the run-time savings due to the use of the importance sampling approach. The performance measure commonly used is $\sigma _{MC}^{2}/\sigma _{IS}^{2}$, and this can be interpreted as the speed-up factor by which the importance sampling estimator achieves the same precision as the MC estimator.</p>
 <h4 id="6-Importance-Sampling-in-Deep-Reinforcement-Learning"><a href="#6-Importance-Sampling-in-Deep-Reinforcement-Learning" class="headerlink" title="6. Importance Sampling in Deep Reinforcement Learning"></a>6. Importance Sampling in Deep Reinforcement Learning</h4><p>We often see this term in reinforcement learning paper, like the “Prioritized experience replay”, “PPO”,etc. And now, we’re going to explore why they use IS, and how they use it.</p>
-<p><strong>Prioritized experience replay</strong><br>There are two excellent interpretation about the Importace Sampling Correction appears in PER:</p>
+<p><strong>Prioritized Experience Replay</strong><br>The importance weight here is:</p>
+<script type="math/tex; mode=display">
+w_i={\bigg (}{\frac {1}{N}\frac {1}{P(i)} }{\bigg )}^{\beta} / max_i w_i</script><p>There are two excellent explanation about the Importace Sampling Correction appears in PER:</p>
 <ul>
 <li><a href="https://datascience.stackexchange.com/questions/32873/prioritized-replay-what-does-importance-sampling-really-do" target="_blank" rel="noopener">Prioritized Replay, what does Importance Sampling really do?</a></li>
 <li><a href="https://danieltakeshi.github.io/2019/07/14/per/" target="_blank" rel="noopener">Understanding Prioritized Experience Replay</a></li>
 </ul>
+<p><strong>TL;DR</strong>  the importance sampling in PER is to correct the over-sampling with respect to the uniform distribution.</p>
+<p>In paper Prioritized Experience Replay, it said: “In particular, we propose to more frequently replay transitions with high expected learning progress, as measured by the magnitude of their temporal-difference (TD) error. This prioritization can lead to a loss of diversity, which we alleviate with stochastic prioritization, and introduce bias, which we correct with importance sampling. “</p>
+<p>And DeepMind describes why we need an Importace Sampling Correction:</p>
+<blockquote>
+<p>The estimation of the expected value with stochastic updates relies on those updates corresponding to the same distribution as its expectation. Prioritized replay introduces bias because it changes this distribution in an uncontrolled fashion, and therefore changes the solution that the estimates will converge to (even if the policy and state distribution are fixed). We can correct this bias by using importance-sampling (IS) weights.</p>
+</blockquote>
+<p>Now the loss we want to minimize in DQN is: </p>
+<script type="math/tex; mode=display">L_i(\theta_i) = E_{(s, a, r, s') \sim U(D)}[(r + \lambda max_{a'}Q(s', a';\theta_i^{-}) - Q(s_i, a_i;\theta_i))^2]</script><p>Let $X = (r + \lambda max_{a’}Q(s’, a’;\theta_i^{-}) - Q(s_i, a_i;\theta_i))^2$ which should under its “true” distribution $U(D)$ - the Uniform Distribution($1/N$),  but now the samples $X$ we get are under the stochastic prioritization distribution $P$, so we need the Importance Sampling Correction to down-weight those samples with high prority which has a higher $P(i)$ to be choose to eliminate the bias it brings. Incidentally, the $\beta$ here is a kind of bias-variance trade-off method, as $\beta$ grows from $\beta_0$ to $1$, the bias is gradually eliminated, which means IS is more important near convergence.</p>
+<p><strong><a href="https://www.quora.com/Why-doesn-t-DQN-use-importance-sampling-Dont-we-always-use-this-method-to-correct-the-sampling-error-produced-by-the-off-policy/answer/James-MacGlashan" target="_blank" rel="noopener">But why we don’t use Importance sampling in DQN?</a></strong><br>The important property here is the sampling Q-learning does is over the <strong>probability distribution of the environment state transitions</strong>, not over the <strong>policy distribution</strong>. Consequently, we don’t need to correct for different policy distributions!</p>
 <h3 id="REFERENCES"><a href="#REFERENCES" class="headerlink" title="REFERENCES"></a><u>REFERENCES</u></h3><p><strong>Wikipedia:</strong> </p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Importance_sampling" target="_blank" rel="noopener">Importance Sampling</a></li>
@@ -413,8 +425,8 @@ f_{*}(x)=f(x-c),\quad c>0</script><p>where $c$  is the amount of shift and is to
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2062/01/31/Navigation/" rel="prev" title="Navigation">
-                Navigation <i class="fa fa-chevron-right"></i>
+              <a href="/2020/06/02/小白视角：一文读懂社长的TinyWebServer/" rel="prev" title="小白视角：一文读懂社长的TinyWebServer">
+                小白视角：一文读懂社长的TinyWebServer <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -488,7 +500,7 @@ f_{*}(x)=f(x-c),\quad c>0</script><p>where $c$  is the amount of shift and is to
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
