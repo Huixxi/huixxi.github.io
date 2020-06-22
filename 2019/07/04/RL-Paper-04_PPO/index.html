@@ -92,10 +92,12 @@
 <meta property="og:site_name" content="HU">
 <meta property="og:description" content="Proximal Policy Optimization AlgorithmsPaper SourceJournal:Year: 2017Institute: OpenAIAuthor: John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov#Deep Reinforcement Learning  #Po">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-26T05:50:10.782Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/ppo.png">
+<meta property="og:updated_time" content="2020-06-22T08:19:11.045Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RL_Paper_04:PPO">
 <meta name="twitter:description" content="Proximal Policy Optimization AlgorithmsPaper SourceJournal:Year: 2017Institute: OpenAIAuthor: John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov#Deep Reinforcement Learning  #Po">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/ppo.png">
 
 
 
@@ -325,7 +327,22 @@
       
 
       
-        <h2 id="Proximal-Policy-Optimization-Algorithms"><a href="#Proximal-Policy-Optimization-Algorithms" class="headerlink" title="Proximal Policy Optimization Algorithms"></a>Proximal Policy Optimization Algorithms</h2><p><em><a href="https://arxiv.org/pdf/1707.06347.pdf" target="_blank" rel="noopener">Paper Source</a></em><br><code>Journal:</code><br><code>Year: 2017</code><br><code>Institute: OpenAI</code><br><code>Author: John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov</code><br><code>#</code><em>Deep Reinforcement Learning</em>  <code>#</code><em>Policy Gradient`</em></p>
+        <h2 id="Proximal-Policy-Optimization-Algorithms"><a href="#Proximal-Policy-Optimization-Algorithms" class="headerlink" title="Proximal Policy Optimization Algorithms"></a>Proximal Policy Optimization Algorithms</h2><p><em><a href="https://arxiv.org/pdf/1707.06347.pdf" target="_blank" rel="noopener">Paper Source</a></em><br><code>Journal:</code><br><code>Year: 2017</code><br><code>Institute: OpenAI</code><br><code>Author: John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov</code><br><code>#</code><em>Deep Reinforcement Learning</em>  <code>#</code><em>Policy Gradient</em></p>
+<p>PPO(Proximal Policy Optimization), a much simpler to implement, better sample complexity, policy gradient method that has a novel objective with clipped problability ratios, which forms a pessimistic estimate of the performance of the policy ($\theta_{old}$ is the vector of policy parameters before the update).</p>
+<script type="math/tex; mode=display">
+r_t(\theta) = \frac{\pi_{\theta}(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}, \quad so, r(\theta_{old}) = 1</script><a id="more"></a>
+<p>In policy gradient, the loss function is:</p>
+<script type="math/tex; mode=display">
+L^{PG}(\theta) = \hat{E}[log\pi_{\theta}(a_t|s_t)\hat{A}_t] \\
+\hat{g} = \hat{E}[\nabla_{\theta}log\pi_{\theta}(a_t|s_t)\hat{A}_t]</script><p>where $\pi_{\theta}$ is a stochastic policy and $\hat{A}_t$ is an estimator of the advantage function at timestep $t$.<br>While it is appealing to perform multiple steps of optimization on this loss $L^{PG}$ using the same trajectory, doing so is not well-justified, and empirically it often leads to destructively large policy updates.   </p>
+<p>In TRPO, the loss function becomes:  </p>
+<script type="math/tex; mode=display">
+L^{CPI}(\theta) = \hat{E}[r_t(\theta)\hat{A}_t]</script><p>Now, in PPO, the loss function becomes:</p>
+<script type="math/tex; mode=display">
+L^{CLIP}(\theta) = \hat{E}[min(r_t(\theta)\hat{A}_t, clip(r_t(\theta), 1 - \epsilon, 1 + \epsilon)\hat{A}_t]</script><p>This objective can further be augmented by adding an <strong>entropy bonus</strong> to ensure sufficient exploration, as suggested in past work. The final objective is:   </p>
+<script type="math/tex; mode=display">
+L^{CLIP+VF+S(\theta)} = \hat{E_t}[L^{CLIP}_t(\theta) − c_1 L^{VF}_t(\theta) + c_2 S[\pi\theta](s_t)]</script><p>where $c_1$, $c_2$ are coefficients, and $S$ denotes an entropy bonus, and $L^{VF}$ is a squared-error loss $(V_{\theta}(s_t) - V_t^{target})^2$.  </p>
+<p>And the total algorithm is as follows:<br><img src="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/ppo.png" title="Paper: Proximal Policy Optimization Algorithms" width="500" hegiht="313" align="center"></p>
 
       
     </div>

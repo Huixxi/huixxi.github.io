@@ -646,10 +646,15 @@
 
       
         
-          
-            <h2 id="Proximal-Policy-Optimization-Algorithms"><a href="#Proximal-Policy-Optimization-Algorithms" class="headerlink" title="Proximal Policy Optimization Algorithms"></a>Proximal Policy Optimization Algorithms</h2><p><em><a href="https://arxiv.org/pdf/1707.06347.pdf" target="_blank" rel="noopener">Paper Source</a></em><br><code>Journal:</code><br><code>Year: 2017</code><br><code>Institute: OpenAI</code><br><code>Author: John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov</code><br><code>#</code><em>Deep Reinforcement Learning</em>  <code>#</code><em>Policy Gradient`</em></p>
-
-          
+          <h2 id="Proximal-Policy-Optimization-Algorithms"><a href="#Proximal-Policy-Optimization-Algorithms" class="headerlink" title="Proximal Policy Optimization Algorithms"></a>Proximal Policy Optimization Algorithms</h2><p><em><a href="https://arxiv.org/pdf/1707.06347.pdf" target="_blank" rel="noopener">Paper Source</a></em><br><code>Journal:</code><br><code>Year: 2017</code><br><code>Institute: OpenAI</code><br><code>Author: John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov</code><br><code>#</code><em>Deep Reinforcement Learning</em>  <code>#</code><em>Policy Gradient</em></p>
+<p>PPO(Proximal Policy Optimization), a much simpler to implement, better sample complexity, policy gradient method that has a novel objective with clipped problability ratios, which forms a pessimistic estimate of the performance of the policy ($\theta_{old}$ is the vector of policy parameters before the update).</p>
+<script type="math/tex; mode=display">
+r_t(\theta) = \frac{\pi_{\theta}(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}, \quad so, r(\theta_{old}) = 1</script>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2019/07/04/RL-Paper-04_PPO/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
         
       
     </div>
