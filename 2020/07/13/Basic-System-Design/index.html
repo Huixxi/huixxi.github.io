@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="System Design,">
 
 
 
@@ -84,14 +84,18 @@
 
 
 
+<meta name="description" content="System DesignIn a system design interview, you should at least do the following 4 tips:  Ask good questions: what feature to work on? how much to scale?  To figure out which feature he cares about and">
+<meta name="keywords" content="System Design">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RL_OpenAI_Five">
-<meta property="og:url" content="http://huixxi.github.io/2019/07/04/RL-OpenAI-Five/index.html">
+<meta property="og:title" content="Basic System Design">
+<meta property="og:url" content="http://huixxi.github.io/2020/07/13/Basic-System-Design/index.html">
 <meta property="og:site_name" content="HU">
+<meta property="og:description" content="System DesignIn a system design interview, you should at least do the following 4 tips:  Ask good questions: what feature to work on? how much to scale?  To figure out which feature he cares about and">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-07-04T08:47:53.690Z">
+<meta property="og:updated_time" content="2020-07-13T13:45:46.021Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RL_OpenAI_Five">
+<meta name="twitter:title" content="Basic System Design">
+<meta name="twitter:description" content="System DesignIn a system design interview, you should at least do the following 4 tips:  Ask good questions: what feature to work on? how much to scale?  To figure out which feature he cares about and">
 
 
 
@@ -112,10 +116,10 @@
 
 
 
-  <link rel="canonical" href="http://huixxi.github.io/2019/07/04/RL-OpenAI-Five/">
+  <link rel="canonical" href="http://huixxi.github.io/2020/07/13/Basic-System-Design/">
 
 
-  <title> RL_OpenAI_Five | HU </title>
+  <title> Basic System Design | HU </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="en">
@@ -255,7 +259,7 @@
             
             
               
-                RL_OpenAI_Five
+                Basic System Design
               
             
           </h1>
@@ -267,19 +271,38 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2019-07-04T16:47:53+08:00" content="2019-07-04">
-              2019-07-04
+            <time itemprop="dateCreated" datetime="2020-07-13T14:06:21+08:00" content="2020-07-13">
+              2020-07-13
             </time>
           </span>
 
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Technology/" itemprop="url" rel="index">
+                    <span itemprop="name">Technology</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2019/07/04/RL-OpenAI-Five/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/04/RL-OpenAI-Five/" itemprop="commentsCount"></span>
+                <a href="/2020/07/13/Basic-System-Design/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/07/13/Basic-System-Design/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -302,7 +325,142 @@
       
 
       
-        
+        <h1 id="System-Design"><a href="#System-Design" class="headerlink" title="System Design"></a>System Design</h1><p>In a system design interview, you should at least do the following 4 tips:</p>
+<ul>
+<li>Ask good questions: what feature to work on? how much to scale? <ul>
+<li>To figure out which feature he cares about and which feature he doesn’t, and make sure the finally feature set is small, then go deep into this feature set.</li>
+<li>How much data you need to store in the database, how many requests per second(QPS) you need to handle, and what kind of latency is expected.</li>
+</ul>
+</li>
+<li>Don’t use buzzwords.</li>
+<li>Clear and organized thinking.</li>
+<li>Dirve discussions(80-20 rule): you should be talking 80% of the time and the interviewer should be talking 20% of the time.</li>
+</ul>
+<a id="more"></a>
+<h2 id="The-basic-features-which-is-required-in-a-system-design"><a href="#The-basic-features-which-is-required-in-a-system-design" class="headerlink" title="The basic features which is required in a system design."></a>The basic features which is required in a system design.</h2><ol>
+<li><strong>Features</strong>: figure out what features does the interviewer need</li>
+<li><strong>Define APIs</strong></li>
+<li><strong>Availability</strong>: when a power cut or your datacenter goes down, if your service is still available.  </li>
+<li><strong>Latency Performance</strong></li>
+<li><strong>Scalability</strong>: it going to be scaled as we add more users or more requests</li>
+<li><strong>Durability</strong>: data can be stored in a database securely and data is not lost and data is not compromised.</li>
+<li><strong>Class Diagram</strong>(Object Oriented Principles)</li>
+<li><strong>Security &amp; Privacy</strong></li>
+<li><strong>Cost Effective</strong></li>
+</ol>
+<h2 id="Important-concepts-that-you-need-to-know"><a href="#Important-concepts-that-you-need-to-know" class="headerlink" title="Important concepts that you need to know."></a>Important concepts that you need to know.</h2><ul>
+<li><strong>Vertical vs Horizontal Scaling</strong><ul>
+<li>vertial: add more memory, CPU, and hard drive to an existing host (single point failure)</li>
+<li>horizontal: keep the host small and add more hosts (distributed system)</li>
+</ul>
+</li>
+<li><strong>CAP Theorem</strong><ul>
+<li>CAP Theorem is a concept that a distributed database system can only have 2 of the 3: Consistency, Availability and Partition Tolerance.</li>
+<li>Consistency(一致性): all nodes see the same data at the same time. Simply put, performing a read operation will return the value of the most recent write operation causing all nodes to return the same data.</li>
+<li>Availability(可用性): every request should gets a response on success/failure, regardless of the state of any individual node in the system.</li>
+<li>Partion Tolerance(分区容限): can sustain any amount of network failure that doesn’t result in a failure of the entire network.</li>
+</ul>
+</li>
+<li><strong>ACID vs BASE</strong><ul>
+<li>ACID: Atomicity, Consistency, Isolation, and Durablity, which is used for relational database.</li>
+<li>BASE: Basically Available, Soft State, and Eventual Consistency, which is used for NoSQL database.</li>
+</ul>
+</li>
+<li><strong>Partitioning / Sharding Data</strong><ul>
+<li>Consistent Hashing</li>
+</ul>
+</li>
+<li><strong>Optimistic vs Pessimistic Locking</strong><ul>
+<li>Optimistic Locking: No locking, check before you commit the transaction, if the version number of that data is different before and after, just rollback and do the operate again.</li>
+<li>Pessimistic Locking: Lock the data beforehand until you commit the transaction.</li>
+</ul>
+</li>
+<li><strong>Strong vs Eventual Consistency</strong><ul>
+<li>Strong consistency is the consistency in CAP.</li>
+<li>Eventual consistency provides higher Availability.</li>
+</ul>
+</li>
+<li><strong>Relational DB vs NoSQL DB</strong><ul>
+<li>Relational DB provides all these nice ACID properties.</li>
+<li>NoSQL DB provides scales a little bit better and higher availability.</li>
+</ul>
+</li>
+<li><strong>Types of NoSQL</strong><ul>
+<li>Key Value</li>
+<li>Wide Column</li>
+<li>Document Based: to store semi-structured data, XML.. </li>
+<li>Graph Based</li>
+</ul>
+</li>
+<li><strong>Caching</strong><ul>
+<li>Type 1: Every node has its own caching so the cache data is not shared between nodes</li>
+<li>Type 2: Split Cache</li>
+<li>Cache can’t be the source of truth; Cache data has to be pretty small(keep the data in memory).</li>
+</ul>
+</li>
+<li><strong>Data center/Racks/Hosts</strong></li>
+<li><strong>Limited Recources: CPU/Memory/Hard Drive/Netword Bandwidth</strong></li>
+<li><strong>Random vs Sequential Read/Write on the Disk</strong></li>
+<li><strong>Http vs Http2 vs WebSockets</strong></li>
+<li><strong>TCP/IP Model</strong></li>
+<li><strong>IPV4 vs IPV6</strong></li>
+<li><strong>TCP vs UDP</strong></li>
+<li><strong>DNS Lookup</strong></li>
+<li><strong>Https vs TLS</strong></li>
+<li><strong>Public Key Infrastructure &amp; Certivicate Authority</strong></li>
+<li><strong>Symmetric vs Asymmetric Encryption</strong></li>
+<li><strong>Load Balancer -&gt; L4 vs L7</strong></li>
+<li><strong>CDNs &amp; Edge</strong></li>
+<li><strong>Bloom Filters &amp; Count-min Sketch</strong><ul>
+<li>Bloom filters are used to decide if an element is a member of set, it can have false positives but never have false negative.</li>
+<li>Count-min sketch is used to count the frequency of events. Keep the top k events amount a large dataset.</li>
+</ul>
+</li>
+<li><strong>Paxos-Consensus over distributed hosts</strong><ul>
+<li>Leader Election</li>
+</ul>
+</li>
+<li><strong>Design Pattern &amp; Object Oriented Design</strong></li>
+<li><strong>Virtual Machines &amp; Containers</strong></li>
+<li><strong>Publisher-Subscribe over Queue</strong><ul>
+<li>Customer facing requests should not be directly exposed to a Pub-Sub system.  Encryption (e.g. Transport Layer Security (SSL/TLS)) can prevent unauthorized access.</li>
+</ul>
+</li>
+<li><strong>Map Reduce</strong><ul>
+<li>Map: Filter and sorting the data.</li>
+<li>Reduce: Summarizing the data.</li>
+</ul>
+</li>
+<li><strong>Multi-Threading, Concurrency, Locks, Synchronization</strong></li>
+</ul>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<li><strong>Cassandra</strong>: A wide column highly scalable database </li>
+<li><strong>MongoDB/Couchbase</strong>: A NoSQL that provides ACID at a document level.</li>
+<li><strong>MySQL</strong>: Support master-salve architecture and scales up well</li>
+<li><strong>Memcached &amp; Redis</strong>: Distributed cache.</li>
+<li><strong>Zookeeper</strong>: Centralized configuration management tool. Also used for <strong>leader election</strong> and <strong>distributed locking</strong>, scales very well for the reads but not writes, and can only store small amount of data.</li>
+<li><strong>Kafka</strong>: A fault tolerant highly available queue using publisher-subscriber or streaming application.</li>
+<li><strong>NGINX &amp; HAProxy</strong>: Load balancers</li>
+<li><strong>Solr &amp; Elastic Search</strong>: Search platform.</li>
+<li><strong>Blobstore</strong></li>
+<li><strong>Docker</strong><ul>
+<li>Kubernetes</li>
+<li>Mesos</li>
+</ul>
+</li>
+<li><strong>Hadoop / Spark</strong><ul>
+<li>HDFS </li>
+</ul>
+</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><a href="https://www.youtube.com/watch?v=UzLMhqg3_Wc" target="_blank" rel="noopener">System Design Introduction For Interview - Tushar Roy</a></li>
+<li><a href="https://towardsdatascience.com/cap-theorem-and-distributed-database-management-systems-5c2be977950e" target="_blank" rel="noopener">CAP Theorem and Distributed Database Management Systems</a></li>
+<li><a href="https://www.neovolve.com/2008/09/25/caching-should-not-be-the-source-of-truth/" target="_blank" rel="noopener">aching should not be the source of truth</a></li>
+<li><a href="https://llimllib.github.io/bloomfilter-tutorial/#:~:text=A%20Bloom%20filter%20is%20a,may%20be%20in%20the%20set." target="_blank" rel="noopener">Bloom Filters</a></li>
+<li><a href="https://florian.github.io/count-min-sketch/" target="_blank" rel="noopener">Count-Min Sketch</a></li>
+</ol>
+
       
     </div>
 
@@ -322,21 +480,27 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/System-Design/" rel="tag">#System Design</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/04/RL-Paper-05_Hierarchical RL/" rel="next" title="RL_Paper_05:Hierarchical RL">
-                <i class="fa fa-chevron-left"></i> RL_Paper_05:Hierarchical RL
+              <a href="/2020/06/23/DL-Federated-Learning/" rel="next" title="DL_Federated_Learning">
+                <i class="fa fa-chevron-left"></i> DL_Federated_Learning
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/04/RL-LSTM/" rel="prev" title="RL_LSTM">
-                RL_LSTM <i class="fa fa-chevron-right"></i>
+              <a href="/2062/01/31/Navigation/" rel="prev" title="Navigation">
+                Navigation <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -494,7 +658,7 @@
               
             
             
-              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#System-Design"><span class="nav-number">1.</span> <span class="nav-text">System Design</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-basic-features-which-is-required-in-a-system-design"><span class="nav-number">1.1.</span> <span class="nav-text">The basic features which is required in a system design.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Important-concepts-that-you-need-to-know"><span class="nav-number">1.2.</span> <span class="nav-text">Important concepts that you need to know.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tools"><span class="nav-number">1.3.</span> <span class="nav-text">Tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.4.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -621,9 +785,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'hugo-818';
-      var disqus_identifier = '2019/07/04/RL-OpenAI-Five/';
-      var disqus_title = "RL_OpenAI_Five";
-      var disqus_url = 'http://huixxi.github.io/2019/07/04/RL-OpenAI-Five/';
+      var disqus_identifier = '2020/07/13/Basic-System-Design/';
+      var disqus_title = "Basic System Design";
+      var disqus_url = 'http://huixxi.github.io/2020/07/13/Basic-System-Design/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

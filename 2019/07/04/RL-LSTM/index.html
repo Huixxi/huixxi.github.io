@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Reinforcement Learning,">
 
 
 
@@ -84,14 +84,21 @@
 
 
 
+<meta name="description" content="Understanding LSTM — a tutorial into Long Short-Term Memory Recurrent Neural NetworksPaper SourceJournal:Year: 2019Institute:Author: Ralf C. Staudemeyer, Eric Rothstein Morris#Long Short-Term Memory">
+<meta name="keywords" content="Reinforcement Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RL_LSTM">
 <meta property="og:url" content="http://huixxi.github.io/2019/07/04/RL-LSTM/index.html">
 <meta property="og:site_name" content="HU">
+<meta property="og:description" content="Understanding LSTM — a tutorial into Long Short-Term Memory Recurrent Neural NetworksPaper SourceJournal:Year: 2019Institute:Author: Ralf C. Staudemeyer, Eric Rothstein Morris#Long Short-Term Memory">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-07-04T10:23:54.375Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/RNN-unrolled.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/LSTM.png">
+<meta property="og:updated_time" content="2020-07-18T14:12:04.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RL_LSTM">
+<meta name="twitter:description" content="Understanding LSTM — a tutorial into Long Short-Term Memory Recurrent Neural NetworksPaper SourceJournal:Year: 2019Institute:Author: Ralf C. Staudemeyer, Eric Rothstein Morris#Long Short-Term Memory">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/RNN-unrolled.png">
 
 
 
@@ -273,6 +280,25 @@
           </span>
 
           
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -302,7 +328,23 @@
       
 
       
-        
+        <h2 id="Understanding-LSTM-—-a-tutorial-into-Long-Short-Term-Memory-Recurrent-Neural-Networks"><a href="#Understanding-LSTM-—-a-tutorial-into-Long-Short-Term-Memory-Recurrent-Neural-Networks" class="headerlink" title="Understanding LSTM — a tutorial into Long Short-Term Memory Recurrent Neural Networks"></a>Understanding LSTM — a tutorial into Long Short-Term Memory Recurrent Neural Networks</h2><p><em><a href="https://arxiv.org/pdf/1909.09586.pdf" target="_blank" rel="noopener">Paper Source</a></em><br><code>Journal:</code><br><code>Year: 2019</code><br><code>Institute:</code><br><code>Author: Ralf C. Staudemeyer, Eric Rothstein Morris</code><br><code>#</code><em>Long Short-Term Memory</em>  <code>#</code><em>Recurrent Neural Networks</em></p>
+<h3 id="Recurrent-Neural-Network"><a href="#Recurrent-Neural-Network" class="headerlink" title="Recurrent Neural Network"></a>Recurrent Neural Network</h3><p>An RNN model is typically used to process long sequential data like video, audio, etc. A simple RNN looks like:<br><img src="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/RNN-unrolled.png" title="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" width="500" hegiht="313" align="center"></p>
+<p> However, simple perceptron neurons that linearly combine the current input element and the last unit state may easily lose the long-term dependencies. Standard RNN cannot bridge more than 5–10 time steps. This is due to that back-propagated error signals tend to either grow or shrink with every time, which makes it struggle to learn. There is where <strong>LSTM</strong> comes into the picture.</p>
+<h3 id="LSTM-Networks"><a href="#LSTM-Networks" class="headerlink" title="LSTM Networks"></a>LSTM Networks</h3><p>LSTMs is the short name of Long Short Term Memory networks that is explicitly designed to avoid the long-term dependency problem. </p>
+<p><img src="https://raw.githubusercontent.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning/master/images/rlblog_images/LSTM.png" title="Gated Recurrent Unit. http://colah.github.io/posts/2015-08-Understanding-LSTMs/" width="250" hegiht="113" align="center"></p>
+<p>We can see from the above picture that it has multi-neural network layer in each recurrent unit.</p>
+<script type="math/tex; mode=display">
+z_t = \sigma(W_{z} \dot [h_{t-1}, x_t]) \\
+r_t = \sigma(W_{r} \dot [h_{t-1}, x_t]) \\
+\hat{h_t} = \tanh(W \dot [r_t * h_{t-1}, x_t]) \\
+h_t = (1 - z_t) * h_{t-1} + z_t * \hat{h_t}</script><h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ol>
+<li><a href="https://lilianweng.github.io/lil-log/2017/07/08/predict-stock-prices-using-RNN-part-1.html" target="_blank" rel="noopener">Predict Stock Prices Using RNN: Part 1</a></li>
+<li><a href="https://lilianweng.github.io/lil-log/2017/07/08/predict-stock-prices-using-RNN-part-1.html" target="_blank" rel="noopener">Predict Stock Prices Using RNN: Part 2</a></li>
+<li><a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">Understanding LSTM Networks</a></li>
+<li><a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank" rel="noopener">The Unreasonable Effectiveness of Recurrent Neural Networks</a></li>
+</ol>
+
       
     </div>
 
@@ -321,6 +363,12 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Reinforcement-Learning/" rel="tag">#Reinforcement Learning</a>
+          
+        </div>
       
 
       
@@ -410,7 +458,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -418,7 +466,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -427,7 +475,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -494,7 +542,7 @@
               
             
             
-              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Understanding-LSTM-—-a-tutorial-into-Long-Short-Term-Memory-Recurrent-Neural-Networks"><span class="nav-number">1.</span> <span class="nav-text">Understanding LSTM — a tutorial into Long Short-Term Memory Recurrent Neural Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Recurrent-Neural-Network"><span class="nav-number">1.1.</span> <span class="nav-text">Recurrent Neural Network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSTM-Networks"><span class="nav-number">1.2.</span> <span class="nav-text">LSTM Networks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">1.3.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
