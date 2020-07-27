@@ -92,10 +92,17 @@
 <meta property="og:site_name" content="HU">
 <meta property="og:description" content="System DesignIn a system design interview, you should at least do the following 4 tips:  Ask good questions: what feature to work on? how much to scale?  To figure out which feature he cares about and">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-07-13T13:45:46.021Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/hash_ring.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/strong-consistency.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/eventual-consistency.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/load_balancing.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/load_balancer.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/mapreduce.png">
+<meta property="og:updated_time" content="2020-07-27T03:31:38.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Basic System Design">
 <meta name="twitter:description" content="System DesignIn a system design interview, you should at least do the following 4 tips:  Ask good questions: what feature to work on? how much to scale?  To figure out which feature he cares about and">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/hash_ring.png">
 
 
 
@@ -337,7 +344,7 @@
 <li>Dirve discussions(80-20 rule): you should be talking 80% of the time and the interviewer should be talking 20% of the time.</li>
 </ul>
 <a id="more"></a>
-<h2 id="The-basic-features-which-is-required-in-a-system-design"><a href="#The-basic-features-which-is-required-in-a-system-design" class="headerlink" title="The basic features which is required in a system design."></a>The basic features which is required in a system design.</h2><ol>
+<h2 id="The-basic-features-which-is-required-in-a-system-design"><a href="#The-basic-features-which-is-required-in-a-system-design" class="headerlink" title="The basic features which is required in a system design."></a>The basic features which is required in a system design.</h2><ul>
 <li><strong>Features</strong>: figure out what features does the interviewer need</li>
 <li><strong>Define APIs</strong></li>
 <li><strong>Availability</strong>: when a power cut or your datacenter goes down, if your service is still available.  </li>
@@ -347,93 +354,131 @@
 <li><strong>Class Diagram</strong>(Object Oriented Principles)</li>
 <li><strong>Security &amp; Privacy</strong></li>
 <li><strong>Cost Effective</strong></li>
-</ol>
-<h2 id="Important-concepts-that-you-need-to-know"><a href="#Important-concepts-that-you-need-to-know" class="headerlink" title="Important concepts that you need to know."></a>Important concepts that you need to know.</h2><ul>
-<li><strong>Vertical vs Horizontal Scaling</strong><ul>
-<li>vertial: add more memory, CPU, and hard drive to an existing host (single point failure)</li>
-<li>horizontal: keep the host small and add more hosts (distributed system)</li>
 </ul>
-</li>
-<li><strong>CAP Theorem</strong><ul>
+<h2 id="Important-concepts-that-you-need-to-know"><a href="#Important-concepts-that-you-need-to-know" class="headerlink" title="Important concepts that you need to know."></a>Important concepts that you need to know.</h2><h3 id="Vertical-vs-Horizontal-Scaling"><a href="#Vertical-vs-Horizontal-Scaling" class="headerlink" title="Vertical vs Horizontal Scaling"></a><strong>Vertical vs Horizontal Scaling</strong></h3><ul>
+<li><strong>Vertial</strong>: add more memory, CPU, and hard drive to an existing host (single point failure)</li>
+<li><strong>Horizontal</strong>: keep the host small and add more hosts (distributed system)</li>
+</ul>
+<h3 id="CAP-Theorem"><a href="#CAP-Theorem" class="headerlink" title="CAP Theorem"></a><strong>CAP Theorem</strong></h3><ul>
 <li>CAP Theorem is a concept that a distributed database system can only have 2 of the 3: Consistency, Availability and Partition Tolerance.</li>
-<li>Consistency(一致性): all nodes see the same data at the same time. Simply put, performing a read operation will return the value of the most recent write operation causing all nodes to return the same data.</li>
-<li>Availability(可用性): every request should gets a response on success/failure, regardless of the state of any individual node in the system.</li>
-<li>Partion Tolerance(分区容限): can sustain any amount of network failure that doesn’t result in a failure of the entire network.</li>
+<li><strong>Consistency</strong>(一致性): all nodes see the same data at the same time. Simply put, performing a read operation will return the value of the most recent write operation causing all nodes to return the same data.</li>
+<li><strong>Availability</strong>(可用性): every request should gets a response on success/failure, regardless of the state of any individual node in the system.</li>
+<li><strong>Partion Tolerance</strong>(分区容限): can sustain any amount of network failure that doesn’t result in a failure of the entire network.</li>
 </ul>
-</li>
-<li><strong>ACID vs BASE</strong><ul>
-<li>ACID: Atomicity, Consistency, Isolation, and Durablity, which is used for relational database.</li>
-<li>BASE: Basically Available, Soft State, and Eventual Consistency, which is used for NoSQL database.</li>
+<h3 id="ACID-vs-BASE"><a href="#ACID-vs-BASE" class="headerlink" title="ACID vs BASE"></a><strong>ACID vs BASE</strong></h3><ul>
+<li><strong>ACID</strong>: Atomicity, Consistency(Strong), Isolation, and Durablity, which is used for relational database.</li>
+<li><strong>BASE</strong>: Basically Available, Soft State, and Eventual Consistency, which is used for NoSQL database.</li>
 </ul>
-</li>
-<li><strong>Partitioning / Sharding Data</strong><ul>
-<li>Consistent Hashing</li>
+<h3 id="Partitioning-Sharding-Data"><a href="#Partitioning-Sharding-Data" class="headerlink" title="Partitioning / Sharding Data"></a><strong>Partitioning / Sharding Data</strong></h3><p><strong>Database Sharding</strong><br>A database shard is a horizontal partition of data in a database or search engine. Each individual partition is referred to as a shard or database shard. Each shard is held on a separate database server instance, to spread load.</p>
+<p>Some data within a database remains present in all shards,[notes 1] but some appears only in a single shard. Each shard (or server) acts as the single source for this subset of data.</p>
+<p>In Sharding, one’s data is broken into two or more smaller chunks, called <em>logical shards</em>. The logical shards are then distributed across separate database nodes, referred to as physical shards.</p>
+<p><strong>Advantages of Sharding</strong>   </p>
+<ul>
+<li>High Availability</li>
+<li>Faster queries response</li>
+<li>More write bandwidth(write data in parallel)</li>
+<li>Scaling out</li>
 </ul>
-</li>
-<li><strong>Optimistic vs Pessimistic Locking</strong><ul>
+<p><strong>Disadvantages of Sharding</strong></p>
+<ul>
+<li>More complexity</li>
+<li>A heavier reliance on the interconnection between servers.</li>
+<li>When more than one shard must be searched, increased latency when querying.</li>
+<li>Rebalancing data when <em>database hotspot</em>.</li>
+</ul>
+<p><strong>Types of Sharding Architecture</strong></p>
+<ul>
+<li>Key Based Sharding: by customer ID number, client application IP address, Country Zip code, etc.</li>
+<li>Range Based Sharding: sharding the data based on the range of given values.</li>
+<li>Directory Based Sharding: maintain a static lookup table which used to keep track of which shard holds which data..</li>
+</ul>
+<h3 id="Consistent-Hashing"><a href="#Consistent-Hashing" class="headerlink" title="Consistent Hashing"></a><strong>Consistent Hashing</strong></h3><p><strong>Distributed Hashing</strong><br>Use a hash table to distribute the requests to different servers:  server = hash(key) modulo N (N = #servers).</p>
+<p><strong>Rehashing</strong><br>When a server is crashed, the number of servers N = N - 1, then, all the requests should be rehashed, the server location for almost all requests changed, which will  increase the load on origin in case of caching servers as there will be <strong>cache miss</strong> of keys and all of them needs to be rehashed.</p>
+<p><strong>Consistent Hashing</strong><br>To solve the problem of rehashing, consistent hashing provides a distribution scheme which does not directly depend on the number of servers. All the requests and the servers are hashed by the same hash function to a abstract circle range, called <strong>hash ring</strong>. This allows servers and objects to scale without affecting the overall system.<br><img src="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/hash_ring.png" title="https://medium.com/system-design-blog/consistent-hashing-b9134c8a9062" width="500" hegiht="313" align="center"></p>
+<p>To evenly distribute the load among servers when a server is added or removed, it creates a fixed number of replicas(known as virtual nodes by using several hash functions) of each server and distributed it along the circle. </p>
+<h3 id="Optimistic-vs-Pessimistic-Locking"><a href="#Optimistic-vs-Pessimistic-Locking" class="headerlink" title="Optimistic vs Pessimistic Locking"></a><strong>Optimistic vs Pessimistic Locking</strong></h3><ul>
 <li>Optimistic Locking: No locking, check before you commit the transaction, if the version number of that data is different before and after, just rollback and do the operate again.</li>
 <li>Pessimistic Locking: Lock the data beforehand until you commit the transaction.</li>
 </ul>
-</li>
-<li><strong>Strong vs Eventual Consistency</strong><ul>
-<li>Strong consistency is the consistency in CAP.</li>
-<li>Eventual consistency provides higher Availability.</li>
+<h3 id="Strong-vs-Eventual-Consistency"><a href="#Strong-vs-Eventual-Consistency" class="headerlink" title="Strong vs Eventual Consistency"></a><strong>Strong vs Eventual Consistency</strong></h3><ul>
+<li>Strong consistency is the consistency in CAP.<br><img src="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/strong-consistency.png" title="https://cloud.google.com/datastore/docs/articles/balancing-strong-and-eventual-consistency-with-google-cloud-datastore/" width="500" hegiht="313" align="center"></li>
+<li>Eventual consistency provides higher Availability, like the famous DNS.<br><img src="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/eventual-consistency.png" title="https://cloud.google.com/datastore/docs/articles/balancing-strong-and-eventual-consistency-with-google-cloud-datastore/" width="500" hegiht="313" align="center"></li>
 </ul>
-</li>
-<li><strong>Relational DB vs NoSQL DB</strong><ul>
+<h3 id="Relational-DB-vs-NoSQL-DB"><a href="#Relational-DB-vs-NoSQL-DB" class="headerlink" title="Relational DB vs NoSQL DB"></a><strong>Relational DB vs NoSQL DB</strong></h3><ul>
 <li>Relational DB provides all these nice ACID properties.</li>
 <li>NoSQL DB provides scales a little bit better and higher availability.</li>
 </ul>
-</li>
-<li><strong>Types of NoSQL</strong><ul>
+<h3 id="Types-of-NoSQL"><a href="#Types-of-NoSQL" class="headerlink" title="Types of NoSQL"></a><strong>Types of NoSQL</strong></h3><ul>
 <li>Key Value</li>
 <li>Wide Column</li>
 <li>Document Based: to store semi-structured data, XML.. </li>
 <li>Graph Based</li>
 </ul>
-</li>
-<li><strong>Caching</strong><ul>
-<li>Type 1: Every node has its own caching so the cache data is not shared between nodes</li>
-<li>Type 2: Split Cache</li>
-<li>Cache can’t be the source of truth; Cache data has to be pretty small(keep the data in memory).</li>
+<h3 id="Caching"><a href="#Caching" class="headerlink" title="Caching"></a><strong>Caching</strong></h3><ul>
+<li>Caching <strong>improves latency</strong> and can reduce the load on your servers and databases.</li>
+<li>Every node has its own caching so the cache data is not shared between nodes. </li>
+<li>Cache can’t be the source of truth; Cache data has to be pretty small(keep the data in memory).   </li>
+</ul>
+<p>Caching can be done at different level.   </p>
+<ul>
+<li>Client Caching</li>
+<li>CDN Caching</li>
+<li>Web Server Caching</li>
+<li>Database Caching</li>
+<li>Application Caching: <strong>In-memory key-value</strong> store like <em>Memcached</em> and <em>Redis</em><ul>
+<li>Caching Database Queries: whenever you query your database, your store the result dataset in the cache.</li>
+<li>Caching Objects: store the data as an object as you do in your application code</li>
 </ul>
 </li>
-<li><strong>Data center/Racks/Hosts</strong></li>
-<li><strong>Limited Recources: CPU/Memory/Hard Drive/Netword Bandwidth</strong></li>
-<li><strong>Random vs Sequential Read/Write on the Disk</strong></li>
-<li><strong>Http vs Http2 vs WebSockets</strong></li>
-<li><strong>TCP/IP Model</strong></li>
-<li><strong>IPV4 vs IPV6</strong></li>
-<li><strong>TCP vs UDP</strong></li>
-<li><strong>DNS Lookup</strong></li>
-<li><strong>Https vs TLS</strong></li>
-<li><strong>Public Key Infrastructure &amp; Certivicate Authority</strong></li>
-<li><strong>Symmetric vs Asymmetric Encryption</strong></li>
-<li><strong>Load Balancer -&gt; L4 vs L7</strong></li>
-<li><strong>CDNs &amp; Edge</strong></li>
-<li><strong>Bloom Filters &amp; Count-min Sketch</strong><ul>
+</ul>
+<p><strong>Cache-Invalidation</strong> Methods:   </p>
+<ul>
+<li><strong>Cache-Aside</strong>: for <strong>read-heavy workloads</strong>, application checks the cache first, if cache-hit, return the result, if cache-miss, checks the data store.</li>
+<li><strong>Read-Through</strong>: for <strong>read-heavy workloads</strong>, similiar as cache-aside</li>
+<li><strong>Write-Through</strong>: an application uses the cache as the main data source to <em>read</em> and <em>write</em>. Cache sits between application and data store. The cache is responsible for reading and writing to the database. So that data in the cache is not stale.</li>
+<li><strong>Write-Behind (Write-Back)</strong>: for <strong>write-heavy workloads</strong>, data is first written to the cache and then asynchronously data is updated to the data store, improving write performance.</li>
+<li><strong>Refresh-ahead</strong></li>
+</ul>
+<h3 id="Message-Queue"><a href="#Message-Queue" class="headerlink" title="Message Queue"></a><strong>Message Queue</strong></h3><h3 id="Microservices"><a href="#Microservices" class="headerlink" title="Microservices"></a><strong>Microservices</strong></h3><p>Microservices are small, focused on doing one thing well and autonomous services that work together.</p>
+<h3 id="Data-center-Racks-Hosts"><a href="#Data-center-Racks-Hosts" class="headerlink" title="Data center/Racks/Hosts"></a><strong>Data center/Racks/Hosts</strong></h3><h3 id="Limited-Recources-CPU-Memory-Hard-Drive-Netword-Bandwidth"><a href="#Limited-Recources-CPU-Memory-Hard-Drive-Netword-Bandwidth" class="headerlink" title="Limited Recources: CPU/Memory/Hard Drive/Netword Bandwidth"></a><strong>Limited Recources: CPU/Memory/Hard Drive/Netword Bandwidth</strong></h3><h3 id="Random-vs-Sequential-Read-Write-on-the-Disk"><a href="#Random-vs-Sequential-Read-Write-on-the-Disk" class="headerlink" title="Random vs Sequential Read/Write on the Disk"></a><strong>Random vs Sequential Read/Write on the Disk</strong></h3><h3 id="Http-vs-Http2-vs-WebSockets"><a href="#Http-vs-Http2-vs-WebSockets" class="headerlink" title="Http vs Http2 vs WebSockets"></a><strong>Http vs Http2 vs WebSockets</strong></h3><h3 id="TCP-IP-Model"><a href="#TCP-IP-Model" class="headerlink" title="TCP/IP Model"></a><strong>TCP/IP Model</strong></h3><h3 id="IPV4-vs-IPV6"><a href="#IPV4-vs-IPV6" class="headerlink" title="IPV4 vs IPV6"></a><strong>IPV4 vs IPV6</strong></h3><h3 id="TCP-vs-UDP"><a href="#TCP-vs-UDP" class="headerlink" title="TCP vs UDP"></a><strong>TCP vs UDP</strong></h3><h3 id="DNS-Lookup"><a href="#DNS-Lookup" class="headerlink" title="DNS Lookup"></a><strong>DNS Lookup</strong></h3><h3 id="Https-vs-TLS"><a href="#Https-vs-TLS" class="headerlink" title="Https vs TLS"></a><strong>Https vs TLS</strong></h3><h3 id="Public-Key-Infrastructure-amp-Certivicate-Authority"><a href="#Public-Key-Infrastructure-amp-Certivicate-Authority" class="headerlink" title="Public Key Infrastructure &amp; Certivicate Authority"></a><strong>Public Key Infrastructure &amp; Certivicate Authority</strong></h3><h3 id="Symmetric-vs-Asymmetric-Encryption"><a href="#Symmetric-vs-Asymmetric-Encryption" class="headerlink" title="Symmetric vs Asymmetric Encryption"></a><strong>Symmetric vs Asymmetric Encryption</strong></h3><h3 id="Load-Balancer-gt-L4-vs-L7"><a href="#Load-Balancer-gt-L4-vs-L7" class="headerlink" title="Load Balancer -&gt; L4 vs L7"></a><strong>Load Balancer -&gt; L4 vs L7</strong></h3><p><img src="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/load_balancing.png" title="https://medium.com/system-designing-interviews/system-design-chapter-3-load-balancing-e1c89148e37" width="500" hegiht="313" align="center"></p>
+<p><strong>Load Balancing Algorithms:</strong>   </p>
+<ul>
+<li><strong>Round Robin</strong>: 循环队列</li>
+<li><strong>Least Connections</strong>: Directs the traffic to the server with fewest active connections.</li>
+<li><strong>Least Response Time</strong>: Directs the traffic to the server with fewest active connections and lowest average response time.</li>
+<li><strong>Least Bandwidth Method</strong>: Directs the traffic to the server that is currently serving the least amount of traffic.(measured in megabits per second (Mbps))</li>
+<li><strong>IP Hash</strong></li>
+<li><strong>Session persistence or Sticky Session</strong>: Directs all the request for a particular session to he same server that serviced the first request for that session.</li>
+</ul>
+<p><strong>Load Balancer Categories:</strong><br><img src="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/load_balancer.jpg" title="https://medium.com/system-designing-interviews/system-design-chapter-3-load-balancing-e1c89148e37" width="500" hegiht="313" align="center"></p>
+<ul>
+<li><strong>DNS Round Robin</strong> </li>
+<li><strong>L3/L4 Load Balancer</strong>: traffic is routed by IP address and TCP port. “Layer 4 load balancing” most commonly refers to a deployment where the load balancer’s IP address is the one advertised to clients for a web site or service (via DNS, for example). As a result, clients record the load balancer’s address as the destination IP address in their requests. Usually, it is a kind of hardware load balancer.</li>
+<li><strong>L7 Load Balancer</strong>: traffic is routed by what is inside the HTTP protocol(application layer), such as HTTP header, uniform resource identifier, SSL session ID and HTML form data. Layer 7 load balancing enables ADC (Application Delivery Controllers) to redirect traffic more intelligently by inspecting content to gain deeper context on the application request. This additional context allows the ADC to not only optimize load balancing but to also rewrite content, perform security inspections and to implement access controls. And according to the requests’ content, to redirect those requests to different servers.</li>
+</ul>
+<h3 id="CDNs-amp-Edge"><a href="#CDNs-amp-Edge" class="headerlink" title="CDNs &amp; Edge"></a><strong>CDNs &amp; Edge</strong></h3><h3 id="Bloom-Filters-amp-Count-min-Sketch"><a href="#Bloom-Filters-amp-Count-min-Sketch" class="headerlink" title="Bloom Filters &amp; Count-min Sketch"></a><strong>Bloom Filters &amp; Count-min Sketch</strong></h3><ul>
 <li>Bloom filters are used to decide if an element is a member of set, it can have false positives but never have false negative.</li>
 <li>Count-min sketch is used to count the frequency of events. Keep the top k events amount a large dataset.</li>
 </ul>
-</li>
-<li><strong>Paxos-Consensus over distributed hosts</strong><ul>
+<h3 id="Paxos-Consensus-over-distributed-hosts"><a href="#Paxos-Consensus-over-distributed-hosts" class="headerlink" title="Paxos-Consensus over distributed hosts"></a><strong>Paxos-Consensus over distributed hosts</strong></h3><ul>
 <li>Leader Election</li>
 </ul>
-</li>
-<li><strong>Design Pattern &amp; Object Oriented Design</strong></li>
-<li><strong>Virtual Machines &amp; Containers</strong></li>
-<li><strong>Publisher-Subscribe over Queue</strong><ul>
+<h3 id="Design-Pattern-amp-Object-Oriented-Design"><a href="#Design-Pattern-amp-Object-Oriented-Design" class="headerlink" title="Design Pattern &amp; Object Oriented Design"></a><strong>Design Pattern &amp; Object Oriented Design</strong></h3><h3 id="Virtual-Machines-amp-Containers"><a href="#Virtual-Machines-amp-Containers" class="headerlink" title="Virtual Machines &amp; Containers"></a><strong>Virtual Machines &amp; Containers</strong></h3><h3 id="Publisher-Subscribe-over-Queue"><a href="#Publisher-Subscribe-over-Queue" class="headerlink" title="Publisher-Subscribe over Queue"></a><strong>Publisher-Subscribe over Queue</strong></h3><ul>
 <li>Customer facing requests should not be directly exposed to a Pub-Sub system.  Encryption (e.g. Transport Layer Security (SSL/TLS)) can prevent unauthorized access.</li>
 </ul>
-</li>
-<li><strong>Map Reduce</strong><ul>
+<h3 id="Map-Reduce"><a href="#Map-Reduce" class="headerlink" title="Map Reduce"></a><strong>Map Reduce</strong></h3><ul>
 <li>Map: Filter and sorting the data.</li>
-<li>Reduce: Summarizing the data.</li>
+<li>Reduce: Summarizing the data.<br><img src="https://raw.githubusercontent.com/Huixxi/Algorithm-with-Cplusplus/master/AlgorithmImages/mapreduce.png" title="https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf" width="500" hegiht="313" align="center"></li>
 </ul>
-</li>
-<li><strong>Multi-Threading, Concurrency, Locks, Synchronization</strong></li>
-</ul>
-<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
+<ol>
+<li>Splits the input file in M chunks and starts many copies of the program on a cluster of machines.</li>
+<li>Master picks idle workers and assigns each one a map task or a reduce task out of M map tasks and R reduce tasks.</li>
+<li>Map task worker reads and parses key/value pairs out of input split assigned and passes each key/value pair to user-defined map function. Output key/value pairs by map function are buffered in memory.</li>
+<li>Buffered pairs are partitioned in R partitions and written to the local disks periodically. Locations of these partitioned are passed to the master, who forwards these locations to reduce workers.</li>
+<li>Reduce workers are notified by the master. Intermediate data stored on local disks of map workers are read by reduce workers using remote procedure calls and sorted to group same key together.</li>
+<li>Reduce worker passes each unique intermediate key and set of values to reduce function. The output of the reduce function is appended to the final output file for this reduce partition.</li>
+</ol>
+<h3 id="Multi-Threading-Concurrency-Locks-Synchronization"><a href="#Multi-Threading-Concurrency-Locks-Synchronization" class="headerlink" title="Multi-Threading, Concurrency, Locks, Synchronization"></a><strong>Multi-Threading, Concurrency, Locks, Synchronization</strong></h3><h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ul>
 <li><strong>Cassandra</strong>: A wide column highly scalable database </li>
 <li><strong>MongoDB/Couchbase</strong>: A NoSQL that provides ACID at a document level.</li>
 <li><strong>MySQL</strong>: Support master-salve architecture and scales up well</li>
@@ -459,6 +504,8 @@
 <li><a href="https://www.neovolve.com/2008/09/25/caching-should-not-be-the-source-of-truth/" target="_blank" rel="noopener">aching should not be the source of truth</a></li>
 <li><a href="https://llimllib.github.io/bloomfilter-tutorial/#:~:text=A%20Bloom%20filter%20is%20a,may%20be%20in%20the%20set." target="_blank" rel="noopener">Bloom Filters</a></li>
 <li><a href="https://florian.github.io/count-min-sketch/" target="_blank" rel="noopener">Count-Min Sketch</a></li>
+<li><a href="https://medium.com/system-design-blog" target="_blank" rel="noopener">System Design Blog</a></li>
+<li><a href="https://medium.com/system-designing-interviews/system-design-chapter-3-load-balancing-e1c89148e37" target="_blank" rel="noopener">System Design, Chapter 3: Load Balancing</a></li>
 </ol>
 
       
@@ -658,7 +705,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#System-Design"><span class="nav-number">1.</span> <span class="nav-text">System Design</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-basic-features-which-is-required-in-a-system-design"><span class="nav-number">1.1.</span> <span class="nav-text">The basic features which is required in a system design.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Important-concepts-that-you-need-to-know"><span class="nav-number">1.2.</span> <span class="nav-text">Important concepts that you need to know.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tools"><span class="nav-number">1.3.</span> <span class="nav-text">Tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.4.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#System-Design"><span class="nav-number">1.</span> <span class="nav-text">System Design</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-basic-features-which-is-required-in-a-system-design"><span class="nav-number">1.1.</span> <span class="nav-text">The basic features which is required in a system design.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Important-concepts-that-you-need-to-know"><span class="nav-number">1.2.</span> <span class="nav-text">Important concepts that you need to know.</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vertical-vs-Horizontal-Scaling"><span class="nav-number">1.2.1.</span> <span class="nav-text">Vertical vs Horizontal Scaling</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAP-Theorem"><span class="nav-number">1.2.2.</span> <span class="nav-text">CAP Theorem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACID-vs-BASE"><span class="nav-number">1.2.3.</span> <span class="nav-text">ACID vs BASE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Partitioning-Sharding-Data"><span class="nav-number">1.2.4.</span> <span class="nav-text">Partitioning / Sharding Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consistent-Hashing"><span class="nav-number">1.2.5.</span> <span class="nav-text">Consistent Hashing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optimistic-vs-Pessimistic-Locking"><span class="nav-number">1.2.6.</span> <span class="nav-text">Optimistic vs Pessimistic Locking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Strong-vs-Eventual-Consistency"><span class="nav-number">1.2.7.</span> <span class="nav-text">Strong vs Eventual Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Relational-DB-vs-NoSQL-DB"><span class="nav-number">1.2.8.</span> <span class="nav-text">Relational DB vs NoSQL DB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Types-of-NoSQL"><span class="nav-number">1.2.9.</span> <span class="nav-text">Types of NoSQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Caching"><span class="nav-number">1.2.10.</span> <span class="nav-text">Caching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Message-Queue"><span class="nav-number">1.2.11.</span> <span class="nav-text">Message Queue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Microservices"><span class="nav-number">1.2.12.</span> <span class="nav-text">Microservices</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-center-Racks-Hosts"><span class="nav-number">1.2.13.</span> <span class="nav-text">Data center/Racks/Hosts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Limited-Recources-CPU-Memory-Hard-Drive-Netword-Bandwidth"><span class="nav-number">1.2.14.</span> <span class="nav-text">Limited Recources: CPU/Memory/Hard Drive/Netword Bandwidth</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Random-vs-Sequential-Read-Write-on-the-Disk"><span class="nav-number">1.2.15.</span> <span class="nav-text">Random vs Sequential Read/Write on the Disk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Http-vs-Http2-vs-WebSockets"><span class="nav-number">1.2.16.</span> <span class="nav-text">Http vs Http2 vs WebSockets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP-Model"><span class="nav-number">1.2.17.</span> <span class="nav-text">TCP/IP Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPV4-vs-IPV6"><span class="nav-number">1.2.18.</span> <span class="nav-text">IPV4 vs IPV6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-vs-UDP"><span class="nav-number">1.2.19.</span> <span class="nav-text">TCP vs UDP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-Lookup"><span class="nav-number">1.2.20.</span> <span class="nav-text">DNS Lookup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Https-vs-TLS"><span class="nav-number">1.2.21.</span> <span class="nav-text">Https vs TLS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Public-Key-Infrastructure-amp-Certivicate-Authority"><span class="nav-number">1.2.22.</span> <span class="nav-text">Public Key Infrastructure &amp; Certivicate Authority</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Symmetric-vs-Asymmetric-Encryption"><span class="nav-number">1.2.23.</span> <span class="nav-text">Symmetric vs Asymmetric Encryption</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Load-Balancer-gt-L4-vs-L7"><span class="nav-number">1.2.24.</span> <span class="nav-text">Load Balancer -&gt; L4 vs L7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CDNs-amp-Edge"><span class="nav-number">1.2.25.</span> <span class="nav-text">CDNs &amp; Edge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bloom-Filters-amp-Count-min-Sketch"><span class="nav-number">1.2.26.</span> <span class="nav-text">Bloom Filters &amp; Count-min Sketch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paxos-Consensus-over-distributed-hosts"><span class="nav-number">1.2.27.</span> <span class="nav-text">Paxos-Consensus over distributed hosts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Design-Pattern-amp-Object-Oriented-Design"><span class="nav-number">1.2.28.</span> <span class="nav-text">Design Pattern &amp; Object Oriented Design</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-Machines-amp-Containers"><span class="nav-number">1.2.29.</span> <span class="nav-text">Virtual Machines &amp; Containers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Publisher-Subscribe-over-Queue"><span class="nav-number">1.2.30.</span> <span class="nav-text">Publisher-Subscribe over Queue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-Reduce"><span class="nav-number">1.2.31.</span> <span class="nav-text">Map Reduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-Threading-Concurrency-Locks-Synchronization"><span class="nav-number">1.2.32.</span> <span class="nav-text">Multi-Threading, Concurrency, Locks, Synchronization</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tools"><span class="nav-number">1.3.</span> <span class="nav-text">Tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.4.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
